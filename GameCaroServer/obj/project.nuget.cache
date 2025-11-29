@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "vqdlFjzoTEs=",
+  "success": true,
+  "projectFilePath": "E:\\LapTrinhMangCanBan\\GameCaro\\GameCaro\\GameCaroServer\\GameCaroServer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.win32.systemevents\\10.0.0\\microsoft.win32.systemevents.10.0.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\system.drawing.common\\10.0.0\\system.drawing.common.10.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
