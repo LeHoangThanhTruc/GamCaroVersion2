@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "GameCaroClient\\GameCaroClient.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "GameCaroServer\\GameCaroServer.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
