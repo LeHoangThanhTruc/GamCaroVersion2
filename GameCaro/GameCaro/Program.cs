@@ -16,7 +16,9 @@ namespace GameCaro
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            // Chỉ connect 1 lần
+            NetworkClient.Instance.Connect();
+            Application.Run(new DangNhap());
         }
     }
 }

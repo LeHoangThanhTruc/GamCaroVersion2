@@ -32,26 +32,27 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pnlChessBoard = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnLAN = new System.Windows.Forms.Button();
             this.txtIP = new System.Windows.Forms.TextBox();
-            this.picMark = new System.Windows.Forms.PictureBox();
             this.prbCoolDown = new System.Windows.Forms.ProgressBar();
             this.txtPlayerName = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.picAvartar = new System.Windows.Forms.PictureBox();
             this.tmCoolDown = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label3 = new System.Windows.Forms.Label();
+            this.picAvartar = new System.Windows.Forms.PictureBox();
+            this.picMark = new System.Windows.Forms.PictureBox();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picMark)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picAvartar)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvartar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picMark)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlChessBoard
@@ -68,6 +69,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.btnLAN);
@@ -79,6 +81,26 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(376, 347);
             this.panel2.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(9, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(83, 16);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Player\'s ID";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(9, 91);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(37, 16);
+            this.label3.TabIndex = 8;
+            this.label3.Text = " IP : ";
             // 
             // label1
             // 
@@ -93,7 +115,7 @@
             // btnLAN
             // 
             this.btnLAN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLAN.Location = new System.Drawing.Point(12, 124);
+            this.btnLAN.Location = new System.Drawing.Point(12, 147);
             this.btnLAN.Name = "btnLAN";
             this.btnLAN.Size = new System.Drawing.Size(216, 45);
             this.btnLAN.TabIndex = 4;
@@ -103,24 +125,14 @@
             // 
             // txtIP
             // 
-            this.txtIP.Location = new System.Drawing.Point(12, 98);
+            this.txtIP.Location = new System.Drawing.Point(12, 110);
             this.txtIP.Name = "txtIP";
             this.txtIP.Size = new System.Drawing.Size(216, 20);
             this.txtIP.TabIndex = 3;
             // 
-            // picMark
-            // 
-            this.picMark.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.picMark.Location = new System.Drawing.Point(234, 14);
-            this.picMark.Name = "picMark";
-            this.picMark.Size = new System.Drawing.Size(129, 112);
-            this.picMark.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picMark.TabIndex = 2;
-            this.picMark.TabStop = false;
-            // 
             // prbCoolDown
             // 
-            this.prbCoolDown.Location = new System.Drawing.Point(12, 45);
+            this.prbCoolDown.Location = new System.Drawing.Point(12, 59);
             this.prbCoolDown.Name = "prbCoolDown";
             this.prbCoolDown.Size = new System.Drawing.Size(216, 20);
             this.prbCoolDown.TabIndex = 1;
@@ -128,7 +140,7 @@
             // 
             // txtPlayerName
             // 
-            this.txtPlayerName.Location = new System.Drawing.Point(12, 14);
+            this.txtPlayerName.Location = new System.Drawing.Point(12, 33);
             this.txtPlayerName.Name = "txtPlayerName";
             this.txtPlayerName.ReadOnly = true;
             this.txtPlayerName.Size = new System.Drawing.Size(216, 20);
@@ -141,19 +153,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(379, 341);
             this.panel3.TabIndex = 2;
-            // 
-            // picAvartar
-            // 
-            this.picAvartar.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.picAvartar.BackgroundImage = global::GameCaro.Properties.Resources.avartaCaro;
-            this.picAvartar.Image = global::GameCaro.Properties.Resources.avartaCaro;
-            this.picAvartar.Location = new System.Drawing.Point(0, 0);
-            this.picAvartar.Name = "picAvartar";
-            this.picAvartar.Size = new System.Drawing.Size(379, 341);
-            this.picAvartar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picAvartar.TabIndex = 0;
-            this.picAvartar.TabStop = false;
-            this.picAvartar.Click += new System.EventHandler(this.picAvartar_Click);
             // 
             // tmCoolDown
             // 
@@ -203,15 +202,28 @@
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
-            // label3
+            // picAvartar
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(9, 79);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 16);
-            this.label3.TabIndex = 8;
-            this.label3.Text = " IP : ";
+            this.picAvartar.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.picAvartar.BackgroundImage = global::GameCaro.Properties.Resources.avartaCaro;
+            this.picAvartar.Image = global::GameCaro.Properties.Resources.avartaCaro;
+            this.picAvartar.Location = new System.Drawing.Point(0, 0);
+            this.picAvartar.Name = "picAvartar";
+            this.picAvartar.Size = new System.Drawing.Size(379, 341);
+            this.picAvartar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picAvartar.TabIndex = 0;
+            this.picAvartar.TabStop = false;
+            this.picAvartar.Click += new System.EventHandler(this.picAvartar_Click);
+            // 
+            // picMark
+            // 
+            this.picMark.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.picMark.Location = new System.Drawing.Point(234, 14);
+            this.picMark.Name = "picMark";
+            this.picMark.Size = new System.Drawing.Size(129, 112);
+            this.picMark.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picMark.TabIndex = 2;
+            this.picMark.TabStop = false;
             // 
             // Form1
             // 
@@ -230,11 +242,11 @@
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picMark)).EndInit();
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picAvartar)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvartar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picMark)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -259,6 +271,7 @@
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }
 
