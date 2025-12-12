@@ -36,14 +36,16 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lnkQuenMatKhau = new System.Windows.Forms.LinkLabel();
             this.lnkDangKy = new System.Windows.Forms.LinkLabel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnDangNhap
             // 
             this.btnDangNhap.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDangNhap.Location = new System.Drawing.Point(225, 191);
+            this.btnDangNhap.Location = new System.Drawing.Point(300, 235);
+            this.btnDangNhap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDangNhap.Name = "btnDangNhap";
-            this.btnDangNhap.Size = new System.Drawing.Size(127, 39);
+            this.btnDangNhap.Size = new System.Drawing.Size(169, 48);
             this.btnDangNhap.TabIndex = 0;
             this.btnDangNhap.Text = "ĐĂNG NHẬP";
             this.btnDangNhap.UseVisualStyleBackColor = true;
@@ -52,51 +54,57 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(108, 93);
+            this.label1.Location = new System.Drawing.Point(144, 114);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 13);
+            this.label1.Size = new System.Drawing.Size(88, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "Tên tài khoản";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(129, 136);
+            this.label2.Location = new System.Drawing.Point(172, 167);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 13);
+            this.label2.Size = new System.Drawing.Size(61, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "Mật khẩu";
             // 
             // txtTenTaiKhoan
             // 
-            this.txtTenTaiKhoan.Location = new System.Drawing.Point(187, 86);
+            this.txtTenTaiKhoan.Location = new System.Drawing.Point(249, 106);
+            this.txtTenTaiKhoan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtTenTaiKhoan.Name = "txtTenTaiKhoan";
-            this.txtTenTaiKhoan.Size = new System.Drawing.Size(251, 20);
+            this.txtTenTaiKhoan.Size = new System.Drawing.Size(333, 22);
             this.txtTenTaiKhoan.TabIndex = 3;
             // 
             // txtMatKhau
             // 
-            this.txtMatKhau.Location = new System.Drawing.Point(187, 129);
+            this.txtMatKhau.Location = new System.Drawing.Point(249, 159);
+            this.txtMatKhau.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtMatKhau.Name = "txtMatKhau";
-            this.txtMatKhau.Size = new System.Drawing.Size(251, 20);
+            this.txtMatKhau.Size = new System.Drawing.Size(333, 22);
             this.txtMatKhau.TabIndex = 4;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Ravie", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(133, 0);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(177, 0);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(367, 63);
+            this.label3.Size = new System.Drawing.Size(394, 69);
             this.label3.TabIndex = 5;
             this.label3.Text = "ĐĂNG NHẬP";
             // 
             // lnkQuenMatKhau
             // 
             this.lnkQuenMatKhau.AutoSize = true;
-            this.lnkQuenMatKhau.Location = new System.Drawing.Point(184, 152);
+            this.lnkQuenMatKhau.Location = new System.Drawing.Point(245, 187);
+            this.lnkQuenMatKhau.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lnkQuenMatKhau.Name = "lnkQuenMatKhau";
-            this.lnkQuenMatKhau.Size = new System.Drawing.Size(80, 13);
+            this.lnkQuenMatKhau.Size = new System.Drawing.Size(96, 16);
             this.lnkQuenMatKhau.TabIndex = 6;
             this.lnkQuenMatKhau.TabStop = true;
             this.lnkQuenMatKhau.Text = "Quên mật khẩu";
@@ -105,19 +113,31 @@
             // 
             this.lnkDangKy.AutoSize = true;
             this.lnkDangKy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkDangKy.Location = new System.Drawing.Point(198, 245);
+            this.lnkDangKy.Location = new System.Drawing.Point(264, 302);
+            this.lnkDangKy.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lnkDangKy.Name = "lnkDangKy";
-            this.lnkDangKy.Size = new System.Drawing.Size(184, 16);
+            this.lnkDangKy.Size = new System.Drawing.Size(236, 20);
             this.lnkDangKy.TabIndex = 7;
             this.lnkDangKy.TabStop = true;
             this.lnkDangKy.Text = "Chưa có tài khoản ? ĐĂNG KÝ";
             this.lnkDangKy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkDangKy_LinkClicked);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(637, 159);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(95, 20);
+            this.checkBox1.TabIndex = 8;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // DangNhap
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(594, 283);
+            this.ClientSize = new System.Drawing.Size(792, 348);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.lnkDangKy);
             this.Controls.Add(this.lnkQuenMatKhau);
             this.Controls.Add(this.label3);
@@ -126,6 +146,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnDangNhap);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "DangNhap";
             this.Text = "Game Caro";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DangNhap_FormClosing);
@@ -145,5 +166,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel lnkQuenMatKhau;
         private System.Windows.Forms.LinkLabel lnkDangKy;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
