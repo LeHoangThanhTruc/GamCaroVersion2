@@ -36,14 +36,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lnkQuenMatKhau = new System.Windows.Forms.LinkLabel();
             this.lnkDangKy = new System.Windows.Forms.LinkLabel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.ckHienMatKhau = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnDangNhap
             // 
             this.btnDangNhap.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDangNhap.Location = new System.Drawing.Point(300, 235);
-            this.btnDangNhap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDangNhap.Margin = new System.Windows.Forms.Padding(4);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(169, 48);
             this.btnDangNhap.TabIndex = 0;
@@ -74,7 +74,7 @@
             // txtTenTaiKhoan
             // 
             this.txtTenTaiKhoan.Location = new System.Drawing.Point(249, 106);
-            this.txtTenTaiKhoan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTenTaiKhoan.Margin = new System.Windows.Forms.Padding(4);
             this.txtTenTaiKhoan.Name = "txtTenTaiKhoan";
             this.txtTenTaiKhoan.Size = new System.Drawing.Size(333, 22);
             this.txtTenTaiKhoan.TabIndex = 3;
@@ -82,8 +82,9 @@
             // txtMatKhau
             // 
             this.txtMatKhau.Location = new System.Drawing.Point(249, 159);
-            this.txtMatKhau.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMatKhau.Margin = new System.Windows.Forms.Padding(4);
             this.txtMatKhau.Name = "txtMatKhau";
+            this.txtMatKhau.PasswordChar = '●';
             this.txtMatKhau.Size = new System.Drawing.Size(333, 22);
             this.txtMatKhau.TabIndex = 4;
             // 
@@ -122,22 +123,23 @@
             this.lnkDangKy.Text = "Chưa có tài khoản ? ĐĂNG KÝ";
             this.lnkDangKy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkDangKy_LinkClicked);
             // 
-            // checkBox1
+            // ckHienMatKhau
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(637, 159);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(95, 20);
-            this.checkBox1.TabIndex = 8;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.ckHienMatKhau.AutoSize = true;
+            this.ckHienMatKhau.Location = new System.Drawing.Point(637, 159);
+            this.ckHienMatKhau.Name = "ckHienMatKhau";
+            this.ckHienMatKhau.Size = new System.Drawing.Size(62, 20);
+            this.ckHienMatKhau.TabIndex = 8;
+            this.ckHienMatKhau.Text = "Show";
+            this.ckHienMatKhau.UseVisualStyleBackColor = true;
+            this.ckHienMatKhau.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // DangNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 348);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.ckHienMatKhau);
             this.Controls.Add(this.lnkDangKy);
             this.Controls.Add(this.lnkQuenMatKhau);
             this.Controls.Add(this.label3);
@@ -146,7 +148,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnDangNhap);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DangNhap";
             this.Text = "Game Caro";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DangNhap_FormClosing);
@@ -166,6 +168,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel lnkQuenMatKhau;
         private System.Windows.Forms.LinkLabel lnkDangKy;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox ckHienMatKhau;
     }
 }

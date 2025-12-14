@@ -98,6 +98,12 @@ namespace GameCaro
         {
             NetworkClient.OnMessageReceived -= ClientXuLyDangKy;
         }
+
+        private void ckHienMatKhau_CheckedChanged(object sender, EventArgs e)
+        {
+            txtMatKhau.PasswordChar = ckHienMatKhau.Checked ? '\0' : '●';
+            txtNhapLaiMatKhau.PasswordChar = ckHienMatKhau.Checked ? '\0' : '●';
+        }
     }
 }
 

@@ -121,6 +121,11 @@ namespace GameCaro
             NetworkClient.OnMessageReceived -= ClientXuLyDangNhap;
             Application.Exit(); // đảm bảo thoát
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            txtMatKhau.PasswordChar = ckHienMatKhau.Checked ? '\0' : '●';
+        }
     }
 }
 
