@@ -281,42 +281,109 @@ namespace MayChu
 
         void XuLyDangKy(Socket client, string message)
         {
-            // Bỏ split cũ
-            string json = message.Substring(9); // Bỏ "REGISTER|"
+            //// Bỏ split cũ
+            //string json = message.Substring(9); // Bỏ "REGISTER|"
 
+            //try
+            //{
+            //    var data = Newtonsoft.Json.JsonConvert.DeserializeObject<GoiTinDangKy>(json);
+
+            //    if (data == null)
+            //    {
+            //        client.Send(Encoding.UTF8.GetBytes("ERROR|JSON không hợp lệ"));
+            //        return;
+            //    }
+
+            //    // Tạo ID user
+            //    string idUser = TaoIDNgauNhien(5);
+
+            //    // Lưu Firebase
+            //    firebaseClient.Set($"Users/IDUser_{idUser}", new
+            //    {
+            //        IDUser = idUser,
+            //        TenTaiKhoan = data.TenTaiKhoan,
+            //        MatKhau = data.MatKhau,
+            //        HoVaTen = data.HoVaTen,
+            //        Gmail = data.Gmail
+            //    });
+
+
+
+            //    Console.WriteLine($"Đã tạo user mới: ID={idUser}, TK={data.TenTaiKhoan}");
+
+            //    client.Send(Encoding.UTF8.GetBytes("REGISTER_OK|" + idUser));
+            //}
+            //catch
+            //{
+            //    client.Send(Encoding.UTF8.GetBytes("ERROR|Không parse được JSON"));
+            //}
+
+            // Cắt bỏ phần "REGISTER|" để lấy JSON data
+            string json = message.Substring(9); // "REGISTER|" dài 9 ký tự
+
+            // Deserialize gói tin
+            GoiTinDangKy data;
             try
             {
-                var data = Newtonsoft.Json.JsonConvert.DeserializeObject<GoiTinDangKy>(json);
-
-                if (data == null)
-                {
-                    client.Send(Encoding.UTF8.GetBytes("ERROR|JSON không hợp lệ"));
-                    return;
-                }
-
-                // Tạo ID user
-                string idUser = TaoIDNgauNhien(5);
-
-                // Lưu Firebase
-                firebaseClient.Set($"Users/IDUser_{idUser}", new
-                {
-                    IDUser = idUser,
-                    TenTaiKhoan = data.TenTaiKhoan,
-                    MatKhau = data.MatKhau,
-                    HoVaTen = data.HoVaTen,
-                    Gmail = data.Gmail
-                });
-
-
-
-                Console.WriteLine($"Đã tạo user mới: ID={idUser}, TK={data.TenTaiKhoan}");
-
-                client.Send(Encoding.UTF8.GetBytes("REGISTER_OK|" + idUser));
+                // Sử dụng Newtonsoft.Json vì FireSharp dùng nó, đảm bảo tương thích
+                data = Newtonsoft.Json.JsonConvert.DeserializeObject<GoiTinDangKy>(json);
             }
             catch
             {
-                client.Send(Encoding.UTF8.GetBytes("ERROR|Không parse được JSON"));
+                Console.WriteLine("Lỗi deserialize gói tin đăng ký.");
+                return;
             }
+
+            // --- Bắt đầu Logic Kiểm tra Tồn tại (Yêu cầu 4) ---
+            // 1. Lấy toàn bộ danh sách user từ Firebase
+            var ketQua = firebaseClient.Get("Users");
+
+            if (ketQua.Body != "null")
+            {
+                var allUsers = ketQua.ResultAs<Dictionary<string, GoiTinDangKy>>();
+
+                // 2. Kiểm tra xem TenTaiKhoan đã tồn tại chưa
+                foreach (var user in allUsers)
+                {
+                    var userInfo = user.Value;
+                    if (userInfo.TenTaiKhoan.ToLower() == data.TenTaiKhoan.ToLower())
+                    {
+                        // Tên tài khoản đã tồn tại
+                        client.Send(Encoding.UTF8.GetBytes("REGISTER_FAIL|TAI_KHOAN_DA_TON_TAI"));
+                        Console.WriteLine($"Đăng ký thất bại: Tài khoản '{data.TenTaiKhoan}' đã tồn tại.");
+                        return;
+                    }
+                }
+            }
+            // --- Kết thúc Logic Kiểm tra Tồn tại ---
+
+            // 3. Nếu chưa tồn tại, thực hiện đăng ký
+
+            // Tạo IDUser ngẫu nhiên
+            string newIDUser = TaoIDNgauNhien(); // Giả sử bạn có hàm này, nếu chưa có thì cần thêm vào
+
+            // Bổ sung IDUser vào gói tin (nếu cần thiết cho hàm Put)
+            data.IDUser = newIDUser;
+
+            // Lưu xuống Firebase (Put - thêm mới hoặc ghi đè)
+            // Node: Users -> newIDUser -> {HoVaTen, TenTaiKhoan, Gmail, MatKhau}
+            firebaseClient.Set("Users/" + newIDUser, data);
+
+            // 4. Gửi thông báo đăng ký thành công và IDUser về client
+            client.Send(Encoding.UTF8.GetBytes($"REGISTER_OK|{newIDUser}"));
+            Console.WriteLine($"Đăng ký thành công: IDUser = {newIDUser}, Tài khoản = {data.TenTaiKhoan}");
+        }
+
+        // Hàm giả định để tạo ID ngẫu nhiên, bạn cần thêm hàm này vào class Program
+        private string TaoIDNgauNhien()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            var result = new string(
+                Enumerable.Repeat(chars, 5)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+            return "IDUser_" + result;
         }
 
         string TaoIDNgauNhien(int length)

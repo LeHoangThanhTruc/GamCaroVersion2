@@ -1,15 +1,15 @@
 ﻿/* Mô tả
- * Trong form DangKy mình muốn sau khi nhập txtHoVaTen, txtTenTaiKhoan, txtGmail, 
- * txtMatKhau, txtNhapLaiMatKhau thì khi mình bấm nút btnXacNhanDangKy thì có thể gửi tất 
- * cả các thông tin trong các textbox phía trên gồm họ tên, tên tài khoản, gmail, mật khẩu 
- * xuống server, đồng thời sau khi server nhận được gói tin sẽ cấp cho người đăng ký đó 
- * một id ngẫu nhiên gồm 5 ký tự (các ký tự đó là gì cũng được, không giới hạn chữ, số 
- * hay ký tự đặc biệt) và tách gói tin đó thành các trường HoVaTen, TenTaiKhoan, Gmail, 
- * MatKhau và IDUser mới được cấp sau đó lưu xuống firebase vào node 
- * User-->IDUser-->(HoVaTen, TenTaiKhoan, Gmail, MatKhau) . Các thông tin trong textbox 
- * không được để trống bất kỳ ô nào, nếu ô nào bị trống thì hiện lên thông báo không được 
- * phép gửi gói tin xuống server nếu bất kỳ ô textbox nào trống
- * */
+* Trong form DangKy mình muốn sau khi nhập txtHoVaTen, txtTenTaiKhoan, txtGmail, 
+* txtMatKhau, txtNhapLaiMatKhau thì khi mình bấm nút btnXacNhanDangKy thì có thể gửi tất 
+* cả các thông tin trong các textbox phía trên gồm họ tên, tên tài khoản, gmail, mật khẩu 
+* xuống server, đồng thời sau khi server nhận được gói tin sẽ cấp cho người đăng ký đó 
+* một id ngẫu nhiên gồm 5 ký tự (các ký tự đó là gì cũng được, không giới hạn chữ, số 
+* hay ký tự đặc biệt) và tách gói tin đó thành các trường HoVaTen, TenTaiKhoan, Gmail, 
+* MatKhau và IDUser mới được cấp sau đó lưu xuống firebase vào node 
+* User-->IDUser-->(HoVaTen, TenTaiKhoan, Gmail, MatKhau) . Các thông tin trong textbox 
+* không được để trống bất kỳ ô nào, nếu ô nào bị trống thì hiện lên thông báo không được 
+* phép gửi gói tin xuống server nếu bất kỳ ô textbox nào trống
+* */
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -81,17 +81,37 @@ namespace GameCaro
 
         private void ClientXuLyDangKy(string msg)
         {
+            ////MessageBox.Show("msg: "+msg);
+            //if (!msg.StartsWith("REGISTER_OK|"))
+            //    return;
+
+            //string id = msg.Substring(12);
+            //idUser = id;
+
+            //this.Invoke(new Action(() =>
+            //{
+            //    this.Close();
+            //}));
+
             //MessageBox.Show("msg: "+msg);
-            if (!msg.StartsWith("REGISTER_OK|"))
-                return;
-
-            string id = msg.Substring(12);
-            idUser = id;
-
-            this.Invoke(new Action(() =>
+            if (msg.StartsWith("REGISTER_OK|"))
             {
-                this.Close();
-            }));
+                string id = msg.Substring(12);
+                idUser = id;
+
+                this.Invoke(new Action(() =>
+                {
+                    MessageBox.Show("Đăng ký thành công! ID của bạn: " + idUser, "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }));
+            }
+            else if (msg.StartsWith("REGISTER_FAIL|")) // ← FIX Ở ĐÂY
+            {
+                this.Invoke(new Action(() =>
+                {
+                    MessageBox.Show("Tên tài khoản này đã có người sử dụng. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }));
+            }
         }
 
         private void DangKy_FormClosing(object sender, FormClosingEventArgs e)
@@ -106,4 +126,3 @@ namespace GameCaro
         }
     }
 }
-
