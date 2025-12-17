@@ -21,6 +21,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
+
 
 namespace GameCaro
 {
@@ -33,6 +35,23 @@ namespace GameCaro
             //MessageBox.Show("DangKy created");
         }
 
+        private bool KiemTraDinhDangEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            try
+            {
+                // Regex pattern chuẩn cho email
+                string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+                return Regex.IsMatch(email, pattern);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         private void btnXacNhanDangKy_Click(object sender, EventArgs e)
         {
             // 1. Kiểm tra rỗng
@@ -43,6 +62,13 @@ namespace GameCaro
                 string.IsNullOrWhiteSpace(txtNhapLaiMatKhau.Text))
             {
                 MessageBox.Show("Không được bỏ trống ô nào!", "Lỗi");
+                return;
+            }
+
+            // Kiểm tra định dạng email
+            if (!KiemTraDinhDangEmail(txtGmail.Text))
+            {
+                MessageBox.Show("Email không đúng định dạng!\nVí dụ: example@gmail.com", "Lỗi");
                 return;
             }
 
@@ -92,8 +118,10 @@ namespace GameCaro
             //{
             //    this.Close();
             //}));
-
+            //---------------------------------------------------------------------
             //MessageBox.Show("msg: "+msg);
+
+            //--------------------------------------------------------------------
             if (msg.StartsWith("REGISTER_OK|"))
             {
                 string id = msg.Substring(12);
@@ -105,7 +133,58 @@ namespace GameCaro
                     this.Close();
                 }));
             }
-            else if (msg.StartsWith("REGISTER_FAIL|")) // ← FIX Ở ĐÂY
+            else if (msg.StartsWith("REGISTER_PENDING|")) // ← XỬ LÝ MỚI
+            {
+                string id = msg.Substring(17); // "REGISTER_PENDING|" có 17 ký tự
+                idUser = id;
+
+                this.BeginInvoke(new Action(() =>
+                {
+                    MessageBox.Show("Đã gửi mã OTP đến email của bạn!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Mở form xác thực OTP
+                    NetworkClient.OnMessageReceived -= ClientXuLyDangKy; // tránh double
+                    FormXacThucOTP formOTP = new FormXacThucOTP(idUser);
+                    DialogResult result = formOTP.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        // ✅ Xác thực thành công
+                        MessageBox.Show(
+                        "✅ Đăng ký hoàn tất!\n\nBạn có thể đăng nhập ngay bây giờ.",
+                        "Thành công",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                        );
+                        this.Close();
+
+                        // Mon form DangNhap sau khi dong form DangKy
+                        // Tim form dang nhap neu co
+                        foreach (Form form in Application.OpenForms)
+                        {
+                            if (form is DangNhap)
+                            {
+                                form.Show();
+                                form.BringToFront();
+                                return;
+                            }
+                        }
+                        // neu khong tim thay thi tao moi
+                        DangNhap dangNhap = new DangNhap();
+                        dangNhap.Show();
+                    }
+                    else
+                    {
+                        // ❌ User hủy hoặc xác thực thất bại
+                        MessageBox.Show(
+                            "Xác thực chưa hoàn tất.\n\nBạn có thể đăng ký lại hoặc liên hệ hỗ trợ.",
+                            "Thông báo",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                    }    
+                }));
+            }
+            else if (msg.StartsWith("REGISTER_FAIL|"))
             {
                 this.Invoke(new Action(() =>
                 {

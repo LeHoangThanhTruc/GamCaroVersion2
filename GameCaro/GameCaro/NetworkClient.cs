@@ -98,7 +98,7 @@ namespace GameCaro
                     if (bytes <= 0)
                         continue;
 
-                    string msg = Encoding.UTF8.GetString(buffer, 0, bytes);
+                    string msg = Encoding.UTF8.GetString(buffer, 0, bytes).Trim();
 
                     OnMessageReceived?.Invoke(msg);
                 }

@@ -13,6 +13,7 @@ namespace MayChu
         public string TenTaiKhoan { get; set; }
         public string Gmail { get; set; }
         public string MatKhau { get; set; }
+        public bool isVerified { get; set; } = false;
         public GoiTinDangKy(string id, string tk, string mk, string email, string hoTen)
         {
             IDUser = id;

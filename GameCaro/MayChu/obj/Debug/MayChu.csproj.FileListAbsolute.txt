@@ -79,3 +79,15 @@ C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\ob
 C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\obj\Debug\MayChu.csproj.Up2Date
 C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\obj\Debug\MayChu.exe
 C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\obj\Debug\MayChu.pdb
+C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bin\Debug\BouncyCastle.Cryptography.dll
+C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bin\Debug\MailKit.dll
+C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bin\Debug\MimeKit.dll
+C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bin\Debug\System.Formats.Asn1.dll
+C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bin\Debug\BouncyCastle.Cryptography.xml
+C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bin\Debug\MailKit.pdb
+C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bin\Debug\MailKit.xml
+C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bin\Debug\MailKit.dll.config
+C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bin\Debug\MimeKit.pdb
+C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bin\Debug\MimeKit.xml
+C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bin\Debug\System.Formats.Asn1.xml
+C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\obj\Debug\MayChu.csproj.SuggestedBindingRedirects.cache

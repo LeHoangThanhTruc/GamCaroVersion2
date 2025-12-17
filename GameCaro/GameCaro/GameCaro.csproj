@@ -126,6 +126,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormXacThucOTP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormXacThucOTP.Designer.cs">
+      <DependentUpon>FormXacThucOTP.cs</DependentUpon>
+    </Compile>
     <Compile Include="GiaoDienChung.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormXacThucOTP.resx">
+      <DependentUpon>FormXacThucOTP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GiaoDienChung.resx">
       <DependentUpon>GiaoDienChung.cs</DependentUpon>

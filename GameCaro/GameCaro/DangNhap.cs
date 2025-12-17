@@ -20,6 +20,7 @@
  * firebase Users ban đầu lấy key là IDUser nhưng hiện tại hoán đổi vị trí của TenTaiKhoan và
  * IDUser, TenTaiKhoan sẽ là key của node Users, còn IDUser sẽ là một trường con trong node TenTaiKhoan
 */
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -126,6 +127,44 @@ namespace GameCaro
         {
             txtMatKhau.PasswordChar = ckHienMatKhau.Checked ? '\0' : '●';
         }
+
+        //private void XuLyDangNhap(string msg)
+        //{
+        //    if (msg.StartsWith("LOGIN_OK|"))
+        //    {
+        //        string id = msg.Substring(9);
+        //        idUser = id;
+
+        //        this.Invoke(new Action(() =>
+        //        {
+        //            MessageBox.Show("Đăng nhập thành công!", "Thành công");
+        //            // Chuyển sang form menu chính...
+        //        }));
+        //    }
+        //    else if (msg.StartsWith("LOGIN_FAIL|"))
+        //    {
+        //        string loiLoi = msg.Substring(11);
+
+        //        this.Invoke(new Action(() =>
+        //        {
+        //            switch (loiLoi)
+        //            {
+        //                case "SAI_MAT_KHAU":
+        //                    MessageBox.Show("Mật khẩu không đúng!", "Lỗi");
+        //                    break;
+        //                case "TAI_KHOAN_KHONG_TON_TAI":
+        //                    MessageBox.Show("Tài khoản không tồn tại!", "Lỗi");
+        //                    break;
+        //                case "CHUA_XAC_THUC_EMAIL": // ← THÊM CASE MỚI
+        //                    MessageBox.Show("Tài khoản chưa xác thực email!\nVui lòng kiểm tra email và xác thực OTP.", "Lỗi");
+        //                    break;
+        //                default:
+        //                    MessageBox.Show("Đăng nhập thất bại!", "Lỗi");
+        //                    break;
+        //            }
+        //        }));
+        //    }
+        //}
     }
 }
 
