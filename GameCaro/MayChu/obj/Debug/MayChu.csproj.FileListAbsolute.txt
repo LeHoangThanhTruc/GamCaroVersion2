@@ -91,3 +91,5 @@ C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bi
 C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bin\Debug\MimeKit.xml
 C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bin\Debug\System.Formats.Asn1.xml
 C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\obj\Debug\MayChu.csproj.SuggestedBindingRedirects.cache
+C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bin\Debug\BCrypt.Net-Next.dll
+C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\MayChu\bin\Debug\BCrypt.Net-Next.xml

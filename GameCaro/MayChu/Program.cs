@@ -355,7 +355,13 @@ namespace MayChu
                 }
 
                 // Cập nhật mật khẩu mới trong Firebase
-                firebaseClient.Update($"Users/{idUser}", new { MatKhau = matKhauMoi });
+                //firebaseClient.Update($"Users/{idUser}", new { MatKhau = matKhauMoi });
+                // MÃ HÓA MẬT KHẨU TRƯỚC KHI LƯU
+                Console.WriteLine($"[RESET] Đang mã hóa mật khẩu mới cho {idUser}...");
+                string matKhauDaMaHoa = PasswordHasher.HashPassword(matKhauMoi);
+                Console.WriteLine($"[RESET] Đã mã hóa: {matKhauDaMaHoa.Substring(0, 20)}...");
+
+                firebaseClient.Update($"Users/{idUser}", new { MatKhau = matKhauDaMaHoa });
 
                 // Xóa mã reset đã sử dụng
                 firebaseClient.Delete($"PasswordResetCodes/{idUser}");
@@ -615,11 +621,19 @@ namespace MayChu
             string newIDUser = TaoIDNgauNhien(); // Giả sử bạn có hàm này, nếu chưa có thì cần thêm vào
 
             // Bổ sung IDUser vào gói tin (nếu cần thiết cho hàm Put)
+            //--------------------------------data.IDUser = newIDUser;
             data.IDUser = newIDUser;
+            data.isVerified=false; // Chưa xác thực email
+
+            // MA HOA MAT KHAU TRUOC KHI LUU
+            Console.WriteLine($"[HASH] Mật khẩu gốc: {data.MatKhau}");
+            data.MatKhau = PasswordHasher.HashPassword(data.MatKhau);
+            Console.WriteLine($"[HASH] Đã mã hóa thành: {data.MatKhau.Substring(0, 20)}...");
+
+            firebaseClient.Set("Users/" + newIDUser, data);
 
             // Lưu xuống Firebase (Put - thêm mới hoặc ghi đè)
             // Node: Users -> newIDUser -> {HoVaTen, TenTaiKhoan, Gmail, MatKhau}
-            data.isVerified = false; // Chưa xác thực email
             firebaseClient.Set("Users/" + newIDUser, data);
 
             // Gửi email xác thực
@@ -752,9 +766,17 @@ namespace MayChu
                     }
 
                     // Kiểm tra mật khẩu
-                    if (info.MatKhau != password)
+                    //if (info.MatKhau != password)
+                    //{
+                    //    client.Send(Encoding.UTF8.GetBytes("LOGIN_FAIL|SAI_MAT_KHAU"));
+                    //    return;
+                    //}
+                    Console.WriteLine($"[LOGIN] Đang xác thực mật khẩu cho {username}...");
+
+                    if (!PasswordHasher.VerifyPassword(password, info.MatKhau))
                     {
                         client.Send(Encoding.UTF8.GetBytes("LOGIN_FAIL|SAI_MAT_KHAU"));
+                        Console.WriteLine($"❌ Sai mật khẩu cho {username}");
                         return;
                     }
 
@@ -875,5 +897,9 @@ namespace MayChu
             client.Send(Encoding.UTF8.GetBytes("VERIFY_OK"));
             Console.WriteLine($"✅ Tài khoản {idUser} đã được xác thực thành công!");
         }
+
+
+
+
     }
 }
