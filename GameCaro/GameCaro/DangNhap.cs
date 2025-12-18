@@ -128,6 +128,20 @@ namespace GameCaro
             txtMatKhau.PasswordChar = ckHienMatKhau.Checked ? '\0' : '●';
         }
 
+        private void lnkQuenMatKhau_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            using (var formQuenMK = new QuenMatKhau())
+            {
+                formQuenMK.ShowDialog();
+                txtTenTaiKhoan.Focus();
+            }
+        }
+
+        private void txtTenTaiKhoan_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         //private void XuLyDangNhap(string msg)
         //{
         //    if (msg.StartsWith("LOGIN_OK|"))

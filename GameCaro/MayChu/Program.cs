@@ -161,6 +161,27 @@ namespace MayChu
                         continue;
                     }
 
+                    // 6) FORGOT_PASSWORD
+                    if (message.StartsWith("FORGOT_PASSWORD|"))
+                    {
+                        XuLyQuenMatKhau(client, message);
+                        continue;
+                    }
+
+                    // 7) VERIFY_RESET_OTP
+                    if (message.StartsWith("VERIFY_RESET_OTP|"))
+                    {
+                        XuLyXacThucResetOTP(client, message);
+                        continue;
+                    }
+
+                    // 8) RESET_PASSWORD
+                    if (message.StartsWith("RESET_PASSWORD|"))
+                    {
+                        XuLyDatLaiMatKhau(client, message);
+                        continue;
+                    }
+
                     // Các message khác (chat, đánh cờ...) => broadcast
                     // Gửi lại tin nhắn cho tất cả các client khác
                     foreach (var c in clientList)
@@ -181,6 +202,224 @@ namespace MayChu
                 }
             }
         }
+
+        // CAC HAM XU LY QUEN MK
+        void XuLyQuenMatKhau(Socket client, string message)
+        {
+            try
+            {
+                // Format: FORGOT_PASSWORD|TenTaiKhoan
+                string[] parts = message.Split('|');
+                if (parts.Length != 2)
+                {
+                    client.Send(Encoding.UTF8.GetBytes("ERROR|Sai định dạng"));
+                    return;
+                }
+
+                string tenTaiKhoan = parts[1];
+
+                // Tìm user trong Firebase
+                var ketQua = firebaseClient.Get("Users");
+
+                if (ketQua.Body == "null")
+                {
+                    client.Send(Encoding.UTF8.GetBytes("FORGOT_PASSWORD_FAIL|TAI_KHOAN_KHONG_TON_TAI"));
+                    return;
+                }
+
+                var allUsers = ketQua.ResultAs<Dictionary<string, GoiTinDangKy>>();
+
+                foreach (var user in allUsers)
+                {
+                    var info = user.Value;
+
+                    if (info.TenTaiKhoan.ToLower() == tenTaiKhoan.ToLower())
+                    {
+                        string idUser = user.Key;
+                        string email = info.Gmail;
+
+                        // Tạo mã OTP reset password
+                        string maOTP = new Random().Next(100000, 999999).ToString();
+
+                        // Lưu mã OTP vào Firebase
+                        firebaseClient.Set($"PasswordResetCodes/{idUser}", new
+                        {
+                            Code = maOTP,
+                            Email = email,
+                            TenTaiKhoan = tenTaiKhoan,
+                            CreatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                            ExpiryMinutes = 10
+                        });
+
+                        // Gửi email chứa mã OTP
+                        GuiEmailResetPassword(email, maOTP, tenTaiKhoan);
+
+                        // Phản hồi client
+                        client.Send(Encoding.UTF8.GetBytes($"FORGOT_PASSWORD_OK|{idUser}"));
+                        Console.WriteLine($"📧 Đã gửi mã reset password đến {email} cho tài khoản {tenTaiKhoan}");
+                        return;
+                    }
+                }
+
+                // Không tìm thấy tài khoản
+                client.Send(Encoding.UTF8.GetBytes("FORGOT_PASSWORD_FAIL|TAI_KHOAN_KHONG_TON_TAI"));
+                Console.WriteLine($"❌ Không tìm thấy tài khoản: {tenTaiKhoan}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR FORGOT_PASSWORD: " + ex.Message);
+                client.Send(Encoding.UTF8.GetBytes("ERROR|Lỗi xử lý"));
+            }
+        }
+
+        void XuLyXacThucResetOTP(Socket client, string message)
+        {
+            try
+            {
+                // Format: VERIFY_RESET_OTP|IDUser|123456
+                string[] parts = message.Split('|');
+                if (parts.Length != 3)
+                {
+                    client.Send(Encoding.UTF8.GetBytes("ERROR|Sai định dạng"));
+                    return;
+                }
+
+                string idUser = parts[1];
+                string maOTP = parts[2];
+
+                // Lấy mã OTP từ Firebase
+                var result = firebaseClient.Get($"PasswordResetCodes/{idUser}");
+
+                if (result.Body == "null")
+                {
+                    client.Send(Encoding.UTF8.GetBytes("VERIFY_RESET_FAIL|MA_KHONG_TON_TAI"));
+                    Console.WriteLine($"❌ Không tìm thấy mã reset cho {idUser}");
+                    return;
+                }
+
+                var resetData = result.ResultAs<Dictionary<string, string>>();
+                string maDung = resetData["Code"];
+                DateTime createdAt = DateTime.Parse(resetData["CreatedAt"]);
+                int expiryMinutes = int.Parse(resetData["ExpiryMinutes"]);
+
+                // Kiểm tra hết hạn
+                if (DateTime.Now > createdAt.AddMinutes(expiryMinutes))
+                {
+                    client.Send(Encoding.UTF8.GetBytes("VERIFY_RESET_FAIL|MA_HET_HAN"));
+                    firebaseClient.Delete($"PasswordResetCodes/{idUser}");
+                    Console.WriteLine($"❌ Mã reset của {idUser} đã hết hạn.");
+                    return;
+                }
+
+                // Kiểm tra mã OTP
+                if (maOTP != maDung)
+                {
+                    client.Send(Encoding.UTF8.GetBytes("VERIFY_RESET_FAIL|MA_SAI"));
+                    Console.WriteLine($"❌ Mã OTP sai cho {idUser}");
+                    return;
+                }
+
+                // Xác thực thành công
+                client.Send(Encoding.UTF8.GetBytes("VERIFY_RESET_OK"));
+                Console.WriteLine($"✅ Xác thực mã reset thành công cho {idUser}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR VERIFY_RESET_OTP: " + ex.Message);
+                client.Send(Encoding.UTF8.GetBytes("ERROR|Lỗi xử lý"));
+            }
+        }
+
+        void XuLyDatLaiMatKhau(Socket client, string message)
+        {
+            try
+            {
+                // Format: RESET_PASSWORD|IDUser|MatKhauMoi
+                string[] parts = message.Split('|');
+                if (parts.Length != 3)
+                {
+                    client.Send(Encoding.UTF8.GetBytes("ERROR|Sai định dạng"));
+                    return;
+                }
+
+                string idUser = parts[1];
+                string matKhauMoi = parts[2];
+
+                // Kiểm tra mã reset còn hợp lệ không
+                var result = firebaseClient.Get($"PasswordResetCodes/{idUser}");
+
+                if (result.Body == "null")
+                {
+                    client.Send(Encoding.UTF8.GetBytes("RESET_PASSWORD_FAIL"));
+                    return;
+                }
+
+                // Cập nhật mật khẩu mới trong Firebase
+                firebaseClient.Update($"Users/{idUser}", new { MatKhau = matKhauMoi });
+
+                // Xóa mã reset đã sử dụng
+                firebaseClient.Delete($"PasswordResetCodes/{idUser}");
+
+                client.Send(Encoding.UTF8.GetBytes("RESET_PASSWORD_OK"));
+                Console.WriteLine($"✅ Đã reset mật khẩu thành công cho {idUser}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR RESET_PASSWORD: " + ex.Message);
+                client.Send(Encoding.UTF8.GetBytes("RESET_PASSWORD_FAIL"));
+            }
+        }
+
+        private void GuiEmailResetPassword(string emailNguoiNhan, string maOTP, string tenTaiKhoan)
+        {
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Game Caro", "trinhvht8@gmail.com"));
+                message.To.Add(new MailboxAddress("", emailNguoiNhan));
+                message.Subject = "Đặt lại mật khẩu - Game Caro";
+
+                message.Body = new TextPart("html")
+                {
+                    Text = $@"
+                <div style='font-family: Arial, sans-serif; padding: 20px; background-color: #f5f5f5;'>
+                    <div style='max-width: 600px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 10px;'>
+                        <h2 style='color: #2196F3;'>🔐 Đặt lại mật khẩu</h2>
+                        <p>Xin chào <strong>{tenTaiKhoan}</strong>,</p>
+                        <p>Bạn đã yêu cầu đặt lại mật khẩu cho tài khoản Game Caro.</p>
+                        <div style='background-color: #e3f2fd; padding: 20px; border-radius: 5px; text-align: center; margin: 20px 0;'>
+                            <p style='margin: 0; font-size: 14px; color: #666;'>Mã xác thực của bạn là:</p>
+                            <h1 style='margin: 10px 0; color: #2196F3; font-size: 36px; letter-spacing: 5px;'>{maOTP}</h1>
+                        </div>
+                        <p style='color: #666; font-size: 14px;'>
+                            ⏰ Mã có hiệu lực trong <strong>10 phút</strong>.<br>
+                            ⚠️ Nếu bạn không yêu cầu đặt lại mật khẩu, vui lòng bỏ qua email này.
+                        </p>
+                        <hr style='border: none; border-top: 1px solid #eee; margin: 20px 0;'>
+                        <p style='color: #999; font-size: 12px; text-align: center;'>
+                            © 2024 Game Caro. All rights reserved.
+                        </p>
+                    </div>
+                </div>
+            "
+                };
+
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+                    client.Authenticate("trinhvht8@gmail.com", "vqms tlae xgep ksgx");
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+
+                Console.WriteLine($"📧 Đã gửi email reset password đến {emailNguoiNhan}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("❌ Lỗi gửi email reset: " + ex.Message);
+            }
+        }
+
         void XuLyHuyTimDoiThu(Socket client, string message)
         {
             try

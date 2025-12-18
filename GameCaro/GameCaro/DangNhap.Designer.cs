@@ -78,6 +78,7 @@
             this.txtTenTaiKhoan.Name = "txtTenTaiKhoan";
             this.txtTenTaiKhoan.Size = new System.Drawing.Size(333, 22);
             this.txtTenTaiKhoan.TabIndex = 3;
+            this.txtTenTaiKhoan.TextChanged += new System.EventHandler(this.txtTenTaiKhoan_TextChanged);
             // 
             // txtMatKhau
             // 
@@ -109,6 +110,7 @@
             this.lnkQuenMatKhau.TabIndex = 6;
             this.lnkQuenMatKhau.TabStop = true;
             this.lnkQuenMatKhau.Text = "Quên mật khẩu";
+            this.lnkQuenMatKhau.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkQuenMatKhau_LinkClicked);
             // 
             // lnkDangKy
             // 
