@@ -1,6 +1,15 @@
 [
   {
     "Name": "New Profile",
-    "Projects": []
+    "Projects": [
+      {
+        "Path": "GameCaro\\GameCaro.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "MayChu\\MayChu.csproj",
+        "Action": "Start"
+      }
+    ]
   }
 ]

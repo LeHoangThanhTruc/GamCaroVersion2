@@ -1,0 +1,120 @@
+﻿//Lớp network là nơi xử lý kết nối, gửi, nhận
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace GameCaro
+{
+    public class NetworkClient
+    {
+        // Singleton Instance
+        private static NetworkClient instance;
+        public static NetworkClient Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new NetworkClient();
+                return instance;
+            }
+        }
+
+        private TcpClient client;
+        private NetworkStream stream;
+
+        // Event khi nhận dữ liệu
+        public static event Action<string> OnMessageReceived;
+
+        private NetworkClient() { }
+
+        public void Connect()
+        {
+            try
+            {
+                client = new TcpClient();
+                client.Connect("127.0.0.1", 9998); // thay bằng IP server thật
+
+                stream = client.GetStream();
+                // Avoid blocking UI by not showing a MessageBox here
+                Console.WriteLine("Client connected to server (127.0.0.1:9998)");
+
+                // Start thread nhận dữ liệu
+                Thread t = new Thread(Receive);
+                t.IsBackground = true;
+                t.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Không thể kết nối tới server! " + ex.Message);
+            }
+        }
+
+      
+        public void Send(string message)
+        {
+            try
+            {
+                if (stream == null) return;
+
+                byte[] data = Encoding.UTF8.GetBytes(message);
+                stream.Write(data, 0, data.Length);
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Mất kết nối server! Vui lòng thử lại.\n\n" + ex.Message);
+                Disconnect();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi không xác định.\n\n" + ex.Message);
+            }
+        }
+
+        public void Disconnect()
+        {
+            try { stream?.Close(); } catch { }
+            try { client?.Close(); } catch { }
+
+            stream = null;
+            client = null;
+        }
+
+
+        private void Receive()
+        {
+            try
+            {
+                // Use a reasonable buffer size
+                var buffer = new byte[4 * 1024];
+                while (true)
+                {
+                    int bytes = stream.Read(buffer, 0, buffer.Length);
+
+                    // 0 means remote has closed connection
+                    if (bytes <= 0)
+                    {
+                        Console.WriteLine("Server closed connection or no data received. Disconnecting.");
+                        Disconnect();
+                        break;
+                    }
+
+                    string msg = Encoding.UTF8.GetString(buffer, 0, bytes);
+
+                    OnMessageReceived?.Invoke(msg);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("NetworkClient.Receive exception: " + ex.Message);
+                try { Disconnect(); } catch { }
+            }
+        }
+    }
+}

@@ -128,41 +128,7 @@ namespace GameCaro
         /// </summary>
         /// <param name="_type"></param>
         /// <returns></returns>
-        /*public string GetLocalIPv4(NetworkInterfaceType _type)
-        {
-            string output = "";
-            foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
-                {
-                    if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
-                    {
-                        output = ip.Address.ToString();
-                    }
-                }
-            }
-            return output;
-        }*/
-        /*
-        public string GetLocalIPv4(NetworkInterfaceType type)
-        {
-            foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (item.NetworkInterfaceType == type &&
-                    item.OperationalStatus == OperationalStatus.Up)
-                {
-                    foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
-                    {
-                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
-                        {
-                            return ip.Address.ToString();
-                        }
-                    }
-                }
-            }
-            return "";
-        }
-        */
+       
         // Lấy IP nội bộ (LAN, Wi-Fi, 4G USB...)
         public string GetLocalIPv4()
         {

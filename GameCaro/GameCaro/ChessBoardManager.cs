@@ -48,21 +48,24 @@ namespace GameCaro
         }
         private Stack<PlayInfor> playTimeLine;
         public Stack<PlayInfor> PlayTimeLine { get => playTimeLine; set => playTimeLine = value; }
+        private string yourID;
+        private string opponentID;
         #endregion
 
         #region Initialize Ctrl + .
-        public ChessBoardManager(Panel chessBoard, TextBox playerName, PictureBox mark)
+        public ChessBoardManager(Panel chessBoard, TextBox playerName, PictureBox mark, string yourID, string opponentID)
         {
+            this.yourID = yourID;
+            this.opponentID = opponentID;
             this.ChessBoard = chessBoard;
             this.playerName = playerName;
             this.playerMark = mark;
             this.Player = new List<Player>() 
             {
-                new Player("Hieu",Image.FromFile(Application.StartupPath + "\\Resources\\DauXXoaNen.png")),
-                new Player("Trinh",Image.FromFile(Application.StartupPath + "\\Resources\\DauOxoaNen.png")),
+                new Player(yourID,Image.FromFile(Application.StartupPath + "\\Resources\\DauXXoaNen.png")),
+                new Player(opponentID,Image.FromFile(Application.StartupPath + "\\Resources\\DauOxoaNen.png")),
             };
-            
-            
+ 
         }
         
 
@@ -71,13 +74,7 @@ namespace GameCaro
         #region Methods
         public void DrawChessBoard()
         {
-
-            //Button btn = new Button();
-            //btn.Text = "1";
-            ////Button btn2 = new Button() { Text = "2",Location = new Point(50,50)};
-            //Button btn2 = new Button() { Text = "2", Location = new Point(btn.Location.X + btn.Width, btn.Location.Y) };
-            //pnlChessBoard.Controls.Add(btn);
-            //pnlChessBoard.Controls.Add(btn2);
+   
             ChessBoard.Enabled = true;
             ChessBoard.Controls.Clear();
             PlayTimeLine = new Stack<PlayInfor>();

@@ -17,13 +17,17 @@ namespace GameCaro
         #region Properties
         ChessBoardManager ChessBoard;
         SocketManager socket;
+        private string yourID;
+        private string opponentID;
         #endregion
-        public Form1()
+        public Form1(string yourID, string opponentID)
         {
             InitializeComponent();
+            this.yourID = yourID;
+            this.opponentID = opponentID;
             Control.CheckForIllegalCrossThreadCalls = false;
 
-            ChessBoard = new ChessBoardManager(pnlChessBoard, txtPlayerName, picMark);
+            ChessBoard = new ChessBoardManager(pnlChessBoard, txtPlayerName, picMark,yourID,opponentID);
             ChessBoard.EndedGame += ChessBoard_EndedGame;
             ChessBoard.PlayerMarked += ChessBoard_PlayerMarked;
 
