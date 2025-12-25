@@ -182,6 +182,13 @@ namespace MayChu
                         continue;
                     }
 
+                    // 9) RESEND OTP
+                    if (message.StartsWith("RESEND_OTP|"))
+                    {
+                        XuLyGuiLaiOTP(client, message);
+                        continue;
+                    }
+
                     // Các message khác (chat, đánh cờ...) => broadcast
                     // Gửi lại tin nhắn cho tất cả các client khác
                     foreach (var c in clientList)
@@ -672,59 +679,6 @@ namespace MayChu
 
         void XuLyDangNhap(Socket client, string message)
         {
-            //// LOGIN|username|password
-            //string[] tach = message.Split('|');
-
-            //if (tach.Length != 3)
-            //{
-            //    client.Send(Encoding.UTF8.GetBytes("ERROR|Sai định dạng gói tin LOGIN"));
-            //    return;
-            //}
-
-            //string username = tach[1];
-            //string password = tach[2];
-
-            //// 1. Lấy toàn bộ danh sách user trong Firebase
-            //var ketQua = firebaseClient.Get("Users");
-
-            //if (ketQua.Body == "null")
-            //{
-            //    client.Send(Encoding.UTF8.GetBytes("LOGIN_FAIL|KHONG_CO_USER_NAO"));
-            //    return;
-            //}
-
-            //// 2. Convert Firebase thành dictionary
-            //var allUsers = ketQua.ResultAs<Dictionary<string, GoiTinDangKy>>();
-
-            //bool timThayTaiKhoan = false;
-
-            //foreach (var user in allUsers)
-            //{
-            //    var info = user.Value;
-
-            //    if (info.TenTaiKhoan == username)
-            //    {
-            //        timThayTaiKhoan = true;
-
-            //        // 3. Kiểm tra mật khẩu
-            //        if (info.MatKhau != password)
-            //        {
-            //            client.Send(Encoding.UTF8.GetBytes("LOGIN_FAIL|SAI_MAT_KHAU"));
-            //            return;
-            //        }
-
-            //        // 4. Đăng nhập thành công → trả về IDUser
-            //        client.Send(Encoding.UTF8.GetBytes("LOGIN_OK|" + user.Key));
-            //        clientMap[user.Key] = client;   // user.Key là IDUser_xxx
-            //        return;
-            //    }
-            //}
-
-            //if (!timThayTaiKhoan)
-            //{
-            //    client.Send(Encoding.UTF8.GetBytes("LOGIN_FAIL|TAI_KHOAN_KHONG_TON_TAI"));
-            //}
-            //---------------------------------
 
             string[] tach = message.Split('|');
 
@@ -898,6 +852,125 @@ namespace MayChu
             Console.WriteLine($"✅ Tài khoản {idUser} đã được xác thực thành công!");
         }
 
+        void XuLyGuiLaiOTP(Socket client, string message)
+        {
+            try
+            {
+                // Format: RESEND_OTP|IDUser
+                string[] parts = message.Split('|');
+                if (parts.Length != 2)
+                {
+                    client.Send(Encoding.UTF8.GetBytes("ERROR|Sai định dạng"));
+                    return;
+                }
+
+                string idUser = parts[1];
+
+                // Kiểm tra user có tồn tại không
+                var userResult = firebaseClient.Get($"Users/{idUser}");
+
+                if (userResult.Body == "null")
+                {
+                    client.Send(Encoding.UTF8.GetBytes("RESEND_OTP_FAIL|USER_KHONG_TON_TAI"));
+                    Console.WriteLine($"❌ Không tìm thấy user {idUser}");
+                    return;
+                }
+
+                var userData = userResult.ResultAs<GoiTinDangKy>();
+                string email = userData.Gmail;
+
+                // Tạo mã OTP mới
+                string maOTPMoi = new Random().Next(100000, 999999).ToString();
+
+                // Cập nhật hoặc tạo mới mã xác thực trong Firebase
+                firebaseClient.Set($"VerificationCodes/{idUser}", new
+                {
+                    Code = maOTPMoi,
+                    Email = email,
+                    CreatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    ExpiryMinutes = 10
+                });
+
+                // Gửi email mới
+                GuiEmailXacThuc(email, idUser, maOTPMoi);
+
+                // Phản hồi client
+                client.Send(Encoding.UTF8.GetBytes("RESEND_OTP_OK"));
+                Console.WriteLine($"📧 Đã gửi lại mã OTP đến {email} cho user {idUser}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR RESEND_OTP: " + ex.Message);
+                client.Send(Encoding.UTF8.GetBytes("RESEND_OTP_FAIL|SERVER_ERROR"));
+            }
+        }
+
+        // Cập nhật hàm GuiEmailXacThuc để nhận mã OTP từ tham số
+        private void GuiEmailXacThuc(string emailNguoiNhan, string idUser, string maXacThuc = null)
+        {
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Game Caro", "trinhvht8@gmail.com"));
+                message.To.Add(new MailboxAddress("", emailNguoiNhan));
+                message.Subject = "Xác thực tài khoản Game Caro";
+
+                // Nếu không truyền mã, tạo mã mới
+                if (string.IsNullOrEmpty(maXacThuc))
+                {
+                    maXacThuc = new Random().Next(100000, 999999).ToString();
+                }
+
+                // Lưu mã xác thực vào Firebase (chỉ khi tạo mã mới)
+                if (string.IsNullOrEmpty(maXacThuc))
+                {
+                    firebaseClient.Set($"VerificationCodes/{idUser}", new
+                    {
+                        Code = maXacThuc,
+                        Email = emailNguoiNhan,
+                        CreatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                        ExpiryMinutes = 10
+                    });
+                }
+
+                message.Body = new TextPart("html")
+                {
+                    Text = $@"
+                <div style='font-family: Arial, sans-serif; padding: 20px; background-color: #f5f5f5;'>
+                    <div style='max-width: 600px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 10px;'>
+                        <h2 style='color: #4CAF50;'>🎮 Chào mừng đến Game Caro!</h2>
+                        <p>Mã xác thực của bạn là:</p>
+                        <div style='background-color: #e8f5e9; padding: 20px; border-radius: 5px; text-align: center; margin: 20px 0;'>
+                            <h1 style='margin: 0; color: #4CAF50; font-size: 36px; letter-spacing: 5px;'>{maXacThuc}</h1>
+                        </div>
+                        <p style='color: #666; font-size: 14px;'>
+                            ⏰ Mã có hiệu lực trong <strong>10 phút</strong>.<br>
+                            ⚠️ Nếu bạn không yêu cầu mã này, vui lòng bỏ qua email.
+                        </p>
+                        <hr style='border: none; border-top: 1px solid #eee; margin: 20px 0;'>
+                        <p style='color: #999; font-size: 12px; text-align: center;'>
+                            © 2024 Game Caro. All rights reserved.
+                        </p>
+                    </div>
+                </div>
+            "
+                };
+
+                using (var smtpClient = new SmtpClient())
+                {
+                    smtpClient.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+                    smtpClient.Authenticate("trinhvht8@gmail.com", "vqms tlae xgep ksgx");
+                    smtpClient.Send(message);
+                    smtpClient.Disconnect(true);
+                }
+
+                Console.WriteLine($"📧 Đã gửi email xác thực đến {emailNguoiNhan}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("❌ Lỗi gửi email: " + ex.Message);
+            }
+        }
 
 
 

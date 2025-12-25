@@ -13,10 +13,16 @@ namespace GameCaro
     public partial class FormXacThucOTP : Form
     {
         private string idUser;
+        private int countdown = 60;
+        private System.Windows.Forms.Timer countdownTimer;
         public FormXacThucOTP(string idUser)
         {
             InitializeComponent();
             this.idUser = idUser;
+
+            countdownTimer = new System.Windows.Forms.Timer();
+            countdownTimer.Interval = 1000; // 1 giây
+            countdownTimer.Tick += CountdownTimer_Tick;
         }
 
         private void FormXacThucOTP_Load(object sender, EventArgs e)
@@ -91,11 +97,68 @@ namespace GameCaro
                     }
                 }));
             }
+            else if (msg.StartsWith("RESEND_OTP_OK"))
+            {
+                this.Invoke(new Action(() =>
+                {
+                    MessageBox.Show("Đã gửi lại mã OTP!\nVui lòng kiểm tra email.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Bắt đầu đếm ngược lại
+                    BatDauDemNguoc();
+                }));
+            }
+            else if (msg.StartsWith("RESEND_OTP_FAIL"))
+            {
+                this.Invoke(new Action(() =>
+                {
+                    btnGuiLai.Enabled = true;
+                    btnGuiLai.Text = "Gửi lại mã";
+                    MessageBox.Show("Không thể gửi lại mã OTP!\nVui lòng thử lại sau.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }));
+            }
         }
 
         private void FormXacThucOTP_FormClosing(object sender, FormClosingEventArgs e)
         {
+            countdownTimer.Stop();
+            countdownTimer.Dispose();
             NetworkClient.OnMessageReceived -= XuLyPhanhoi;
         }
+
+        private void btnGuiLai_Click(object sender, EventArgs e)
+        {
+            NetworkClient.Instance.Send($"RESEND_OTP|{idUser}");
+
+            btnGuiLai.Enabled = false;
+            btnGuiLai.Text = "Đang gửi...";
+
+            txtOTP.Clear();
+            txtOTP.Focus();
+        }
+
+        private void BatDauDemNguoc()
+        {
+            countdown = 60;
+            btnGuiLai.Enabled = false;
+            btnGuiLai.Text = $"Gửi lại ({countdown}s)";
+            countdownTimer.Start();
+        }
+
+        private void CountdownTimer_Tick(object sender, EventArgs e)
+        {
+            countdown--;
+
+            if (countdown > 0)
+            {
+                btnGuiLai.Text = $"Gửi lại ({countdown}s)";
+            }
+            else
+            {
+                countdownTimer.Stop();
+                btnGuiLai.Enabled = true;
+                btnGuiLai.Text = "Gửi lại mã";
+            }
+        }
+
     }
 }

@@ -3,31 +3,39 @@
   "WorkspaceRootPath": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6454B878-3EAB-431E-8D92-1BA0F9C75695}|MayChu\\MayChu.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\maychu\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|c:\\users\\ad\\onedrive\\documents\\da_nt106\\clone\\gamcaroversion2\\gamecaro\\gamecaro\\formxacthucotp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\formxacthucotp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|c:\\users\\ad\\onedrive\\documents\\da_nt106\\clone\\gamcaroversion2\\gamecaro\\gamecaro\\formxacthucotp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\formxacthucotp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6454B878-3EAB-431E-8D92-1BA0F9C75695}|MayChu\\MayChu.csproj|c:\\users\\ad\\onedrive\\documents\\da_nt106\\clone\\gamcaroversion2\\gamecaro\\maychu\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6454B878-3EAB-431E-8D92-1BA0F9C75695}|MayChu\\MayChu.csproj|solutionrelative:maychu\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|c:\\users\\ad\\onedrive\\documents\\da_nt106\\clone\\gamcaroversion2\\gamecaro\\gamecaro\\goitindangky.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\gamecaro\\goitindangky.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\goitindangky.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6454B878-3EAB-431E-8D92-1BA0F9C75695}|MayChu\\MayChu.csproj|c:\\users\\ad\\onedrive\\documents\\da_nt106\\clone\\gamcaroversion2\\gamecaro\\maychu\\passwordhasher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6454B878-3EAB-431E-8D92-1BA0F9C75695}|MayChu\\MayChu.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\maychu\\passwordhasher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6454B878-3EAB-431E-8D92-1BA0F9C75695}|MayChu\\MayChu.csproj|solutionrelative:maychu\\passwordhasher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|c:\\users\\ad\\onedrive\\documents\\da_nt106\\clone\\gamcaroversion2\\gamecaro\\gamecaro\\quenmatkhau.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\gamecaro\\quenmatkhau.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\quenmatkhau.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|c:\\users\\ad\\onedrive\\documents\\da_nt106\\clone\\gamcaroversion2\\gamecaro\\gamecaro\\quenmatkhau.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\gamecaro\\quenmatkhau.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\quenmatkhau.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|c:\\users\\ad\\onedrive\\documents\\da_nt106\\clone\\gamcaroversion2\\gamecaro\\gamecaro\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\gamecaro\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|c:\\users\\ad\\onedrive\\documents\\da_nt106\\clone\\gamcaroversion2\\gamecaro\\gamecaro\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\gamecaro\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
@@ -38,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 409,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,7 +62,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "FormXacThucOTP.cs",
+              "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\GameCaro\\FormXacThucOTP.cs",
+              "RelativeDocumentMoniker": "GameCaro\\FormXacThucOTP.cs",
+              "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\GameCaro\\FormXacThucOTP.cs",
+              "RelativeToolTip": "GameCaro\\FormXacThucOTP.cs",
+              "ViewState": "AgIAAH4AAAAAAAAAAAAQwHwAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T03:15:08.428Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FormXacThucOTP.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\GameCaro\\FormXacThucOTP.cs",
+              "RelativeDocumentMoniker": "GameCaro\\FormXacThucOTP.cs",
+              "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\GameCaro\\FormXacThucOTP.cs [Design]",
+              "RelativeToolTip": "GameCaro\\FormXacThucOTP.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T03:13:27.559Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "PasswordHasher.cs",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\MayChu\\PasswordHasher.cs",
               "RelativeDocumentMoniker": "MayChu\\PasswordHasher.cs",
@@ -62,12 +95,11 @@
               "RelativeToolTip": "MayChu\\PasswordHasher.cs",
               "ViewState": "AgIAADgAAAAAAAAAAAAAADgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-18T07:45:22.335Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-18T07:45:22.335Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "DangNhap.cs",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\GameCaro\\DangNhap.cs",
               "RelativeDocumentMoniker": "GameCaro\\DangNhap.cs",
@@ -75,24 +107,22 @@
               "RelativeToolTip": "GameCaro\\DangNhap.cs",
               "ViewState": "AgIAAHMAAAAAAAAAAAAEwIMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-18T07:19:04.179Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-18T07:19:04.179Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "DangNhap.cs [Design]",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\GameCaro\\DangNhap.cs",
               "RelativeDocumentMoniker": "GameCaro\\DangNhap.cs",
               "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\GameCaro\\DangNhap.cs [Design]",
               "RelativeToolTip": "GameCaro\\DangNhap.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-18T07:18:58.672Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-12-18T07:18:58.672Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "GoiTinDangKy.cs",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\GameCaro\\GoiTinDangKy.cs",
               "RelativeDocumentMoniker": "GameCaro\\GoiTinDangKy.cs",
@@ -100,25 +130,24 @@
               "RelativeToolTip": "GameCaro\\GoiTinDangKy.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-18T07:18:03.011Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-18T07:18:03.011Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\MayChu\\Program.cs",
               "RelativeDocumentMoniker": "MayChu\\Program.cs",
               "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\MayChu\\Program.cs",
               "RelativeToolTip": "MayChu\\Program.cs",
-              "ViewState": "AgIAAH8DAAAAAAAAAAAuwIkDAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAANIDAAAAAAAAAAAAANIDAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-07T07:00:34.051Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "QuenMatKhau.cs",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\GameCaro\\QuenMatKhau.cs",
               "RelativeDocumentMoniker": "GameCaro\\QuenMatKhau.cs",
@@ -126,20 +155,18 @@
               "RelativeToolTip": "GameCaro\\QuenMatKhau.cs",
               "ViewState": "AgIAAIkAAAAAAAAAAAAgwJsAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-18T07:04:30.955Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-18T07:04:30.955Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "QuenMatKhau.cs [Design]",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\GameCaro\\QuenMatKhau.cs",
               "RelativeDocumentMoniker": "GameCaro\\QuenMatKhau.cs",
               "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone\\GamCaroVersion2\\GameCaro\\GameCaro\\QuenMatKhau.cs [Design]",
               "RelativeToolTip": "GameCaro\\QuenMatKhau.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-18T06:57:43.408Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-12-18T06:57:43.408Z"
             }
           ]
         },
