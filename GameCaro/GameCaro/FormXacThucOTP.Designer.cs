@@ -31,12 +31,13 @@
             this.lblThongTin = new System.Windows.Forms.Label();
             this.txtOTP = new System.Windows.Forms.TextBox();
             this.btnXacNhan = new System.Windows.Forms.Button();
+            this.btnGuiLai = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblThongTin
             // 
             this.lblThongTin.AutoSize = true;
-            this.lblThongTin.Location = new System.Drawing.Point(0, 0);
+            this.lblThongTin.Location = new System.Drawing.Point(12, 9);
             this.lblThongTin.Name = "lblThongTin";
             this.lblThongTin.Size = new System.Drawing.Size(44, 16);
             this.lblThongTin.TabIndex = 0;
@@ -52,19 +53,30 @@
             // 
             // btnXacNhan
             // 
-            this.btnXacNhan.Location = new System.Drawing.Point(105, 93);
+            this.btnXacNhan.Location = new System.Drawing.Point(78, 90);
             this.btnXacNhan.Name = "btnXacNhan";
-            this.btnXacNhan.Size = new System.Drawing.Size(75, 23);
+            this.btnXacNhan.Size = new System.Drawing.Size(120, 35);
             this.btnXacNhan.TabIndex = 2;
-            this.btnXacNhan.Text = "button1";
+            this.btnXacNhan.Text = "Xác nhận";
             this.btnXacNhan.UseVisualStyleBackColor = true;
             this.btnXacNhan.Click += new System.EventHandler(this.btnXacNhan_Click);
+            // 
+            // btnGuiLai
+            // 
+            this.btnGuiLai.Location = new System.Drawing.Point(241, 90);
+            this.btnGuiLai.Name = "btnGuiLai";
+            this.btnGuiLai.Size = new System.Drawing.Size(120, 35);
+            this.btnGuiLai.TabIndex = 3;
+            this.btnGuiLai.Text = "Resend (60s)";
+            this.btnGuiLai.UseVisualStyleBackColor = true;
+            this.btnGuiLai.Click += new System.EventHandler(this.btnGuiLai_Click);
             // 
             // FormXacThucOTP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnGuiLai);
             this.Controls.Add(this.btnXacNhan);
             this.Controls.Add(this.txtOTP);
             this.Controls.Add(this.lblThongTin);
@@ -82,5 +94,6 @@
         private System.Windows.Forms.Label lblThongTin;
         private System.Windows.Forms.TextBox txtOTP;
         private System.Windows.Forms.Button btnXacNhan;
+        private System.Windows.Forms.Button btnGuiLai;
     }
 }
