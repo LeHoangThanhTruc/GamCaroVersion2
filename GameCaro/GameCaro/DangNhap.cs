@@ -39,6 +39,7 @@ namespace GameCaro
     public partial class DangNhap : Form
     {
         private string userId;
+        private string username;
         public DangNhap()
         {
             InitializeComponent();
@@ -58,6 +59,8 @@ namespace GameCaro
                                 "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            username = tk;
 
             // 2. Gửi gói tin LOGIN xuống server
             string goiTin = $"LOGIN|{tk}|{mk}";
@@ -90,29 +93,85 @@ namespace GameCaro
         }
         private void ClientXuLyDangNhap(string msg)
         {
+            //if (msg.StartsWith("LOGIN_OK|"))
+            //{
+            //    string id = msg.Substring(16);
+            //    //MessageBox.Show("Debug nhận được: [" + msg + "]");
+            //    this.Invoke(new Action(() =>
+            //    {
+            //        //MessageBox.Show(id);
+            //        this.Hide();
+            //        GiaoDienChung f = new GiaoDienChung(id);  
+            //        f.Show();
+            //        return;
+            //    }));
+
+            //    return;
+            //}
+            //else if (msg == "LOGIN_FAIL|SAI_MAT_KHAU")
+            //{
+            //    MessageBox.Show("Sai mật khẩu!");
+            //    return;
+            //}
+            //else if (msg == "LOGIN_FAIL|TAI_KHOAN_KHONG_TON_TAI")
+            //{
+            //    MessageBox.Show("Tài khoản không tồn tại!");
+            //    return;
+            //}
+
+            // Format mới: LOGIN_OK|IDUser|SessionToken
             if (msg.StartsWith("LOGIN_OK|"))
             {
-                string id = msg.Substring(16);
-                //MessageBox.Show("Debug nhận được: [" + msg + "]");
+                string[] parts = msg.Split('|');
+                if (parts.Length < 2)
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        MessageBox.Show("Lỗi phản hồi từ server!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }));
+                    return;
+                }
+
+                string id = parts[1];
+                string sessionToken = parts.Length >= 3 ? parts[2] : ""; // Token từ server
+
                 this.Invoke(new Action(() =>
                 {
-                    //MessageBox.Show(id);
+                    // ✅ LƯU SESSION KHI ĐĂNG NHẬP THÀNH CÔNG
+                    bool rememberMe = ckNhoMatKhau.Checked; // Checkbox "Nhớ đăng nhập"
+                    SessionManager.Instance.SaveSession(id, username, sessionToken, rememberMe);
+
+                    // Chuyển sang giao diện chính
                     this.Hide();
-                    GiaoDienChung f = new GiaoDienChung(id);  
+                    GiaoDienChung f = new GiaoDienChung(id);
                     f.Show();
-                    return;
                 }));
 
                 return;
             }
             else if (msg == "LOGIN_FAIL|SAI_MAT_KHAU")
             {
-                MessageBox.Show("Sai mật khẩu!");
+                this.Invoke(new Action(() =>
+                {
+                    MessageBox.Show("Sai mật khẩu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }));
                 return;
             }
             else if (msg == "LOGIN_FAIL|TAI_KHOAN_KHONG_TON_TAI")
             {
-                MessageBox.Show("Tài khoản không tồn tại!");
+                this.Invoke(new Action(() =>
+                {
+                    MessageBox.Show("Tài khoản không tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }));
+                return;
+            }
+            else if (msg == "LOGIN_FAIL|CHUA_XAC_THUC_EMAIL")
+            {
+                this.Invoke(new Action(() =>
+                {
+                    MessageBox.Show("Tài khoản chưa xác thực email!\nVui lòng kiểm tra email và xác thực OTP.",
+                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }));
                 return;
             }
         }

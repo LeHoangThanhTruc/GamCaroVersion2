@@ -117,3 +117,4 @@ C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\GameCaro\
 C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.pdb
 C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.FormXacThucOTP.resources
 C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.QuenMatKhau.resources
+C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.FormAutoLogin.resources

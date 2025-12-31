@@ -37,6 +37,7 @@
             this.lnkQuenMatKhau = new System.Windows.Forms.LinkLabel();
             this.lnkDangKy = new System.Windows.Forms.LinkLabel();
             this.ckHienMatKhau = new System.Windows.Forms.CheckBox();
+            this.ckNhoMatKhau = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnDangNhap
@@ -136,11 +137,24 @@
             this.ckHienMatKhau.UseVisualStyleBackColor = true;
             this.ckHienMatKhau.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // ckNhoMatKhau
+            // 
+            this.ckNhoMatKhau.AutoSize = true;
+            this.ckNhoMatKhau.Checked = true;
+            this.ckNhoMatKhau.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ckNhoMatKhau.Location = new System.Drawing.Point(20, 200);
+            this.ckNhoMatKhau.Name = "ckNhoMatKhau";
+            this.ckNhoMatKhau.Size = new System.Drawing.Size(121, 20);
+            this.ckNhoMatKhau.TabIndex = 8;
+            this.ckNhoMatKhau.Text = "Nhớ đăng nhập";
+            this.ckNhoMatKhau.UseVisualStyleBackColor = true;
+            // 
             // DangNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 348);
+            this.Controls.Add(this.ckNhoMatKhau);
             this.Controls.Add(this.ckHienMatKhau);
             this.Controls.Add(this.lnkDangKy);
             this.Controls.Add(this.lnkQuenMatKhau);
@@ -171,5 +185,6 @@
         private System.Windows.Forms.LinkLabel lnkQuenMatKhau;
         private System.Windows.Forms.LinkLabel lnkDangKy;
         private System.Windows.Forms.CheckBox ckHienMatKhau;
+        private System.Windows.Forms.CheckBox ckNhoMatKhau;
     }
 }

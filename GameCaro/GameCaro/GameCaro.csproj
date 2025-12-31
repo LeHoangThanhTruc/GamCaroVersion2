@@ -126,6 +126,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAutoLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAutoLogin.Designer.cs">
+      <DependentUpon>FormAutoLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormXacThucOTP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +171,7 @@
     <Compile Include="QuenMatKhau.Designer.cs">
       <DependentUpon>QuenMatKhau.cs</DependentUpon>
     </Compile>
+    <Compile Include="SessionManager.cs" />
     <Compile Include="SocketData.cs" />
     <Compile Include="SocketManager.cs" />
     <EmbeddedResource Include="CaiDat.resx">
@@ -178,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAutoLogin.resx">
+      <DependentUpon>FormAutoLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormXacThucOTP.resx">
       <DependentUpon>FormXacThucOTP.cs</DependentUpon>

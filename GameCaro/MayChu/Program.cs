@@ -43,6 +43,9 @@ namespace MayChu
             server.Connect();
 
             Console.ReadLine();
+
+
+
         }
         void Connect()
         {
@@ -186,6 +189,20 @@ namespace MayChu
                     if (message.StartsWith("RESEND_OTP|"))
                     {
                         XuLyGuiLaiOTP(client, message);
+                        continue;
+                    }
+
+                    // 10) VERIFY_SESSION
+                    if (message.StartsWith("VERIFY_SESSION|"))
+                    {
+                        XuLyXacThucSession(client, message);
+                        continue;
+                    }
+
+                    // 11) LOGOUT
+                    if (message.StartsWith("LOGOUT|"))
+                    {
+                        XuLyDangXuat(client, message);
                         continue;
                     }
 
@@ -734,10 +751,35 @@ namespace MayChu
                         return;
                     }
 
-                    // Đăng nhập thành công
-                    client.Send(Encoding.UTF8.GetBytes("LOGIN_OK|" + user.Key));
+                    // Đăng nhập thành công - tạo session token
+                    //client.Send(Encoding.UTF8.GetBytes("LOGIN_OK|" + user.Key));
+                    //clientMap[user.Key] = client;
+                    //Console.WriteLine($"✅ {username} đăng nhập thành công.");
+                    //return;
+
+                    string sessionToken = GenerateSessionToken();
+
+                    // Lưu session vào Firebase
+                    firebaseClient.Set($"Sessions/{user.Key}", new
+                    {
+                        Token = sessionToken,
+                        LoginTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                        Username = username
+                    });
+
+                    // Lưu vào active sessions
+                    activeSessions[user.Key] = new SessionInfo
+                    {
+                        UserId = user.Key,
+                        SessionToken = sessionToken,
+                        LoginTime = DateTime.Now,
+                        ClientSocket = client
+                    };
+
+                    // Gui kem session token ve client
+                    client.Send(Encoding.UTF8.GetBytes($"LOGIN_OK|{user.Key}|{sessionToken}"));
                     clientMap[user.Key] = client;
-                    Console.WriteLine($"✅ {username} đăng nhập thành công.");
+                    Console.WriteLine($"✅ {username} đăng nhập thành công. Token: {sessionToken.Substring(0, 10)}...");
                     return;
                 }
             }
@@ -972,7 +1014,147 @@ namespace MayChu
             }
         }
 
+        // QUAN LY SESSION DANG HOAT DONG CUA CAC USER TREN SERVER
+        Dictionary<string, SessionInfo> activeSessions = new Dictionary<string, SessionInfo>();
 
+        class SessionInfo
+        {
+            public string UserId { get; set; }
+            public string SessionToken { get; set; }
+            public DateTime LoginTime { get; set; }
+            public Socket ClientSocket { get; set; }
+        }
+
+        void XuLyXacThucSession(Socket client, string message)
+        {
+            try
+            {
+                // Format: VERIFY_SESSION|IDUser|SessionToken
+                string[] parts = message.Split('|');
+                if (parts.Length != 3)
+                {
+                    client.Send(Encoding.UTF8.GetBytes("SESSION_INVALID|FORMAT_ERROR"));
+                    return;
+                }
+
+                string userId = parts[1];
+                string sessionToken = parts[2];
+
+                // Kiểm tra user có tồn tại không
+                var userResult = firebaseClient.Get($"Users/{userId}");
+                if (userResult.Body == "null")
+                {
+                    client.Send(Encoding.UTF8.GetBytes("SESSION_INVALID|USER_NOT_FOUND"));
+                    Console.WriteLine($"❌ User {userId} không tồn tại");
+                    return;
+                }
+
+                // Kiểm tra session trong Firebase (tùy chọn - nếu muốn lưu persistent)
+                var sessionResult = firebaseClient.Get($"Sessions/{userId}");
+
+                if (sessionResult.Body != "null")
+                {
+                    var sessionData = sessionResult.ResultAs<Dictionary<string, string>>();
+                    string savedToken = sessionData.ContainsKey("Token") ? sessionData["Token"] : "";
+                    DateTime loginTime = sessionData.ContainsKey("LoginTime")
+                        ? DateTime.Parse(sessionData["LoginTime"])
+                        : DateTime.MinValue;
+
+                    // Kiểm tra session còn hiệu lực (7 ngày)
+                    TimeSpan duration = DateTime.Now - loginTime;
+                    if (duration.TotalDays > 7)
+                    {
+                        // Session hết hạn
+                        firebaseClient.Delete($"Sessions/{userId}");
+                        client.Send(Encoding.UTF8.GetBytes("SESSION_INVALID|EXPIRED"));
+                        Console.WriteLine($"❌ Session của {userId} đã hết hạn");
+                        return;
+                    }
+
+                    // Kiểm tra token có khớp không
+                    if (savedToken == sessionToken)
+                    {
+                        // ✅ Session hợp lệ
+                        client.Send(Encoding.UTF8.GetBytes($"SESSION_VALID|{userId}"));
+                        clientMap[userId] = client;
+
+                        // Lưu vào active sessions
+                        activeSessions[userId] = new SessionInfo
+                        {
+                            UserId = userId,
+                            SessionToken = sessionToken,
+                            LoginTime = loginTime,
+                            ClientSocket = client
+                        };
+
+                        Console.WriteLine($"✅ Session hợp lệ cho {userId}");
+                        return;
+                    }
+                }
+
+                // Session không hợp lệ
+                client.Send(Encoding.UTF8.GetBytes("SESSION_INVALID|TOKEN_MISMATCH"));
+                Console.WriteLine($"❌ Session không hợp lệ cho {userId}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR VERIFY_SESSION: " + ex.Message);
+                client.Send(Encoding.UTF8.GetBytes("SESSION_INVALID|SERVER_ERROR"));
+            }
+        }
+
+        void XuLyDangXuat(Socket client, string message)
+        {
+            try
+            {
+                // Format: LOGOUT|IDUser
+                string[] parts = message.Split('|');
+                if (parts.Length != 2)
+                {
+                    client.Send(Encoding.UTF8.GetBytes("ERROR|Sai định dạng"));
+                    return;
+                }
+
+                string userId = parts[1];
+
+                // Xóa session trong Firebase
+                firebaseClient.Delete($"Sessions/{userId}");
+
+                // Xóa khỏi active sessions
+                if (activeSessions.ContainsKey(userId))
+                {
+                    activeSessions.Remove(userId);
+                }
+
+                // Xóa khỏi clientMap
+                if (clientMap.ContainsKey(userId))
+                {
+                    clientMap.Remove(userId);
+                }
+
+                // Xóa khỏi waiting list nếu đang tìm đối thủ
+                lock (matchLock)
+                {
+                    waitingList.RemoveAll(x => x.userId == userId);
+                }
+
+                client.Send(Encoding.UTF8.GetBytes("LOGOUT_OK"));
+                Console.WriteLine($"✅ {userId} đã đăng xuất");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR LOGOUT: " + ex.Message);
+                client.Send(Encoding.UTF8.GetBytes("ERROR|Lỗi đăng xuất"));
+            }
+        }
+
+        private string GenerateSessionToken()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, 32)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
 
     }
 }
