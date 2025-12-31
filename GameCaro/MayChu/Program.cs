@@ -280,14 +280,14 @@ namespace MayChu
 
                         // Phản hồi client
                         client.Send(Encoding.UTF8.GetBytes($"FORGOT_PASSWORD_OK|{idUser}"));
-                        Console.WriteLine($"📧 Đã gửi mã reset password đến {email} cho tài khoản {tenTaiKhoan}");
+                        Console.WriteLine($"Đã gửi mã reset password đến {email} cho tài khoản {tenTaiKhoan}");
                         return;
                     }
                 }
 
                 // Không tìm thấy tài khoản
                 client.Send(Encoding.UTF8.GetBytes("FORGOT_PASSWORD_FAIL|TAI_KHOAN_KHONG_TON_TAI"));
-                Console.WriteLine($"❌ Không tìm thấy tài khoản: {tenTaiKhoan}");
+                Console.WriteLine($"Không tìm thấy tài khoản: {tenTaiKhoan}");
             }
             catch (Exception ex)
             {
@@ -317,7 +317,7 @@ namespace MayChu
                 if (result.Body == "null")
                 {
                     client.Send(Encoding.UTF8.GetBytes("VERIFY_RESET_FAIL|MA_KHONG_TON_TAI"));
-                    Console.WriteLine($"❌ Không tìm thấy mã reset cho {idUser}");
+                    Console.WriteLine($"Không tìm thấy mã reset cho {idUser}");
                     return;
                 }
 
@@ -331,7 +331,7 @@ namespace MayChu
                 {
                     client.Send(Encoding.UTF8.GetBytes("VERIFY_RESET_FAIL|MA_HET_HAN"));
                     firebaseClient.Delete($"PasswordResetCodes/{idUser}");
-                    Console.WriteLine($"❌ Mã reset của {idUser} đã hết hạn.");
+                    Console.WriteLine($"Mã reset của {idUser} đã hết hạn.");
                     return;
                 }
 
@@ -339,13 +339,13 @@ namespace MayChu
                 if (maOTP != maDung)
                 {
                     client.Send(Encoding.UTF8.GetBytes("VERIFY_RESET_FAIL|MA_SAI"));
-                    Console.WriteLine($"❌ Mã OTP sai cho {idUser}");
+                    Console.WriteLine($"Mã OTP sai cho {idUser}");
                     return;
                 }
 
                 // Xác thực thành công
                 client.Send(Encoding.UTF8.GetBytes("VERIFY_RESET_OK"));
-                Console.WriteLine($"✅ Xác thực mã reset thành công cho {idUser}");
+                Console.WriteLine($"Xác thực mã reset thành công cho {idUser}");
             }
             catch (Exception ex)
             {
@@ -391,7 +391,7 @@ namespace MayChu
                 firebaseClient.Delete($"PasswordResetCodes/{idUser}");
 
                 client.Send(Encoding.UTF8.GetBytes("RESET_PASSWORD_OK"));
-                Console.WriteLine($"✅ Đã reset mật khẩu thành công cho {idUser}");
+                Console.WriteLine($"Đã reset mật khẩu thành công cho {idUser}");
             }
             catch (Exception ex)
             {
@@ -414,7 +414,7 @@ namespace MayChu
                     Text = $@"
                 <div style='font-family: Arial, sans-serif; padding: 20px; background-color: #f5f5f5;'>
                     <div style='max-width: 600px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 10px;'>
-                        <h2 style='color: #2196F3;'>🔐 Đặt lại mật khẩu</h2>
+                        <h2 style='color: #2196F3;'> Đặt lại mật khẩu</h2>
                         <p>Xin chào <strong>{tenTaiKhoan}</strong>,</p>
                         <p>Bạn đã yêu cầu đặt lại mật khẩu cho tài khoản Game Caro.</p>
                         <div style='background-color: #e3f2fd; padding: 20px; border-radius: 5px; text-align: center; margin: 20px 0;'>
@@ -422,8 +422,8 @@ namespace MayChu
                             <h1 style='margin: 10px 0; color: #2196F3; font-size: 36px; letter-spacing: 5px;'>{maOTP}</h1>
                         </div>
                         <p style='color: #666; font-size: 14px;'>
-                            ⏰ Mã có hiệu lực trong <strong>10 phút</strong>.<br>
-                            ⚠️ Nếu bạn không yêu cầu đặt lại mật khẩu, vui lòng bỏ qua email này.
+                             Mã có hiệu lực trong <strong>10 phút</strong>.<br>
+                             Nếu bạn không yêu cầu đặt lại mật khẩu, vui lòng bỏ qua email này.
                         </p>
                         <hr style='border: none; border-top: 1px solid #eee; margin: 20px 0;'>
                         <p style='color: #999; font-size: 12px; text-align: center;'>
@@ -442,11 +442,11 @@ namespace MayChu
                     client.Disconnect(true);
                 }
 
-                Console.WriteLine($"📧 Đã gửi email reset password đến {emailNguoiNhan}");
+                Console.WriteLine($" Đã gửi email reset password đến {emailNguoiNhan}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("❌ Lỗi gửi email reset: " + ex.Message);
+                Console.WriteLine(" Lỗi gửi email reset: " + ex.Message);
             }
         }
 
@@ -503,7 +503,7 @@ namespace MayChu
                         return;
                     }
 
-                    // Có người đợi → lấy ra và ghép
+                    // Có người đợi -> lấy ra và ghép
                     var doiThu = waitingList[0];
                     waitingList.RemoveAt(0);
 
@@ -665,7 +665,7 @@ namespace MayChu
 
             // Gửi phản hồi về client: Đăng ký thành công, chờ xác thực OTP
             client.Send(Encoding.UTF8.GetBytes($"REGISTER_PENDING|{newIDUser}"));
-            Console.WriteLine($"📧 Đã tạo tài khoản {data.TenTaiKhoan}, đang chờ xác thực OTP.");
+            Console.WriteLine($" Đã tạo tài khoản {data.TenTaiKhoan}, đang chờ xác thực OTP.");
 
             //// 4. Gửi thông báo đăng ký thành công và IDUser về client
             //client.Send(Encoding.UTF8.GetBytes($"REGISTER_OK|{newIDUser}"));
@@ -728,11 +728,11 @@ namespace MayChu
                 {
                     timThayTaiKhoan = true;
 
-                    // ✅ THÊM: Kiểm tra tài khoản đã xác thực chưa
+                    // THÊM: Kiểm tra tài khoản đã xác thực chưa
                     if (!info.isVerified)
                     {
                         client.Send(Encoding.UTF8.GetBytes("LOGIN_FAIL|CHUA_XAC_THUC_EMAIL"));
-                        Console.WriteLine($"❌ Tài khoản {username} chưa xác thực email.");
+                        Console.WriteLine($" Tài khoản {username} chưa xác thực email.");
                         return;
                     }
 
@@ -747,14 +747,14 @@ namespace MayChu
                     if (!PasswordHasher.VerifyPassword(password, info.MatKhau))
                     {
                         client.Send(Encoding.UTF8.GetBytes("LOGIN_FAIL|SAI_MAT_KHAU"));
-                        Console.WriteLine($"❌ Sai mật khẩu cho {username}");
+                        Console.WriteLine($"Sai mật khẩu cho {username}");
                         return;
                     }
 
                     // Đăng nhập thành công - tạo session token
                     //client.Send(Encoding.UTF8.GetBytes("LOGIN_OK|" + user.Key));
                     //clientMap[user.Key] = client;
-                    //Console.WriteLine($"✅ {username} đăng nhập thành công.");
+                    //Console.WriteLine($" {username} đăng nhập thành công.");
                     //return;
 
                     string sessionToken = GenerateSessionToken();
@@ -779,7 +779,7 @@ namespace MayChu
                     // Gui kem session token ve client
                     client.Send(Encoding.UTF8.GetBytes($"LOGIN_OK|{user.Key}|{sessionToken}"));
                     clientMap[user.Key] = client;
-                    Console.WriteLine($"✅ {username} đăng nhập thành công. Token: {sessionToken.Substring(0, 10)}...");
+                    Console.WriteLine($"{username} đăng nhập thành công. Token: {sessionToken.Substring(0, 10)}...");
                     return;
                 }
             }
@@ -860,7 +860,7 @@ namespace MayChu
             if (result.Body == "null")
             {
                 client.Send(Encoding.UTF8.GetBytes("VERIFY_FAIL|MA_KHONG_TON_TAI"));
-                Console.WriteLine($"❌ Không tìm thấy mã OTP cho {idUser}");
+                Console.WriteLine($" Không tìm thấy mã OTP cho {idUser}");
                 return;
             }
 
@@ -874,7 +874,7 @@ namespace MayChu
             {
                 client.Send(Encoding.UTF8.GetBytes("VERIFY_FAIL|MA_HET_HAN"));
                 firebaseClient.Delete($"VerificationCodes/{idUser}"); // Xóa mã hết hạn
-                Console.WriteLine($"❌ Mã OTP của {idUser} đã hết hạn.");
+                Console.WriteLine($" Mã OTP của {idUser} đã hết hạn.");
                 return;
             }
 
@@ -882,16 +882,16 @@ namespace MayChu
             if (maOTP != maDung)
             {
                 client.Send(Encoding.UTF8.GetBytes("VERIFY_FAIL|MA_SAI"));
-                Console.WriteLine($"❌ Mã OTP sai cho {idUser}");
+                Console.WriteLine($" Mã OTP sai cho {idUser}");
                 return;
             }
 
-            // ✅ Xác thực thành công
+            //  Xác thực thành công
             firebaseClient.Update($"Users/{idUser}", new { isVerified = true }); // <- fixed property name
             firebaseClient.Delete($"VerificationCodes/{idUser}"); // Xóa mã đã dùng
 
             client.Send(Encoding.UTF8.GetBytes("VERIFY_OK"));
-            Console.WriteLine($"✅ Tài khoản {idUser} đã được xác thực thành công!");
+            Console.WriteLine($" Tài khoản {idUser} đã được xác thực thành công!");
         }
 
         void XuLyGuiLaiOTP(Socket client, string message)
@@ -914,7 +914,7 @@ namespace MayChu
                 if (userResult.Body == "null")
                 {
                     client.Send(Encoding.UTF8.GetBytes("RESEND_OTP_FAIL|USER_KHONG_TON_TAI"));
-                    Console.WriteLine($"❌ Không tìm thấy user {idUser}");
+                    Console.WriteLine($" Không tìm thấy user {idUser}");
                     return;
                 }
 
@@ -938,7 +938,7 @@ namespace MayChu
 
                 // Phản hồi client
                 client.Send(Encoding.UTF8.GetBytes("RESEND_OTP_OK"));
-                Console.WriteLine($"📧 Đã gửi lại mã OTP đến {email} cho user {idUser}");
+                Console.WriteLine($" Đã gửi lại mã OTP đến {email} cho user {idUser}");
             }
             catch (Exception ex)
             {
@@ -980,14 +980,14 @@ namespace MayChu
                     Text = $@"
                 <div style='font-family: Arial, sans-serif; padding: 20px; background-color: #f5f5f5;'>
                     <div style='max-width: 600px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 10px;'>
-                        <h2 style='color: #4CAF50;'>🎮 Chào mừng đến Game Caro!</h2>
+                        <h2 style='color: #4CAF50;'> Chào mừng đến Game Caro!</h2>
                         <p>Mã xác thực của bạn là:</p>
                         <div style='background-color: #e8f5e9; padding: 20px; border-radius: 5px; text-align: center; margin: 20px 0;'>
                             <h1 style='margin: 0; color: #4CAF50; font-size: 36px; letter-spacing: 5px;'>{maXacThuc}</h1>
                         </div>
                         <p style='color: #666; font-size: 14px;'>
-                            ⏰ Mã có hiệu lực trong <strong>10 phút</strong>.<br>
-                            ⚠️ Nếu bạn không yêu cầu mã này, vui lòng bỏ qua email.
+                             Mã có hiệu lực trong <strong>10 phút</strong>.<br>
+                             Nếu bạn không yêu cầu mã này, vui lòng bỏ qua email.
                         </p>
                         <hr style='border: none; border-top: 1px solid #eee; margin: 20px 0;'>
                         <p style='color: #999; font-size: 12px; text-align: center;'>
@@ -1006,11 +1006,11 @@ namespace MayChu
                     smtpClient.Disconnect(true);
                 }
 
-                Console.WriteLine($"📧 Đã gửi email xác thực đến {emailNguoiNhan}");
+                Console.WriteLine($" Đã gửi email xác thực đến {emailNguoiNhan}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("❌ Lỗi gửi email: " + ex.Message);
+                Console.WriteLine(" Lỗi gửi email: " + ex.Message);
             }
         }
 
@@ -1045,7 +1045,7 @@ namespace MayChu
                 if (userResult.Body == "null")
                 {
                     client.Send(Encoding.UTF8.GetBytes("SESSION_INVALID|USER_NOT_FOUND"));
-                    Console.WriteLine($"❌ User {userId} không tồn tại");
+                    Console.WriteLine($" User {userId} không tồn tại");
                     return;
                 }
 
@@ -1067,14 +1067,14 @@ namespace MayChu
                         // Session hết hạn
                         firebaseClient.Delete($"Sessions/{userId}");
                         client.Send(Encoding.UTF8.GetBytes("SESSION_INVALID|EXPIRED"));
-                        Console.WriteLine($"❌ Session của {userId} đã hết hạn");
+                        Console.WriteLine($" Session của {userId} đã hết hạn");
                         return;
                     }
 
                     // Kiểm tra token có khớp không
                     if (savedToken == sessionToken)
                     {
-                        // ✅ Session hợp lệ
+                        //  Session hợp lệ
                         client.Send(Encoding.UTF8.GetBytes($"SESSION_VALID|{userId}"));
                         clientMap[userId] = client;
 
@@ -1087,14 +1087,14 @@ namespace MayChu
                             ClientSocket = client
                         };
 
-                        Console.WriteLine($"✅ Session hợp lệ cho {userId}");
+                        Console.WriteLine($" Session hợp lệ cho {userId}");
                         return;
                     }
                 }
 
                 // Session không hợp lệ
                 client.Send(Encoding.UTF8.GetBytes("SESSION_INVALID|TOKEN_MISMATCH"));
-                Console.WriteLine($"❌ Session không hợp lệ cho {userId}");
+                Console.WriteLine($" Session không hợp lệ cho {userId}");
             }
             catch (Exception ex)
             {
@@ -1139,7 +1139,7 @@ namespace MayChu
                 }
 
                 client.Send(Encoding.UTF8.GetBytes("LOGOUT_OK"));
-                Console.WriteLine($"✅ {userId} đã đăng xuất");
+                Console.WriteLine($" {userId} đã đăng xuất");
             }
             catch (Exception ex)
             {

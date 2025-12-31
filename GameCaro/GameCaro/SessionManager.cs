@@ -69,11 +69,11 @@ namespace GameCaro
                 string encrypted = EncryptStringAES(json);
                 File.WriteAllText(sessionFilePath, encrypted);
 
-                Console.WriteLine($"✅ Đã lưu session cho {username}");
+                Console.WriteLine($"Đã lưu session cho {username}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("❌ Lỗi lưu session: " + ex.Message);
+                Console.WriteLine("Lỗi lưu session: " + ex.Message);
             }
         }
 
@@ -101,7 +101,7 @@ namespace GameCaro
                         return null;
                     }
 
-                    Console.WriteLine($"✅ Tìm thấy session: {currentSession.Username}");
+                    Console.WriteLine($"Tìm thấy session: {currentSession.Username}");
                     return currentSession;
                 }
 
@@ -109,7 +109,7 @@ namespace GameCaro
             }
             catch (Exception ex)
             {
-                Console.WriteLine("❌ Lỗi đọc session: " + ex.Message);
+                Console.WriteLine("Lỗi đọc session: " + ex.Message);
                 ClearSession();
                 return null;
             }
@@ -124,11 +124,11 @@ namespace GameCaro
                     File.Delete(sessionFilePath);
 
                 currentSession = null;
-                Console.WriteLine("✅ Đã xóa session");
+                Console.WriteLine("Đã xóa session");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("❌ Lỗi xóa session: " + ex.Message);
+                Console.WriteLine("Lỗi xóa session: " + ex.Message);
             }
         }
 
