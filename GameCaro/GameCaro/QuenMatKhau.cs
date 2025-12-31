@@ -189,5 +189,30 @@ namespace GameCaro
         {
             NetworkClient.OnMessageReceived -= XuLyQuenMatKhau;
         }
+
+        private void lnkGuiLaiOTP_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string tenTaiKhoan = txtTenTaiKhoan.Text.Trim();
+
+            if (string.IsNullOrEmpty(tenTaiKhoan))
+            {
+                MessageBox.Show("Vui lòng nhập tên tài khoản!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Gửi lại yêu cầu OTP
+            string goiTin = $"FORGOT_PASSWORD|{tenTaiKhoan}";
+            NetworkClient.Instance.Send(goiTin);
+
+            MessageBox.Show("Đang gửi lại mã OTP...", "Thông báo",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            txtMatKhauMoi.PasswordChar = checkBox1.Checked ? '\0' : '●';
+            txtXacNhanMatKhau.PasswordChar = checkBox1.Checked ? '\0' : '●';
+        }
     }
 }

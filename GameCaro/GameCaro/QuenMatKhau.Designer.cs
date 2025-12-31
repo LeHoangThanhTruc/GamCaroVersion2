@@ -43,26 +43,27 @@
             this.txtMatKhauMoi = new System.Windows.Forms.TextBox();
             this.lblMKMoi = new System.Windows.Forms.Label();
             this.btnQuayLai = new System.Windows.Forms.Button();
+            this.lnkGuiLaiOTP = new System.Windows.Forms.LinkLabel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panelOTP.SuspendLayout();
             this.panelDoiMatKhau.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtTenTaiKhoan
             // 
-            this.txtTenTaiKhoan.Location = new System.Drawing.Point(112, 54);
-            this.txtTenTaiKhoan.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtTenTaiKhoan.Location = new System.Drawing.Point(149, 66);
+            this.txtTenTaiKhoan.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtTenTaiKhoan.Name = "txtTenTaiKhoan";
-            this.txtTenTaiKhoan.Size = new System.Drawing.Size(151, 20);
+            this.txtTenTaiKhoan.Size = new System.Drawing.Size(200, 22);
             this.txtTenTaiKhoan.TabIndex = 0;
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(75, 16);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTitle.Location = new System.Drawing.Point(100, 20);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(177, 26);
+            this.lblTitle.Size = new System.Drawing.Size(225, 32);
             this.lblTitle.TabIndex = 1;
             this.lblTitle.Text = "Quên Mật Khẩu";
             // 
@@ -70,19 +71,18 @@
             // 
             this.lblTaiKhoan.AutoSize = true;
             this.lblTaiKhoan.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTaiKhoan.Location = new System.Drawing.Point(9, 54);
-            this.lblTaiKhoan.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTaiKhoan.Location = new System.Drawing.Point(12, 66);
             this.lblTaiKhoan.Name = "lblTaiKhoan";
-            this.lblTaiKhoan.Size = new System.Drawing.Size(99, 17);
+            this.lblTaiKhoan.Size = new System.Drawing.Size(114, 20);
             this.lblTaiKhoan.TabIndex = 2;
             this.lblTaiKhoan.Text = "Tên tài khoản:";
             // 
             // btnGuiOTP
             // 
-            this.btnGuiOTP.Location = new System.Drawing.Point(112, 81);
-            this.btnGuiOTP.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGuiOTP.Location = new System.Drawing.Point(149, 100);
+            this.btnGuiOTP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnGuiOTP.Name = "btnGuiOTP";
-            this.btnGuiOTP.Size = new System.Drawing.Size(75, 24);
+            this.btnGuiOTP.Size = new System.Drawing.Size(100, 30);
             this.btnGuiOTP.TabIndex = 3;
             this.btnGuiOTP.Text = "Gửi OTP";
             this.btnGuiOTP.UseVisualStyleBackColor = true;
@@ -91,22 +91,23 @@
             // panelOTP
             // 
             this.panelOTP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelOTP.Controls.Add(this.lnkGuiLaiOTP);
             this.panelOTP.Controls.Add(this.btnXacThucOTP);
             this.panelOTP.Controls.Add(this.txtOTP);
             this.panelOTP.Controls.Add(this.lblOTP);
-            this.panelOTP.Location = new System.Drawing.Point(22, 114);
-            this.panelOTP.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelOTP.Location = new System.Drawing.Point(29, 140);
+            this.panelOTP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelOTP.Name = "panelOTP";
-            this.panelOTP.Size = new System.Drawing.Size(256, 65);
+            this.panelOTP.Size = new System.Drawing.Size(341, 80);
             this.panelOTP.TabIndex = 4;
             this.panelOTP.Visible = false;
             // 
             // btnXacThucOTP
             // 
-            this.btnXacThucOTP.Location = new System.Drawing.Point(90, 37);
-            this.btnXacThucOTP.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnXacThucOTP.Location = new System.Drawing.Point(120, 46);
+            this.btnXacThucOTP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnXacThucOTP.Name = "btnXacThucOTP";
-            this.btnXacThucOTP.Size = new System.Drawing.Size(75, 24);
+            this.btnXacThucOTP.Size = new System.Drawing.Size(100, 30);
             this.btnXacThucOTP.TabIndex = 2;
             this.btnXacThucOTP.Text = "Xác thực";
             this.btnXacThucOTP.UseVisualStyleBackColor = true;
@@ -114,43 +115,43 @@
             // 
             // txtOTP
             // 
-            this.txtOTP.Location = new System.Drawing.Point(90, 10);
-            this.txtOTP.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtOTP.Location = new System.Drawing.Point(120, 12);
+            this.txtOTP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtOTP.Name = "txtOTP";
-            this.txtOTP.Size = new System.Drawing.Size(114, 20);
+            this.txtOTP.Size = new System.Drawing.Size(151, 22);
             this.txtOTP.TabIndex = 1;
             // 
             // lblOTP
             // 
             this.lblOTP.AutoSize = true;
-            this.lblOTP.Location = new System.Drawing.Point(8, 12);
-            this.lblOTP.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblOTP.Location = new System.Drawing.Point(11, 15);
             this.lblOTP.Name = "lblOTP";
-            this.lblOTP.Size = new System.Drawing.Size(50, 13);
+            this.lblOTP.Size = new System.Drawing.Size(60, 16);
             this.lblOTP.TabIndex = 0;
             this.lblOTP.Text = "Mã OTP:";
             // 
             // panelDoiMatKhau
             // 
             this.panelDoiMatKhau.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelDoiMatKhau.Controls.Add(this.checkBox1);
             this.panelDoiMatKhau.Controls.Add(this.btnDoiMatKhau);
             this.panelDoiMatKhau.Controls.Add(this.txtXacNhanMatKhau);
             this.panelDoiMatKhau.Controls.Add(this.lblXacNhan);
             this.panelDoiMatKhau.Controls.Add(this.txtMatKhauMoi);
             this.panelDoiMatKhau.Controls.Add(this.lblMKMoi);
-            this.panelDoiMatKhau.Location = new System.Drawing.Point(22, 187);
-            this.panelDoiMatKhau.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelDoiMatKhau.Location = new System.Drawing.Point(29, 230);
+            this.panelDoiMatKhau.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelDoiMatKhau.Name = "panelDoiMatKhau";
-            this.panelDoiMatKhau.Size = new System.Drawing.Size(256, 98);
+            this.panelDoiMatKhau.Size = new System.Drawing.Size(341, 120);
             this.panelDoiMatKhau.TabIndex = 5;
             this.panelDoiMatKhau.Visible = false;
             // 
             // btnDoiMatKhau
             // 
-            this.btnDoiMatKhau.Location = new System.Drawing.Point(90, 65);
-            this.btnDoiMatKhau.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDoiMatKhau.Location = new System.Drawing.Point(120, 80);
+            this.btnDoiMatKhau.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDoiMatKhau.Name = "btnDoiMatKhau";
-            this.btnDoiMatKhau.Size = new System.Drawing.Size(90, 24);
+            this.btnDoiMatKhau.Size = new System.Drawing.Size(120, 30);
             this.btnDoiMatKhau.TabIndex = 4;
             this.btnDoiMatKhau.Text = "Đổi mật khẩu";
             this.btnDoiMatKhau.UseVisualStyleBackColor = true;
@@ -158,58 +159,78 @@
             // 
             // txtXacNhanMatKhau
             // 
-            this.txtXacNhanMatKhau.Location = new System.Drawing.Point(90, 38);
-            this.txtXacNhanMatKhau.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtXacNhanMatKhau.Location = new System.Drawing.Point(120, 47);
+            this.txtXacNhanMatKhau.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtXacNhanMatKhau.Name = "txtXacNhanMatKhau";
             this.txtXacNhanMatKhau.PasswordChar = '●';
-            this.txtXacNhanMatKhau.Size = new System.Drawing.Size(151, 20);
+            this.txtXacNhanMatKhau.Size = new System.Drawing.Size(200, 22);
             this.txtXacNhanMatKhau.TabIndex = 3;
             // 
             // lblXacNhan
             // 
             this.lblXacNhan.AutoSize = true;
-            this.lblXacNhan.Location = new System.Drawing.Point(8, 41);
-            this.lblXacNhan.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblXacNhan.Location = new System.Drawing.Point(11, 50);
             this.lblXacNhan.Name = "lblXacNhan";
-            this.lblXacNhan.Size = new System.Drawing.Size(75, 13);
+            this.lblXacNhan.Size = new System.Drawing.Size(87, 16);
             this.lblXacNhan.TabIndex = 2;
             this.lblXacNhan.Text = "Xác nhận MK:";
             // 
             // txtMatKhauMoi
             // 
-            this.txtMatKhauMoi.Location = new System.Drawing.Point(90, 10);
-            this.txtMatKhauMoi.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtMatKhauMoi.Location = new System.Drawing.Point(120, 12);
+            this.txtMatKhauMoi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtMatKhauMoi.Name = "txtMatKhauMoi";
             this.txtMatKhauMoi.PasswordChar = '●';
-            this.txtMatKhauMoi.Size = new System.Drawing.Size(151, 20);
+            this.txtMatKhauMoi.Size = new System.Drawing.Size(200, 22);
             this.txtMatKhauMoi.TabIndex = 1;
             // 
             // lblMKMoi
             // 
             this.lblMKMoi.AutoSize = true;
-            this.lblMKMoi.Location = new System.Drawing.Point(8, 12);
-            this.lblMKMoi.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMKMoi.Location = new System.Drawing.Point(11, 15);
             this.lblMKMoi.Name = "lblMKMoi";
-            this.lblMKMoi.Size = new System.Drawing.Size(74, 13);
+            this.lblMKMoi.Size = new System.Drawing.Size(89, 16);
             this.lblMKMoi.TabIndex = 0;
             this.lblMKMoi.Text = "Mật khẩu mới:";
             // 
             // btnQuayLai
             // 
-            this.btnQuayLai.Location = new System.Drawing.Point(112, 301);
-            this.btnQuayLai.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnQuayLai.Location = new System.Drawing.Point(149, 370);
+            this.btnQuayLai.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnQuayLai.Name = "btnQuayLai";
-            this.btnQuayLai.Size = new System.Drawing.Size(75, 24);
+            this.btnQuayLai.Size = new System.Drawing.Size(100, 30);
             this.btnQuayLai.TabIndex = 6;
             this.btnQuayLai.Text = "Back";
             this.btnQuayLai.UseVisualStyleBackColor = true;
             this.btnQuayLai.Click += new System.EventHandler(this.btnQuayLai_Click);
             // 
+            // lnkGuiLaiOTP
+            // 
+            this.lnkGuiLaiOTP.AutoSize = true;
+            this.lnkGuiLaiOTP.Location = new System.Drawing.Point(249, 53);
+            this.lnkGuiLaiOTP.Name = "lnkGuiLaiOTP";
+            this.lnkGuiLaiOTP.Size = new System.Drawing.Size(58, 16);
+            this.lnkGuiLaiOTP.TabIndex = 4;
+            this.lnkGuiLaiOTP.TabStop = true;
+            this.lnkGuiLaiOTP.Text = "Resend ";
+            this.lnkGuiLaiOTP.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkGuiLaiOTP_LinkClicked);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(252, 80);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(60, 20);
+            this.checkBox1.TabIndex = 8;
+            this.checkBox1.Text = "show";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // QuenMatKhau
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(286, 327);
+            this.ClientSize = new System.Drawing.Size(381, 402);
             this.Controls.Add(this.btnQuayLai);
             this.Controls.Add(this.panelDoiMatKhau);
             this.Controls.Add(this.panelOTP);
@@ -218,7 +239,7 @@
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.txtTenTaiKhoan);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "QuenMatKhau";
@@ -252,5 +273,7 @@
         private System.Windows.Forms.Label lblXacNhan;
         private System.Windows.Forms.TextBox txtMatKhauMoi;
         private System.Windows.Forms.Button btnQuayLai;
+        private System.Windows.Forms.LinkLabel lnkGuiLaiOTP;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
