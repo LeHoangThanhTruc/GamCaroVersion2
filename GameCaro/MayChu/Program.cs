@@ -227,19 +227,19 @@ namespace MayChu
                         continue;
                     }
 
-                    // 17) FORGOT_PASSWORD_SETTING - Quên mật khẩu từ settings
-                    if (message.StartsWith("FORGOT_PASSWORD_SETTING|"))
-                    {
-                        XuLyQuenMatKhauTuSetting(client, message);
-                        continue;
-                    }
+                    //// 17) FORGOT_PASSWORD_SETTING - Quên mật khẩu từ settings
+                    //if (message.StartsWith("FORGOT_PASSWORD_SETTING|"))
+                    //{
+                    //    XuLyQuenMatKhauTuSetting(client, message);
+                    //    continue;
+                    //}
 
-                    // 18) RESEND_RESET_OTP - Gửi lại OTP reset password
-                    if (message.StartsWith("RESEND_RESET_OTP|"))
-                    {
-                        XuLyGuiLaiResetOTP(client, message);
-                        continue;
-                    }
+                    //// 18) RESEND_RESET_OTP - Gửi lại OTP reset password
+                    //if (message.StartsWith("RESEND_RESET_OTP|"))
+                    //{
+                    //    XuLyGuiLaiResetOTP(client, message);
+                    //    continue;
+                    //}
 
                     // Các message khác (chat, đánh cờ...) => broadcast
                     // Gửi lại tin nhắn cho tất cả các client khác
@@ -1530,128 +1530,6 @@ namespace MayChu
                 Console.WriteLine($"ERROR CHANGE_PASSWORD: {ex.Message}");
                 Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 SendToClient(client, "CHANGE_PASSWORD_FAIL|SERVER_ERROR");
-            }
-        }
-
-        void XuLyQuenMatKhauTuSetting(Socket client, string message)
-        {
-            try
-            {
-                // Format: FORGOT_PASSWORD_SETTING|IDUser
-                string[] parts = message.Split('|');
-                if (parts.Length != 2)
-                {
-                    client.Send(Encoding.UTF8.GetBytes("ERROR|Sai định dạng"));
-                    return;
-                }
-
-                string userId = parts[1];
-
-                // Lấy thông tin user
-                var result = firebaseClient.Get($"Users/{userId}");
-                if (result.Body == "null")
-                {
-                    client.Send(Encoding.UTF8.GetBytes("FORGOT_PASSWORD_FAIL|USER_NOT_FOUND"));
-                    return;
-                }
-
-                var userData = result.ResultAs<GoiTinDangKy>();
-                string email = userData.Gmail;
-
-                // Tạo mã OTP
-                string maOTP = new Random().Next(100000, 999999).ToString();
-
-                // Lưu vào Firebase
-                firebaseClient.Set($"PasswordResetCodes/{userId}", new
-                {
-                    Code = maOTP,
-                    Email = email,
-                    TenTaiKhoan = userData.TenTaiKhoan,
-                    CreatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                    ExpiryMinutes = 10
-                });
-
-                // Gửi email
-                GuiEmailResetPassword(email, maOTP, userData.TenTaiKhoan);
-
-                client.Send(Encoding.UTF8.GetBytes($"FORGOT_PASSWORD_OK|{userId}"));
-                Console.WriteLine($"Đã gửi OTP đổi mật khẩu đến {email}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ERROR FORGOT_PASSWORD_SETTING: " + ex.Message);
-                client.Send(Encoding.UTF8.GetBytes("FORGOT_PASSWORD_FAIL|SERVER_ERROR"));
-            }
-        }
-
-        void XuLyGuiLaiResetOTP(Socket client, string message)
-        {
-            try
-            {
-                // Format: RESEND_RESET_OTP|IDUser
-                string[] parts = message.Split('|');
-                if (parts.Length != 2)
-                {
-                    client.Send(Encoding.UTF8.GetBytes("ERROR|Sai định dạng"));
-                    return;
-                }
-
-                string userId = parts[1];
-
-                // Lấy thông tin user
-                var userResult = firebaseClient.Get($"Users/{userId}");
-                if (userResult.Body == "null")
-                {
-                    client.Send(Encoding.UTF8.GetBytes("RESEND_RESET_OTP_FAIL|USER_NOT_FOUND"));
-                    return;
-                }
-
-                var userData = userResult.ResultAs<GoiTinDangKy>();
-                string email = userData.Gmail;
-
-                // Tạo mã OTP mới
-                string maOTPMoi = new Random().Next(100000, 999999).ToString();
-
-                // Cập nhật trong Firebase
-                firebaseClient.Set($"PasswordResetCodes/{userId}", new
-                {
-                    Code = maOTPMoi,
-                    Email = email,
-                    TenTaiKhoan = userData.TenTaiKhoan,
-                    CreatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                    ExpiryMinutes = 10
-                });
-
-                // Gửi email
-                GuiEmailResetPassword(email, maOTPMoi, userData.TenTaiKhoan);
-
-                client.Send(Encoding.UTF8.GetBytes("RESEND_RESET_OTP_OK"));
-                Console.WriteLine($"Đã gửi lại OTP reset đến {email}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ERROR RESEND_RESET_OTP: " + ex.Message);
-                client.Send(Encoding.UTF8.GetBytes("RESEND_RESET_OTP_FAIL|SERVER_ERROR"));
-            }
-        }
-
-        void SendHelper(Socket client, string message)
-        {
-            if (client == null || !client.Connected)
-            {
-                Console.WriteLine($"Cannot send: client disconnected");
-                return;
-            }
-
-            try
-            {
-                byte[] data = Encoding.UTF8.GetBytes(message);
-                client.Send(data);
-                Console.WriteLine($"Sent to client: {message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error sending message: {ex.Message}");
             }
         }
 

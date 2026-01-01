@@ -13,8 +13,8 @@ namespace GameCaro
     public partial class FormDoiMatKhau : Form
     {
         private string userId;
-        private bool useOTPMethod = false;
-        private bool otpVerified = false;
+        //private bool useOTPMethod = false;
+        //private bool otpVerified = false;
         public FormDoiMatKhau(string id)
         {
             InitializeComponent();
@@ -26,36 +26,36 @@ namespace GameCaro
             NetworkClient.OnMessageReceived -= XuLyPhanHoi;
             NetworkClient.OnMessageReceived += XuLyPhanHoi;
 
-            UpdateUIMode();
+            //UpdateUIMode();
         }
 
-        private void UpdateUIMode()
-        {
-            if (useOTPMethod)
-            {
-                // Chế độ OTP - không cần mật khẩu hiện tại
-                lblMatKhauHienTai.Visible = false;
-                txtMatKhauHienTai.Visible = false;
-                lnkQuenMatKhau.Visible = false;
+        //private void UpdateUIMode()
+        //{
+        //    if (useOTPMethod)
+        //    {
+        //        // Chế độ OTP - không cần mật khẩu hiện tại
+        //        lblMatKhauHienTai.Visible = false;
+        //        txtMatKhauHienTai.Visible = false;
+        //        lnkQuenMatKhau.Visible = false;
 
-                if (otpVerified)
-                {
-                    lblTitle.Text = "Đặt Mật Khẩu Mới";
-                }
-                else
-                {
-                    lblTitle.Text = "Đang Xác Thực OTP...";
-                }
-            }
-            else
-            {
-                // Chế độ bình thường - cần mật khẩu hiện tại
-                lblMatKhauHienTai.Visible = true;
-                txtMatKhauHienTai.Visible = true;
-                lnkQuenMatKhau.Visible = true;
-                lblTitle.Text = "Đổi Mật Khẩu";
-            }
-        }
+        //        if (otpVerified)
+        //        {
+        //            lblTitle.Text = "Đặt Mật Khẩu Mới";
+        //        }
+        //        else
+        //        {
+        //            lblTitle.Text = "Đang Xác Thực OTP...";
+        //        }
+        //    }
+        //    else
+        //    {
+        //        // Chế độ bình thường - cần mật khẩu hiện tại
+        //        lblMatKhauHienTai.Visible = true;
+        //        txtMatKhauHienTai.Visible = true;
+        //        lnkQuenMatKhau.Visible = true;
+        //        lblTitle.Text = "Đổi Mật Khẩu";
+        //    }
+        //}
 
         private void XuLyPhanHoi(string msg)
         {
@@ -121,29 +121,60 @@ namespace GameCaro
                     }
                 }));
             }
-            else if (msg.StartsWith("FORGOT_PASSWORD_OK|"))
-            {
-                string tempUserId = msg.Split('|')[1];
+            //else if (msg.StartsWith("FORGOT_PASSWORD_OK|"))
+            //{
+            //    string tempUserId = msg.Split('|')[1];
 
-                this.Invoke(new Action(() =>
-                {
-                    MessageBox.Show("Đã gửi mã OTP đến email của bạn!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    this.Invoke(new Action(() =>
+            //    {
+            //        MessageBox.Show("Đã gửi mã OTP đến email của bạn!", "Thông báo",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // Mở form xác thực OTP
-                    FormXacThucOTPDoiMK formOTP = new FormXacThucOTPDoiMK(tempUserId);
-                    DialogResult result = formOTP.ShowDialog();
+            //        // Mở form xác thực OTP
+            //        FormXacThucOTPDoiMK formOTP = new FormXacThucOTPDoiMK(tempUserId);
+            //        DialogResult result = formOTP.ShowDialog();
 
-                    if (result == DialogResult.OK)
-                    {
-                        // OTP xác thực thành công
-                        useOTPMethod = true;
-                        otpVerified = true;
-                        UpdateUIMode();
-                        txtMatKhauMoi.Focus();
-                    }
-                }));
-            }
+            //        if (result == DialogResult.OK)
+            //        {
+            //            MessageBox.Show("Xác thực OTP thành công!\nBạn có thể đặt mật khẩu mới.", "Thành công",
+            //        MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //            // OTP xác thực thành công
+            //            useOTPMethod = true;
+            //            otpVerified = true;
+            //            UpdateUIMode();
+            //            txtMatKhauMoi.Focus();
+            //        }
+            //    }));
+            //}
+
+            //// ✅ THÊM XỬ LÝ RESET_PASSWORD_OK (khi đổi mật khẩu qua OTP)
+            //else if (msg.StartsWith("RESET_PASSWORD_OK"))
+            //{
+            //    this.Invoke(new Action(() =>
+            //    {
+            //        // Đăng xuất và quay về form đăng nhập
+            //        NetworkClient.Instance.Send($"LOGOUT|{userId}");
+            //        SessionManager.Instance.ClearSession();
+
+            //        MessageBox.Show("Đổi mật khẩu thành công!\nVui lòng đăng nhập lại.", "Thành công",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //        // Set DialogResult để form CaiDat biết phải đóng
+            //        this.DialogResult = DialogResult.OK;
+            //        this.Close();
+            //    }));
+            //}
+            //else if (msg.StartsWith("RESET_PASSWORD_FAIL"))
+            //{
+            //    this.Invoke(new Action(() =>
+            //    {
+            //        btnDoiMatKhau.Enabled = true;
+            //        btnDoiMatKhau.Text = "Đổi mật khẩu";
+            //        MessageBox.Show("Đổi mật khẩu thất bại!", "Lỗi",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }));
+            //}
+
         }
 
         private void btnDoiMatKhau_Click(object sender, EventArgs e)
@@ -177,11 +208,11 @@ namespace GameCaro
                 return;
             }
 
-            if (useOTPMethod && otpVerified)
-            {
-                // Đổi mật khẩu qua OTP (không cần mật khẩu cũ)
-                NetworkClient.Instance.Send($"RESET_PASSWORD|{userId}|{matKhauMoi}");
-            }
+            //if (useOTPMethod && otpVerified)
+            //{
+            //    // Đổi mật khẩu qua OTP (không cần mật khẩu cũ)
+            //    NetworkClient.Instance.Send($"RESET_PASSWORD|{userId}|{matKhauMoi}");
+            //}
             else
             {
                 // Đổi mật khẩu bình thường (cần mật khẩu cũ)
@@ -207,21 +238,21 @@ namespace GameCaro
             this.Close();
         }
 
-        private void lnkQuenMatKhau_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            DialogResult result = MessageBox.Show(
-                "Bạn sẽ nhận mã OTP qua email để đổi mật khẩu.\nTiếp tục?",
-                "Xác nhận",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
+        //private void lnkQuenMatKhau_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        //{
+        //    DialogResult result = MessageBox.Show(
+        //        "Bạn sẽ nhận mã OTP qua email để đổi mật khẩu.\nTiếp tục?",
+        //        "Xác nhận",
+        //        MessageBoxButtons.YesNo,
+        //        MessageBoxIcon.Question
+        //    );
 
-            if (result == DialogResult.Yes)
-            {
-                // Gửi yêu cầu OTP qua hệ thống quên mật khẩu
-                NetworkClient.Instance.Send($"FORGOT_PASSWORD_SETTING|{userId}");
-            }
-        }
+        //    if (result == DialogResult.Yes)
+        //    {
+        //        // Gửi yêu cầu OTP qua hệ thống quên mật khẩu
+        //        NetworkClient.Instance.Send($"FORGOT_PASSWORD_SETTING|{userId}");
+        //    }
+        //}
 
         private void ckHienMatKhau_CheckedChanged(object sender, EventArgs e)
         {
