@@ -556,24 +556,29 @@ namespace MayChu
         {
             try
             {
+                Console.WriteLine($"[SERVER] Nhận VERIFY_RESET_OTP: {message}");
+
                 // Format: VERIFY_RESET_OTP|IDUser|123456
                 string[] parts = message.Split('|');
                 if (parts.Length != 3)
                 {
-                    client.Send(Encoding.UTF8.GetBytes("ERROR|Sai định dạng"));
+                    Console.WriteLine($"[SERVER] Sai định dạng");
+                    SendToClient(client, "ERROR|Sai định dạng");
                     return;
                 }
 
                 string idUser = parts[1];
                 string maOTP = parts[2];
 
+                Console.WriteLine($"[SERVER] Kiểm tra OTP cho user: {idUser}, mã: {maOTP}");
+
                 // Lấy mã OTP từ Firebase
                 var result = firebaseClient.Get($"PasswordResetCodes/{idUser}");
 
                 if (result.Body == "null")
                 {
-                    client.Send(Encoding.UTF8.GetBytes("VERIFY_RESET_FAIL|MA_KHONG_TON_TAI"));
-                    Console.WriteLine($"Không tìm thấy mã reset cho {idUser}");
+                    Console.WriteLine($"[SERVER] Không tìm thấy mã reset");
+                    SendToClient(client, "VERIFY_RESET_FAIL|MA_KHONG_TON_TAI");
                     return;
                 }
 
@@ -582,31 +587,34 @@ namespace MayChu
                 DateTime createdAt = DateTime.Parse(resetData["CreatedAt"]);
                 int expiryMinutes = int.Parse(resetData["ExpiryMinutes"]);
 
+                Console.WriteLine($"[SERVER] Mã đúng: {maDung}, thời gian tạo: {createdAt}");
+
                 // Kiểm tra hết hạn
                 if (DateTime.Now > createdAt.AddMinutes(expiryMinutes))
                 {
-                    client.Send(Encoding.UTF8.GetBytes("VERIFY_RESET_FAIL|MA_HET_HAN"));
+                    Console.WriteLine($"[SERVER] Mã đã hết hạn");
+                    SendToClient(client, "VERIFY_RESET_FAIL|MA_HET_HAN");
                     firebaseClient.Delete($"PasswordResetCodes/{idUser}");
-                    Console.WriteLine($"Mã reset của {idUser} đã hết hạn.");
                     return;
                 }
 
                 // Kiểm tra mã OTP
                 if (maOTP != maDung)
                 {
-                    client.Send(Encoding.UTF8.GetBytes("VERIFY_RESET_FAIL|MA_SAI"));
-                    Console.WriteLine($"Mã OTP sai cho {idUser}");
+                    Console.WriteLine($"[SERVER] Mã sai");
+                    SendToClient(client, "VERIFY_RESET_FAIL|MA_SAI");
                     return;
                 }
 
                 // Xác thực thành công
-                client.Send(Encoding.UTF8.GetBytes("VERIFY_RESET_OK"));
-                Console.WriteLine($"Xác thực mã reset thành công cho {idUser}");
+                Console.WriteLine($"[SERVER] Xác thực thành công cho {idUser}");
+                SendToClient(client, "VERIFY_RESET_OK");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("ERROR VERIFY_RESET_OTP: " + ex.Message);
-                client.Send(Encoding.UTF8.GetBytes("ERROR|Lỗi xử lý"));
+                Console.WriteLine("[SERVER] ERROR VERIFY_RESET_OTP: " + ex.Message);
+                Console.WriteLine("[SERVER] Stack: " + ex.StackTrace);
+                SendToClient(client, "ERROR|Lỗi xử lý");
             }
         }
 
@@ -1352,7 +1360,7 @@ namespace MayChu
                 }
 
                 client.Send(Encoding.UTF8.GetBytes($"USER_INFO|{fieldType}|{fieldValue}"));
-                Console.WriteLine($"✅ Đã gửi thông tin {fieldType} cho {userId}");
+                Console.WriteLine($"Đã gửi thông tin {fieldType} cho {userId}");
             }
             catch (Exception ex)
             {
@@ -1451,7 +1459,7 @@ namespace MayChu
                 string[] parts = message.Split('|');
                 if (parts.Length != 4)
                 {
-                    client.Send(Encoding.UTF8.GetBytes("ERROR|Sai định dạng"));
+                    SendToClient(client, "ERROR|Sai định dạng");
                     return;
                 }
 
@@ -1465,7 +1473,7 @@ namespace MayChu
                 var result = firebaseClient.Get($"Users/{userId}");
                 if (result.Body == "null")
                 {
-                    client.Send(Encoding.UTF8.GetBytes("CHANGE_PASSWORD_FAIL|USER_NOT_FOUND"));
+                    SendToClient(client, "CHANGE_PASSWORD_FAIL|USER_NOT_FOUND");
                     Console.WriteLine($"User {userId} không tồn tại");
                     return;
                 }
@@ -1485,13 +1493,13 @@ namespace MayChu
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Lỗi verify password: {ex.Message}");
-                    Send(client, "CHANGE_PASSWORD_FAIL|SERVER_ERROR");
+                    SendToClient(client, "CHANGE_PASSWORD_FAIL|SERVER_ERROR");
                     return;
                 }
 
                 if (!isValid)
                 {
-                    Send(client, "CHANGE_PASSWORD_FAIL|SAI_MAT_KHAU_HIEN_TAI");
+                    SendToClient(client, "CHANGE_PASSWORD_FAIL|SAI_MAT_KHAU_HIEN_TAI");
                     Console.WriteLine($"Mật khẩu hiện tại không đúng");
                     return;
                 }
@@ -1514,45 +1522,15 @@ namespace MayChu
                     activeSessions.Remove(userId);
                 }
 
-                Send(client, "CHANGE_PASSWORD_OK");
+                SendToClient(client, "CHANGE_PASSWORD_OK");
                 Console.WriteLine($"Đã đổi mật khẩu thành công cho {userId}");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"ERROR CHANGE_PASSWORD: {ex.Message}");
                 Console.WriteLine($"Stack trace: {ex.StackTrace}");
-                Send(client, "CHANGE_PASSWORD_FAIL|SERVER_ERROR");
+                SendToClient(client, "CHANGE_PASSWORD_FAIL|SERVER_ERROR");
             }
-
-            //    if (!PasswordHasher.VerifyPassword(matKhauHienTai, userData.MatKhau))
-            //    {
-            //        client.Send(Encoding.UTF8.GetBytes("CHANGE_PASSWORD_FAIL|SAI_MAT_KHAU_HIEN_TAI"));
-            //        Console.WriteLine($"Mật khẩu hiện tại không đúng");
-            //        return;
-            //    }
-
-            //    // Mã hóa mật khẩu mới
-            //    Console.WriteLine($"[CHANGE_PWD] Đang mã hóa mật khẩu mới...");
-            //    string matKhauMoiDaMaHoa = PasswordHasher.HashPassword(matKhauMoi);
-
-            //    // Cập nhật mật khẩu mới
-            //    firebaseClient.Update($"Users/{userId}", new { MatKhau = matKhauMoiDaMaHoa });
-
-            //    // Xóa session hiện tại (bắt người dùng đăng nhập lại)
-            //    firebaseClient.Delete($"Sessions/{userId}");
-            //    if (activeSessions.ContainsKey(userId))
-            //    {
-            //        activeSessions.Remove(userId);
-            //    }
-
-            //    client.Send(Encoding.UTF8.GetBytes("CHANGE_PASSWORD_OK"));
-            //    Console.WriteLine($"Đã đổi mật khẩu cho {userId}");
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine("ERROR CHANGE_PASSWORD: " + ex.Message);
-            //    client.Send(Encoding.UTF8.GetBytes("CHANGE_PASSWORD_FAIL|SERVER_ERROR"));
-            //}
         }
 
         void XuLyQuenMatKhauTuSetting(Socket client, string message)

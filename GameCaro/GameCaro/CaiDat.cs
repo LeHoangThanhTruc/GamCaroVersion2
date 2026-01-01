@@ -64,17 +64,30 @@ namespace GameCaro
             if (result == DialogResult.OK)
             {
                 // Đổi mật khẩu thành công - đóng tất cả form và quay về đăng nhập
+                this.Close();
+
+                // Tìm và đóng form GiaoDienChung
                 foreach (Form form in Application.OpenForms.Cast<Form>().ToList())
                 {
-                    if (!(form is DangNhap))
+                    if (form is GiaoDienChung)
                     {
                         form.Close();
+                        break;
                     }
                 }
 
                 // Mở form đăng nhập
-                DangNhap loginForm = new DangNhap();
-                loginForm.Show();
+                DangNhap loginForm = Application.OpenForms.OfType<DangNhap>().FirstOrDefault();
+                if (loginForm == null)
+                {
+                    loginForm = new DangNhap();
+                    loginForm.Show();
+                }
+                else
+                {
+                    loginForm.Show();
+                    loginForm.BringToFront();
+                }
             }
             else
             {
