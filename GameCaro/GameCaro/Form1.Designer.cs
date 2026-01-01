@@ -205,8 +205,8 @@
             // picAvartar
             // 
             this.picAvartar.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.picAvartar.BackgroundImage = global::GameCaro.Properties.Resources.avartaCaro;
-            this.picAvartar.Image = global::GameCaro.Properties.Resources.avartaCaro;
+
+
             this.picAvartar.Location = new System.Drawing.Point(0, 0);
             this.picAvartar.Name = "picAvartar";
             this.picAvartar.Size = new System.Drawing.Size(379, 341);

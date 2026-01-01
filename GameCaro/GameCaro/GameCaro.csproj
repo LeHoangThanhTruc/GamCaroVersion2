@@ -239,13 +239,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\DauXXoaNen.png" />
+    <None Include="Resources\X_Black.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\avartaCaro.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\dauOxoaNen.png" />
+    <None Include="Resources\O_Black.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

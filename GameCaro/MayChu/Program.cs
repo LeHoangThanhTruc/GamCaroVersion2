@@ -24,11 +24,13 @@ namespace MayChu
         static List<(Socket socket, string userId)> waitingList = new List<(Socket, string)>();
         object matchLock = new object();
         Dictionary<string, Socket> clientMap = new Dictionary<string, Socket>();
-
+        //Danh sách phòng đang chơi
+        static Dictionary<string, GameRoom> rooms = new Dictionary<string, GameRoom>();
+        object roomLock = new object();
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Server dang ket noi...281");
+            Console.WriteLine("Server dang ket noi...90");
             Program server = new Program();
             //Khởi tạo cấu hình Firebase
             IFirebaseConfig config = new FirebaseConfig
@@ -47,6 +49,8 @@ namespace MayChu
 
 
         }
+
+
         void Connect()
         {
             clientList = new List<Socket>();
@@ -81,24 +85,7 @@ namespace MayChu
             Console.ReadLine();
         }
 
-        //Hàm này để test thử kết nối giữa server, firebase và gửi dữ liệu về client
-        async void LuuDuLieuDangChuoiXuongDatabaseVaGuiDi(Socket client)
-        {
-            string message = "Hello from C# server! Lan 246";
-            var postData = new Dictionary<string, string>
-            {
-                { "Question",message},
-            };
-
-
-
-            FirebaseResponse response = await firebaseClient.UpdateAsync($"test", postData);
-            // Lấy toàn bộ node test
-            var res = firebaseClient.Get("test");
-
-            // Gửi về client
-            SendToClient(client, res.Body);
-        }
+       
         void SendToClient(Socket client, string msg)
         {
             byte[] data = Encoding.UTF8.GetBytes(msg);
@@ -205,7 +192,19 @@ namespace MayChu
                         XuLyDangXuat(client, message);
                         continue;
                     }
-
+                    // 12) CREATE_CARO_ROOM
+                    if (message.StartsWith("CREATE_CARO_ROOM|"))
+                    {
+                        XuLyTaoPhongCaro(client, message);
+                        continue;
+                    }
+                    // 13) MOVE (đánh cờ)
+                    if (message.StartsWith("MOVE|"))
+                    {
+                        string[] parts = message.Split('|');
+                        HandleMove(client, parts);
+                        continue;
+                    }
                     // Các message khác (chat, đánh cờ...) => broadcast
                     // Gửi lại tin nhắn cho tất cả các client khác
                     foreach (var c in clientList)
@@ -226,7 +225,228 @@ namespace MayChu
                 }
             }
         }
+        void HandleMove(Socket client, string[] parts)
+        {
+            string roomId = parts[1];
+            string userId = parts[2];
+            int row = int.Parse(parts[3]);
+            int col = int.Parse(parts[4]);
 
+            GameRoom room;
+
+            lock (roomLock)
+            {
+                if (!rooms.ContainsKey(roomId))
+                    return;
+
+                room = rooms[roomId];
+
+                // Không đúng lượt
+                if (room.CurrentTurn != userId)
+                    return;
+
+                // Ô đã đánh
+                if (room.Board[row, col] != 0)
+                    return;
+
+                // Ghi bàn cờ
+                room.Board[row, col] =
+                    (userId == room.FirstPlayer) ? 1 : 2;
+
+                // Đổi lượt
+                room.CurrentTurn =
+                    (userId == room.FirstPlayer)
+                        ? room.SecondPlayer
+                        : room.FirstPlayer;
+            }
+
+            // Gửi lại cho người đánh
+            SendToUser(userId,
+                $"MOVE_OK|{roomId}|{row}|{col}");
+
+            // Gửi cho đối thủ
+            string opponent =
+                (userId == room.FirstPlayer)
+                    ? room.SecondPlayer
+                    : room.FirstPlayer;
+
+            SendToUser(opponent,
+                $"OPPONENT_MOVE|{roomId}|{row}|{col}");
+
+            // TODO: check thắng ở đây
+        }
+        void SendToUser(string userId, string msg)
+        {
+            if (!clientMap.ContainsKey(userId)) return;
+
+            Socket s = clientMap[userId];
+            byte[] data = Encoding.UTF8.GetBytes(msg);
+            s.Send(data);
+        }
+
+        static void EnsureGameCaroRoomParent()
+        {
+            FirebaseResponse response = firebaseClient.Get("GameCaroRoom");
+
+            if (response.Body == "null")
+            {
+                // Tạo node parent rỗng
+                firebaseClient.Set("GameCaroRoom", new object());
+                Console.WriteLine("Created GameCaroRoom parent node");
+            }
+        }
+        
+        static void CreateRoomInFirebase(string roomId,string firstPlayer,string secondPlayer)
+        {
+            var roomData = new
+            {
+                IDFirstPlayer = firstPlayer,
+                IDSecondPlayer = secondPlayer,
+                Winner = "",   // nên để chuỗi rỗng
+                Looser = ""
+            };
+
+            firebaseClient.Set($"GameCaroRoom/{roomId}", roomData);
+
+            Console.WriteLine($"Created room {roomId}");
+        }
+        void XuLyTaoPhongCaro(Socket client, string message)
+        {
+            try
+            {
+                // CREATE_CARO_ROOM|id1|id2
+                string[] parts = message.Split('|');
+                string id1 = parts[1];
+                string id2 = parts[2];
+
+                // Random thứ tự
+                Random rd = new Random();
+                bool swap = rd.Next(2) == 0;
+
+                string firstPlayer = swap ? id1 : id2;
+                string secondPlayer = swap ? id2 : id1;
+
+                EnsureGameCaroRoomParent();
+
+                string roomId = "IDCRR_" + Guid.NewGuid().ToString("N");
+
+
+                CreateRoomInFirebase(roomId, firstPlayer, secondPlayer);
+                
+                GameRoom room = new GameRoom
+                {
+                    RoomId = roomId,
+                    FirstPlayer = firstPlayer,
+                    SecondPlayer = secondPlayer,
+                    CurrentTurn = firstPlayer, // người đi trước
+                    Board = new int[30, 30] // tùy size
+                };
+
+                lock (roomLock)
+                {
+                    rooms[roomId] = room;
+                }
+
+                SendToUser(firstPlayer, $"CREATE_CARO_ROOM_SUCCESS|{roomId}");
+                SendToUser(secondPlayer, $"CREATE_CARO_ROOM_SUCCESS|{roomId}");
+
+                SendToUser(firstPlayer, $"START_GAME|{roomId}|FIRST");
+                SendToUser(secondPlayer, $"START_GAME|{roomId}|SECOND");
+
+            }
+            catch (Exception ex)
+            {
+                Send(client, $"CREATE_CARO_ROOM_FAIL|{ex.Message}");
+            }
+        }
+        void XuLyTimDoiThu(Socket client, string message)
+        {
+            try
+            {
+                string[] tach = message.Split('|');
+                if (tach.Length < 2)
+                {
+                    Console.WriteLine("FIND_MATCH lỗi định dạng: " + message);
+                    return;
+                }
+
+                string userId = tach[1];
+
+                lock (matchLock)
+                {
+                    // Nếu không ai đang đợi
+                    if (waitingList.Count == 0)
+                    {
+                        waitingList.Add((client, userId));
+
+                        try
+                        {
+                            client.Send(Encoding.UTF8.GetBytes("WAITING_FOR_OPPONENT"));
+                        }
+                        catch { }
+
+                        Console.WriteLine($"{userId} đã vào hàng chờ");
+                        return;
+                    }
+
+                    // Có người đợi -> lấy ra và ghép
+                    var doiThu = waitingList[0];
+                    waitingList.RemoveAt(0);
+
+                    // Gửi kết quả ghép cho client 1 (người vừa bấm)
+                    try
+                    {
+                        client.Send(
+                            Encoding.UTF8.GetBytes($"FOUND_MATCH|{doiThu.userId}")
+                        );
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Lỗi gửi cho client1: " + ex.Message);
+                    }
+
+                    // Gửi kết quả ghép cho client 2 (người đã đợi trước)
+                    try
+                    {
+                        doiThu.socket.Send(
+                            Encoding.UTF8.GetBytes($"FOUND_MATCH|{userId}")
+                        );
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Lỗi gửi cho client2: " + ex.Message);
+                    }
+
+                    Console.WriteLine($"Ghép thành công: {userId} <-> {doiThu.userId}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR FIND_MATCH: " + ex.ToString());
+            }
+        }
+        void XuLyHuyTimDoiThu(Socket client, string message)
+        {
+            try
+            {
+                string[] tach = message.Split('|');
+                if (tach.Length < 2) return;
+
+                string userId = tach[1];
+
+                lock (matchLock)
+                {
+                    // Xóa tất cả userId trùng trong waitingList
+                    waitingList.RemoveAll(x => x.userId == userId);
+                }
+
+                Console.WriteLine($"{userId} đã hủy tìm đối thủ.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR CANCEL_FIND_MATCH: " + ex.Message);
+            }
+        }
         // CAC HAM XU LY QUEN MK
         void XuLyQuenMatKhau(Socket client, string message)
         {
@@ -449,99 +669,6 @@ namespace MayChu
                 Console.WriteLine(" Lỗi gửi email reset: " + ex.Message);
             }
         }
-
-        void XuLyHuyTimDoiThu(Socket client, string message)
-        {
-            try
-            {
-                string[] tach = message.Split('|');
-                if (tach.Length < 2) return;
-
-                string userId = tach[1];
-
-                lock (matchLock)
-                {
-                    // Xóa tất cả userId trùng trong waitingList
-                    waitingList.RemoveAll(x => x.userId == userId);
-                }
-
-                Console.WriteLine($"{userId} đã hủy tìm đối thủ.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ERROR CANCEL_FIND_MATCH: " + ex.Message);
-            }
-        }
-
-        void XuLyTimDoiThu(Socket client, string message)
-        {
-            try
-            {
-                string[] tach = message.Split('|');
-                if (tach.Length < 2)
-                {
-                    Console.WriteLine("FIND_MATCH lỗi định dạng: " + message);
-                    return;
-                }
-
-                string userId = tach[1];
-
-                lock (matchLock)
-                {
-                    // Nếu không ai đang đợi
-                    if (waitingList.Count == 0)
-                    {
-                        waitingList.Add((client, userId));
-
-                        try
-                        {
-                            client.Send(Encoding.UTF8.GetBytes("WAITING"));
-                        }
-                        catch { }
-
-                        Console.WriteLine($"{userId} đã vào hàng chờ");
-                        return;
-                    }
-
-                    // Có người đợi -> lấy ra và ghép
-                    var doiThu = waitingList[0];
-                    waitingList.RemoveAt(0);
-
-                    // Gửi kết quả ghép cho client 1 (người vừa bấm)
-                    try
-                    {
-                        client.Send(
-                            Encoding.UTF8.GetBytes($"FOUND_MATCH|{doiThu.userId}")
-                        );
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Lỗi gửi cho client1: " + ex.Message);
-                    }
-
-                    // Gửi kết quả ghép cho client 2 (người đã đợi trước)
-                    try
-                    {
-                        doiThu.socket.Send(
-                            Encoding.UTF8.GetBytes($"FOUND_MATCH|{userId}")
-                        );
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Lỗi gửi cho client2: " + ex.Message);
-                    }
-
-                    Console.WriteLine($"Ghép thành công: {userId} <-> {doiThu.userId}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ERROR FIND_MATCH: " + ex.ToString());
-            }
-        }
-
-
-
         void Send(Socket client, string message)
         {
             if (client == null) return;
@@ -684,15 +811,7 @@ namespace MayChu
             return "IDUser_" + result;
         }
 
-        string TaoIDNgauNhien(int length)
-        {
-            const string chars =
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-
-            Random rnd = new Random();
-            return new string(Enumerable.Repeat(chars, length)
-                             .Select(s => s[rnd.Next(s.Length)]).ToArray());
-        }
+       
 
         void XuLyDangNhap(Socket client, string message)
         {

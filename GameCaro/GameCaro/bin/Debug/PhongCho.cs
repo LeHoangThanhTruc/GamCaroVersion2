@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GameCaro;
+using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,7 +17,10 @@ namespace GameCaro
 {
     public partial class PhongCho : Form
     {
-        private string userId;
+        private string userId, roomID, IDOpponent;
+        bool roomCreating = false;
+        BanCo banCoForm = null;
+
         public PhongCho(string id)
         {
             InitializeComponent();
@@ -33,22 +38,6 @@ namespace GameCaro
         private bool isWaiting = false;
         private void btnTimDoiThu_Click(object sender, EventArgs e)
         {
-            // Lấy dữ liệu từ TextBox
-            /*string yourID = txtYourID.Text.Trim();
-            string opponentID = txtIDDoiThu.Text.Trim();
-
-            // Kiểm tra rỗng, với code tìm đối thủ hiện tại thì việc kiểm tra rỗng không cần thiết lắm           /* if (string.IsNullOrEmpty(yourID))
-            {
-                MessageBox.Show("Your ID không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; // Dừng, không chuyển form
-            }
-
-            if (string.IsNullOrEmpty(opponentID))
-            {
-                MessageBox.Show("ID Đối Thủ không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            */
             if (isWaiting) return;
 
             isWaiting = true;
@@ -59,7 +48,7 @@ namespace GameCaro
             matchTimer.Tick += MatchTimeOut;
             matchTimer.Start();
 
-            MessageBox.Show("Đang tìm đối thủ...");
+            //MessageBox.Show("Đang tìm đối thủ...");
             prbTimDoiThu.Value = 0;
             prbTimDoiThu.Maximum = 60;
 
@@ -84,6 +73,8 @@ namespace GameCaro
         {
             if (msg.StartsWith("FOUND_MATCH|"))
             {
+                if (roomCreating) return;
+                roomCreating = true;
                 string idDoiThu = msg.Split('|')[1];
 
                 this.Invoke(new Action(() =>
@@ -93,21 +84,49 @@ namespace GameCaro
                     tmTimDoiThu.Stop();
                     prbTimDoiThu.Value = 0;
                     txtIDDoiThu.Text = idDoiThu;
-                    MessageBox.Show($"Đã tìm được đối thủ: {idDoiThu}");
+                    IDOpponent=idDoiThu;
+                    //MessageBox.Show($"Đã tìm được đối thủ: {idDoiThu}");
 
-                    // Tự mở form chơi
-                    Form1 f = new Form1(userId, idDoiThu);
-                    f.Show();
-                    this.Hide();
+                    // MỞ FORM BÀN CỜ NGAY
+                    if (banCoForm == null || banCoForm.IsDisposed)
+                    {
+                        banCoForm = new BanCo(userId, idDoiThu);
+                        banCoForm.Show();
+                        this.Hide();
+                    }
+
+                    // CHỈ 1 CLIENT ĐƯỢC TẠO PHÒNG
+                    if (string.Compare(userId, idDoiThu) < 0)
+                    {
+                        NetworkClient.Instance.Send(
+                            $"CREATE_CARO_ROOM|{userId}|{idDoiThu}"
+                        );
+                    }
                 }));
             }
             else if (msg == "WAITING_FOR_OPPONENT")
             {
                 this.Invoke(new Action(() =>
                 {
-                    MessageBox.Show("Bạn đang được đưa vào hàng đợi, vui lòng chờ...");
+                    //MessageBox.Show("Bạn đang được đưa vào hàng đợi, vui lòng chờ...");
                 }));
             }
+            else if (msg.StartsWith("CREATE_CARO_ROOM_SUCCESS|"))
+            {
+                roomCreating = false;
+                roomID = msg.Split('|')[1];
+                //MessageBox.Show("Tạo phòng thành công: " + roomID);
+                bool isFirstPlayer = string.Compare(userId, IDOpponent) < 0;
+                // ĐẨY ROOMID + LƯỢT CHƠI VÀO FORM BÀN CỜ
+                banCoForm?.SetRoom(roomID, isFirstPlayer);
+
+            }
+            else if (msg.StartsWith("CREATE_CARO_ROOM_FAIL|"))
+            {
+                string reason = msg.Split('|')[1];
+                MessageBox.Show("Tạo phòng thất bại: " + reason);
+            }
+
         }
 
         private void PhongCho_FormClosing(object sender, FormClosingEventArgs e)

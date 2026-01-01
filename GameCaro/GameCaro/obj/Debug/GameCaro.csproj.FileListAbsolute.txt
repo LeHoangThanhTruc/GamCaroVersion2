@@ -118,18 +118,17 @@ C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\GameCaro\
 C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.FormXacThucOTP.resources
 C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.QuenMatKhau.resources
 C:\Users\ad\OneDrive\Documents\DA_NT106\Clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.FormAutoLogin.resources
+E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\GameCaro.exe
+E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\Newtonsoft.Json.dll
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\PhongCho.resx
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\PhongCho.cs
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\PhongCho.Designer.cs
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\GameCaro.exe.config
-E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\GameCaro.exe
-E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\GameCaro.pdb
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\FireSharp.dll
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\Microsoft.Threading.Tasks.dll
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.dll
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\Microsoft.Threading.Tasks.Extensions.dll
-E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\Newtonsoft.Json.dll
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\System.Buffers.dll
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\System.IO.Pipelines.dll
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\System.Memory.dll
@@ -157,7 +156,7 @@ E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\System.Text.Json.xml
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\System.Threading.Tasks.Extensions.xml
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.csproj.App.config
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.csproj.AssemblyReference.cache
-E:\clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.exe.config
+E:\clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.BanCo.resources
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.CaiDat.resources
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.DangKy.resources
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.DangNhap.resources
@@ -174,3 +173,5 @@ E:\clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.csproj.CoreCompile
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.csproj.Up2Date
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.exe
 E:\clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.pdb
+E:\clone\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\GameCaro.pdb
+E:\clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.exe.config
