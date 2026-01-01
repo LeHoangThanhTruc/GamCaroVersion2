@@ -27,7 +27,7 @@ namespace GameCaro
 
         private void FormXacThucOTPDoiMK_Load(object sender, EventArgs e)
         {
-            //NetworkClient.OnMessageReceived -= XuLyPhanHoi;
+            NetworkClient.OnMessageReceived -= XuLyPhanHoi;
             NetworkClient.OnMessageReceived += XuLyPhanHoi;
 
             lblThongTin.Text = "Mã OTP đã được gửi đến email của bạn.\nVui lòng kiểm tra hộp thư (kể cả Spam).";
@@ -82,6 +82,7 @@ namespace GameCaro
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
+                return;
             }
             else if (msg.StartsWith("VERIFY_RESET_FAIL|"))
             {
