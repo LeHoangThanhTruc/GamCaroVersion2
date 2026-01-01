@@ -37,7 +37,6 @@
             this.txtXacNhanMatKhau = new System.Windows.Forms.TextBox();
             this.btnDoiMatKhau = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.lnkQuenMatKhau = new System.Windows.Forms.LinkLabel();
             this.ckHienMatKhau = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
@@ -130,18 +129,6 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // lnkQuenMatKhau
-            // 
-            this.lnkQuenMatKhau.AutoSize = true;
-            this.lnkQuenMatKhau.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkQuenMatKhau.Location = new System.Drawing.Point(245, 125);
-            this.lnkQuenMatKhau.Name = "lnkQuenMatKhau";
-            this.lnkQuenMatKhau.Size = new System.Drawing.Size(117, 18);
-            this.lnkQuenMatKhau.TabIndex = 9;
-            this.lnkQuenMatKhau.TabStop = true;
-            this.lnkQuenMatKhau.Text = "Quên mật khẩu?";
-            this.lnkQuenMatKhau.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkQuenMatKhau_LinkClicked);
-            // 
             // ckHienMatKhau
             // 
             this.ckHienMatKhau.AutoSize = true;
@@ -159,7 +146,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(382, 373);
             this.Controls.Add(this.ckHienMatKhau);
-            this.Controls.Add(this.lnkQuenMatKhau);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnDoiMatKhau);
             this.Controls.Add(this.txtXacNhanMatKhau);
@@ -191,7 +177,6 @@
         private System.Windows.Forms.TextBox txtXacNhanMatKhau;
         private System.Windows.Forms.Button btnDoiMatKhau;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.LinkLabel lnkQuenMatKhau;
         private System.Windows.Forms.CheckBox ckHienMatKhau;
     }
 }
