@@ -27,9 +27,19 @@ namespace GameCaro
         }
         private void btnCaiDat_Click(object sender, EventArgs e)
         {
+            //this.Hide();
+            //CaiDat f = new CaiDat(userId);
+            //f.Show();
+
             this.Hide();
             CaiDat f = new CaiDat(userId);
-            f.Show();
+            f.ShowDialog(); 
+
+            // Kiểm tra xem form này còn tồn tại không
+            if (!this.IsDisposed && !this.Disposing)
+            {
+                this.Show();
+            }
         }
 
         private void btnProfile_Click(object sender, EventArgs e)

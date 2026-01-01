@@ -138,11 +138,29 @@
     <Compile Include="FormAutoLogin.Designer.cs">
       <DependentUpon>FormAutoLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormDoiMatKhau.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDoiMatKhau.Designer.cs">
+      <DependentUpon>FormDoiMatKhau.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormThayDoiThongTin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormThayDoiThongTin.Designer.cs">
+      <DependentUpon>FormThayDoiThongTin.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormXacThucOTP.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormXacThucOTP.Designer.cs">
       <DependentUpon>FormXacThucOTP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormXacThucOTPDoiMK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormXacThucOTPDoiMK.Designer.cs">
+      <DependentUpon>FormXacThucOTPDoiMK.cs</DependentUpon>
     </Compile>
     <Compile Include="GiaoDienChung.cs">
       <SubType>Form</SubType>
@@ -198,8 +216,17 @@
     <EmbeddedResource Include="FormAutoLogin.resx">
       <DependentUpon>FormAutoLogin.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormDoiMatKhau.resx">
+      <DependentUpon>FormDoiMatKhau.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormThayDoiThongTin.resx">
+      <DependentUpon>FormThayDoiThongTin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormXacThucOTP.resx">
       <DependentUpon>FormXacThucOTP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormXacThucOTPDoiMK.resx">
+      <DependentUpon>FormXacThucOTPDoiMK.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GiaoDienChung.resx">
       <DependentUpon>GiaoDienChung.cs</DependentUpon>
