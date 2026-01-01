@@ -205,6 +205,42 @@ namespace MayChu
                         HandleMove(client, parts);
                         continue;
                     }
+
+                    // 14) GET_USER_INFO 
+                    if (message.StartsWith("GET_USER_INFO|"))
+                    {
+                        XuLyLayThongTinUser(client, message);
+                        continue;
+                    }
+
+                    // 15) UPDATE_USER_INFO - Cập nhật thông tin user
+                    if (message.StartsWith("UPDATE_USER_INFO|"))
+                    {
+                        XuLyCapNhatThongTinUser(client, message);
+                        continue;
+                    }
+
+                    // 16) CHANGE_PASSWORD - Đổi mật khẩu (với mật khẩu hiện tại)
+                    if (message.StartsWith("CHANGE_PASSWORD|"))
+                    {
+                        XuLyDoiMatKhau(client, message);
+                        continue;
+                    }
+
+                    // 17) FORGOT_PASSWORD_SETTING - Quên mật khẩu từ settings
+                    if (message.StartsWith("FORGOT_PASSWORD_SETTING|"))
+                    {
+                        XuLyQuenMatKhauTuSetting(client, message);
+                        continue;
+                    }
+
+                    // 18) RESEND_RESET_OTP - Gửi lại OTP reset password
+                    if (message.StartsWith("RESEND_RESET_OTP|"))
+                    {
+                        XuLyGuiLaiResetOTP(client, message);
+                        continue;
+                    }
+
                     // Các message khác (chat, đánh cờ...) => broadcast
                     // Gửi lại tin nhắn cho tất cả các client khác
                     foreach (var c in clientList)
@@ -1273,6 +1309,372 @@ namespace MayChu
             var random = new Random();
             return new string(Enumerable.Repeat(chars, 32)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        void XuLyLayThongTinUser(Socket client, string message)
+        {
+            try
+            {
+                // Format: GET_USER_INFO|IDUser|FieldType
+                string[] parts = message.Split('|');
+                if (parts.Length != 3)
+                {
+                    client.Send(Encoding.UTF8.GetBytes("ERROR|Sai định dạng"));
+                    return;
+                }
+
+                string userId = parts[1];
+                string fieldType = parts[2];
+
+                // Lấy thông tin user từ Firebase
+                var result = firebaseClient.Get($"Users/{userId}");
+
+                if (result.Body == "null")
+                {
+                    client.Send(Encoding.UTF8.GetBytes("ERROR|User không tồn tại"));
+                    return;
+                }
+
+                var userData = result.ResultAs<GoiTinDangKy>();
+                string fieldValue = "";
+
+                switch (fieldType)
+                {
+                    case "HoVaTen":
+                        fieldValue = userData.HoVaTen;
+                        break;
+                    case "TenTaiKhoan":
+                        fieldValue = userData.TenTaiKhoan;
+                        break;
+                    case "Gmail":
+                        fieldValue = userData.Gmail;
+                        break;
+                }
+
+                client.Send(Encoding.UTF8.GetBytes($"USER_INFO|{fieldType}|{fieldValue}"));
+                Console.WriteLine($"✅ Đã gửi thông tin {fieldType} cho {userId}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR GET_USER_INFO: " + ex.Message);
+                client.Send(Encoding.UTF8.GetBytes("ERROR|Lỗi xử lý"));
+            }
+        }
+
+        void XuLyCapNhatThongTinUser(Socket client, string message)
+        {
+            try
+            {
+                // Format: UPDATE_USER_INFO|IDUser|FieldType|NewValue
+                string[] parts = message.Split('|');
+                if (parts.Length != 4)
+                {
+                    client.Send(Encoding.UTF8.GetBytes("ERROR|Sai định dạng"));
+                    return;
+                }
+
+                string userId = parts[1];
+                string fieldType = parts[2];
+                string newValue = parts[3];
+
+                // Kiểm tra xem giá trị mới có trùng với user khác không
+                if (fieldType == "TenTaiKhoan")
+                {
+                    var allUsers = firebaseClient.Get("Users");
+                    if (allUsers.Body != "null")
+                    {
+                        var userDict = allUsers.ResultAs<Dictionary<string, GoiTinDangKy>>();
+                        foreach (var user in userDict)
+                        {
+                            // Bỏ qua chính user hiện tại
+                            if (user.Key == userId) continue;
+
+                            if (user.Value.TenTaiKhoan.ToLower() == newValue.ToLower())
+                            {
+                                client.Send(Encoding.UTF8.GetBytes("UPDATE_INFO_FAIL|TAI_KHOAN_DA_TON_TAI"));
+                                Console.WriteLine($"Tài khoản {newValue} đã tồn tại");
+                                return;
+                            }
+                        }
+                    }
+                }
+                else if (fieldType == "Gmail")
+                {
+                    var allUsers = firebaseClient.Get("Users");
+                    if (allUsers.Body != "null")
+                    {
+                        var userDict = allUsers.ResultAs<Dictionary<string, GoiTinDangKy>>();
+                        foreach (var user in userDict)
+                        {
+                            // Bỏ qua chính user hiện tại
+                            if (user.Key == userId) continue;
+
+                            if (user.Value.Gmail.ToLower() == newValue.ToLower())
+                            {
+                                client.Send(Encoding.UTF8.GetBytes("UPDATE_INFO_FAIL|EMAIL_DA_TON_TAI"));
+                                Console.WriteLine($"Email {newValue} đã tồn tại");
+                                return;
+                            }
+                        }
+                    }
+                }
+
+                // Cập nhật giá trị mới
+                switch (fieldType)
+                {
+                    case "HoVaTen":
+                        firebaseClient.Update($"Users/{userId}", new { HoVaTen = newValue });
+                        break;
+                    case "TenTaiKhoan":
+                        firebaseClient.Update($"Users/{userId}", new { TenTaiKhoan = newValue });
+                        break;
+                    case "Gmail":
+                        firebaseClient.Update($"Users/{userId}", new { Gmail = newValue });
+                        break;
+                }
+
+                client.Send(Encoding.UTF8.GetBytes("UPDATE_INFO_OK"));
+                Console.WriteLine($"Đã cập nhật {fieldType} = {newValue} cho {userId}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR UPDATE_USER_INFO: " + ex.Message);
+                client.Send(Encoding.UTF8.GetBytes("UPDATE_INFO_FAIL|SERVER_ERROR"));
+            }
+        }
+
+        void XuLyDoiMatKhau(Socket client, string message)
+        {
+            try
+            {
+                // Format: CHANGE_PASSWORD|IDUser|MatKhauHienTai|MatKhauMoi
+                string[] parts = message.Split('|');
+                if (parts.Length != 4)
+                {
+                    client.Send(Encoding.UTF8.GetBytes("ERROR|Sai định dạng"));
+                    return;
+                }
+
+                string userId = parts[1];
+                string matKhauHienTai = parts[2];
+                string matKhauMoi = parts[3];
+
+                Console.WriteLine($"[CHANGE_PWD] Bắt đầu xử lý đổi mật khẩu cho {userId}");
+
+                // Lấy thông tin user
+                var result = firebaseClient.Get($"Users/{userId}");
+                if (result.Body == "null")
+                {
+                    client.Send(Encoding.UTF8.GetBytes("CHANGE_PASSWORD_FAIL|USER_NOT_FOUND"));
+                    Console.WriteLine($"User {userId} không tồn tại");
+                    return;
+                }
+
+                var userData = result.ResultAs<GoiTinDangKy>();
+                Console.WriteLine($"[CHANGE_PWD] Đã lấy thông tin user");
+
+                // Xác thực mật khẩu hiện tại
+                Console.WriteLine($"[CHANGE_PWD] Đang xác thực mật khẩu hiện tại cho {userId}...");
+                Console.WriteLine($"[CHANGE_PWD] Hash trong DB: {userData.MatKhau.Substring(0, 20)}...");
+
+                bool isValid = false;
+                try
+                {
+                    isValid = PasswordHasher.VerifyPassword(matKhauHienTai, userData.MatKhau);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Lỗi verify password: {ex.Message}");
+                    Send(client, "CHANGE_PASSWORD_FAIL|SERVER_ERROR");
+                    return;
+                }
+
+                if (!isValid)
+                {
+                    Send(client, "CHANGE_PASSWORD_FAIL|SAI_MAT_KHAU_HIEN_TAI");
+                    Console.WriteLine($"Mật khẩu hiện tại không đúng");
+                    return;
+                }
+
+                Console.WriteLine($"Mật khẩu hiện tại hợp lệ");
+
+                // Mã hóa mật khẩu mới
+                Console.WriteLine($"[CHANGE_PWD] Đang mã hóa mật khẩu mới...");
+                string matKhauMoiDaMaHoa = PasswordHasher.HashPassword(matKhauMoi);
+                Console.WriteLine($"[CHANGE_PWD] Hash mới: {matKhauMoiDaMaHoa.Substring(0, 20)}...");
+
+                // Cập nhật mật khẩu mới
+                firebaseClient.Update($"Users/{userId}", new { MatKhau = matKhauMoiDaMaHoa });
+                Console.WriteLine($"[CHANGE_PWD] Đã cập nhật vào Firebase");
+
+                // Xóa session hiện tại
+                firebaseClient.Delete($"Sessions/{userId}");
+                if (activeSessions.ContainsKey(userId))
+                {
+                    activeSessions.Remove(userId);
+                }
+
+                Send(client, "CHANGE_PASSWORD_OK");
+                Console.WriteLine($"Đã đổi mật khẩu thành công cho {userId}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERROR CHANGE_PASSWORD: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                Send(client, "CHANGE_PASSWORD_FAIL|SERVER_ERROR");
+            }
+
+            //    if (!PasswordHasher.VerifyPassword(matKhauHienTai, userData.MatKhau))
+            //    {
+            //        client.Send(Encoding.UTF8.GetBytes("CHANGE_PASSWORD_FAIL|SAI_MAT_KHAU_HIEN_TAI"));
+            //        Console.WriteLine($"Mật khẩu hiện tại không đúng");
+            //        return;
+            //    }
+
+            //    // Mã hóa mật khẩu mới
+            //    Console.WriteLine($"[CHANGE_PWD] Đang mã hóa mật khẩu mới...");
+            //    string matKhauMoiDaMaHoa = PasswordHasher.HashPassword(matKhauMoi);
+
+            //    // Cập nhật mật khẩu mới
+            //    firebaseClient.Update($"Users/{userId}", new { MatKhau = matKhauMoiDaMaHoa });
+
+            //    // Xóa session hiện tại (bắt người dùng đăng nhập lại)
+            //    firebaseClient.Delete($"Sessions/{userId}");
+            //    if (activeSessions.ContainsKey(userId))
+            //    {
+            //        activeSessions.Remove(userId);
+            //    }
+
+            //    client.Send(Encoding.UTF8.GetBytes("CHANGE_PASSWORD_OK"));
+            //    Console.WriteLine($"Đã đổi mật khẩu cho {userId}");
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine("ERROR CHANGE_PASSWORD: " + ex.Message);
+            //    client.Send(Encoding.UTF8.GetBytes("CHANGE_PASSWORD_FAIL|SERVER_ERROR"));
+            //}
+        }
+
+        void XuLyQuenMatKhauTuSetting(Socket client, string message)
+        {
+            try
+            {
+                // Format: FORGOT_PASSWORD_SETTING|IDUser
+                string[] parts = message.Split('|');
+                if (parts.Length != 2)
+                {
+                    client.Send(Encoding.UTF8.GetBytes("ERROR|Sai định dạng"));
+                    return;
+                }
+
+                string userId = parts[1];
+
+                // Lấy thông tin user
+                var result = firebaseClient.Get($"Users/{userId}");
+                if (result.Body == "null")
+                {
+                    client.Send(Encoding.UTF8.GetBytes("FORGOT_PASSWORD_FAIL|USER_NOT_FOUND"));
+                    return;
+                }
+
+                var userData = result.ResultAs<GoiTinDangKy>();
+                string email = userData.Gmail;
+
+                // Tạo mã OTP
+                string maOTP = new Random().Next(100000, 999999).ToString();
+
+                // Lưu vào Firebase
+                firebaseClient.Set($"PasswordResetCodes/{userId}", new
+                {
+                    Code = maOTP,
+                    Email = email,
+                    TenTaiKhoan = userData.TenTaiKhoan,
+                    CreatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    ExpiryMinutes = 10
+                });
+
+                // Gửi email
+                GuiEmailResetPassword(email, maOTP, userData.TenTaiKhoan);
+
+                client.Send(Encoding.UTF8.GetBytes($"FORGOT_PASSWORD_OK|{userId}"));
+                Console.WriteLine($"Đã gửi OTP đổi mật khẩu đến {email}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR FORGOT_PASSWORD_SETTING: " + ex.Message);
+                client.Send(Encoding.UTF8.GetBytes("FORGOT_PASSWORD_FAIL|SERVER_ERROR"));
+            }
+        }
+
+        void XuLyGuiLaiResetOTP(Socket client, string message)
+        {
+            try
+            {
+                // Format: RESEND_RESET_OTP|IDUser
+                string[] parts = message.Split('|');
+                if (parts.Length != 2)
+                {
+                    client.Send(Encoding.UTF8.GetBytes("ERROR|Sai định dạng"));
+                    return;
+                }
+
+                string userId = parts[1];
+
+                // Lấy thông tin user
+                var userResult = firebaseClient.Get($"Users/{userId}");
+                if (userResult.Body == "null")
+                {
+                    client.Send(Encoding.UTF8.GetBytes("RESEND_RESET_OTP_FAIL|USER_NOT_FOUND"));
+                    return;
+                }
+
+                var userData = userResult.ResultAs<GoiTinDangKy>();
+                string email = userData.Gmail;
+
+                // Tạo mã OTP mới
+                string maOTPMoi = new Random().Next(100000, 999999).ToString();
+
+                // Cập nhật trong Firebase
+                firebaseClient.Set($"PasswordResetCodes/{userId}", new
+                {
+                    Code = maOTPMoi,
+                    Email = email,
+                    TenTaiKhoan = userData.TenTaiKhoan,
+                    CreatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    ExpiryMinutes = 10
+                });
+
+                // Gửi email
+                GuiEmailResetPassword(email, maOTPMoi, userData.TenTaiKhoan);
+
+                client.Send(Encoding.UTF8.GetBytes("RESEND_RESET_OTP_OK"));
+                Console.WriteLine($"Đã gửi lại OTP reset đến {email}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR RESEND_RESET_OTP: " + ex.Message);
+                client.Send(Encoding.UTF8.GetBytes("RESEND_RESET_OTP_FAIL|SERVER_ERROR"));
+            }
+        }
+
+        void SendHelper(Socket client, string message)
+        {
+            if (client == null || !client.Connected)
+            {
+                Console.WriteLine($"Cannot send: client disconnected");
+                return;
+            }
+
+            try
+            {
+                byte[] data = Encoding.UTF8.GetBytes(message);
+                client.Send(data);
+                Console.WriteLine($"Sent to client: {message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending message: {ex.Message}");
+            }
         }
 
     }

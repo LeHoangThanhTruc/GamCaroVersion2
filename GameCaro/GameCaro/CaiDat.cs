@@ -39,6 +39,61 @@ namespace GameCaro
             //Để sẵn hàm này, khi có yêu cầu xử lý giao diện chung thì sẽ bổ sung sau
         }
 
-        
+        private void linkLabelChangeHoVaTen_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            FormThayDoiThongTin f = new FormThayDoiThongTin(uid, "HoVaTen");
+            f.ShowDialog();
+            this.Show();
+        }
+
+        private void linkLabelChangeTenTaiKhoan_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            FormThayDoiThongTin f = new FormThayDoiThongTin(uid, "TenTaiKhoan");
+            f.ShowDialog();
+            this.Show();
+        }
+
+        private void linkLabelChangeMatKhau_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            FormDoiMatKhau f = new FormDoiMatKhau(uid);
+            DialogResult result = f.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                // Đổi mật khẩu thành công - đóng tất cả form và quay về đăng nhập
+                foreach (Form form in Application.OpenForms.Cast<Form>().ToList())
+                {
+                    if (!(form is DangNhap))
+                    {
+                        form.Close();
+                    }
+                }
+
+                // Mở form đăng nhập
+                DangNhap loginForm = new DangNhap();
+                loginForm.Show();
+            }
+            else
+            {
+                // Hủy hoặc có lỗi - hiện lại form CaiDat
+                this.Show();
+            }
+        }
+
+        private void CaiDat_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            NetworkClient.OnMessageReceived -= ClientXuLySettings;
+        }
+
+        private void linkLabelChangeGmail_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            FormThayDoiThongTin f = new FormThayDoiThongTin(uid, "TenTaiKhoan");
+            f.ShowDialog();
+            this.Show();
+        }
     }
 }
