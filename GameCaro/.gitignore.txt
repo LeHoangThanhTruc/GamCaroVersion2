@@ -1,0 +1,9 @@
+# Visual Studio
+.vs/
+bin/
+obj/
+
+# Build cache / temp
+*.cache
+*.FileListAbsolute.txt
+*.db

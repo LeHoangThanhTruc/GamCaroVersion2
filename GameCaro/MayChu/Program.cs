@@ -1,6 +1,10 @@
 ﻿using FireSharp.Config;
 using FireSharp.Interfaces;
 using FireSharp.Response;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +13,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using MailKit.Net.Smtp;
-using MimeKit;
-using MailKit.Security;
 namespace MayChu
 {
     public class Program
@@ -30,7 +31,7 @@ namespace MayChu
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Server dang ket noi...90");
+            Console.WriteLine("Server dang ket noi...97");
             Program server = new Program();
             //Khởi tạo cấu hình Firebase
             IFirebaseConfig config = new FirebaseConfig
@@ -205,6 +206,17 @@ namespace MayChu
                         HandleMove(client, parts);
                         continue;
                     }
+                    // 14) TIME_OUT (hết thời gian lượt chơi)
+                    if (message.StartsWith("TIME_OUT|"))
+                    {
+                        string[] parts = message.Split('|');
+                        string roomId = parts[1];
+                        string timeoutUser = parts[2];
+
+                        HandleTimeout(roomId, timeoutUser);
+                        continue;
+                    }
+
                     // Các message khác (chat, đánh cờ...) => broadcast
                     // Gửi lại tin nhắn cho tất cả các client khác
                     foreach (var c in clientList)
@@ -225,6 +237,22 @@ namespace MayChu
                 }
             }
         }
+        void HandleTimeout(string roomId, string timeoutUser)
+        {
+            if (!rooms.ContainsKey(roomId)) return;
+
+            string other =
+                (timeoutUser == rooms[roomId].FirstPlayer)
+                ? rooms[roomId].SecondPlayer
+                : rooms[roomId].FirstPlayer;
+
+            SendToUser(timeoutUser,
+                $"TIMEOUT_ABORT|{timeoutUser}");
+
+            SendToUser(other,
+                $"TIMEOUT_ABORT|{timeoutUser}");
+        }
+
         void HandleMove(Socket client, string[] parts)
         {
             string roomId = parts[1];
@@ -233,6 +261,8 @@ namespace MayChu
             int col = int.Parse(parts[4]);
 
             GameRoom room;
+            bool isWin = false;
+            int playerValue;
 
             lock (roomLock)
             {
@@ -250,31 +280,186 @@ namespace MayChu
                     return;
 
                 // Ghi bàn cờ
-                room.Board[row, col] =
-                    (userId == room.FirstPlayer) ? 1 : 2;
-
+                playerValue = (userId == room.FirstPlayer) ? 1 : 2;
+                room.Board[row, col] = playerValue;
+                //Check win
+                isWin = CheckWin(room.Board, row, col, playerValue);
                 // Đổi lượt
-                room.CurrentTurn =
-                    (userId == room.FirstPlayer)
+                if (!isWin)
+                {
+                    room.CurrentTurn =
+                        (userId == room.FirstPlayer)
                         ? room.SecondPlayer
                         : room.FirstPlayer;
+                }
             }
 
             // Gửi lại cho người đánh
-            SendToUser(userId,
-                $"MOVE_OK|{roomId}|{row}|{col}");
+            SendToUser(userId,$"MOVE_OK|{roomId}|{row}|{col}");
 
             // Gửi cho đối thủ
-            string opponent =
-                (userId == room.FirstPlayer)
-                    ? room.SecondPlayer
-                    : room.FirstPlayer;
+            string opponent =(userId == room.FirstPlayer)?room.SecondPlayer: room.FirstPlayer;
 
-            SendToUser(opponent,
-                $"OPPONENT_MOVE|{roomId}|{row}|{col}");
+            SendToUser(opponent,$"OPPONENT_MOVE|{roomId}|{row}|{col}");
 
-            // TODO: check thắng ở đây
+            // NẾU THẮNG
+            if (isWin)
+            {
+                XuLyKetThucTran(roomId, userId, opponent);
+            }
         }
+
+        bool CheckWin(int[,] board, int row, int col, int player)
+        {
+            return CheckHorizontal(board, row, col, player)
+                || CheckVertical(board, row, col, player)
+                || CheckDiagonal1(board, row, col, player)
+                || CheckDiagonal2(board, row, col, player);
+        }
+        //Check thắng ngang —
+        bool CheckHorizontal(int[,] board, int row, int col, int player)
+        {
+            int count = 1;
+
+            // sang trái
+            for (int c = col - 1; c >= 0; c--)
+            {
+                if (board[row, c] == player) count++;
+                else break;
+            }
+
+            // sang phải
+            for (int c = col + 1; c < board.GetLength(1); c++)
+            {
+                if (board[row, c] == player) count++;
+                else break;
+            }
+
+            return count >= 5;
+        }
+        //Check thắng dọc |
+        bool CheckVertical(int[,] board, int row, int col, int player)
+        {
+            int count = 1;
+
+            // lên trên
+            for (int r = row - 1; r >= 0; r--)
+            {
+                if (board[r, col] == player) count++;
+                else break;
+            }
+
+            // xuống dưới
+            for (int r = row + 1; r < board.GetLength(0); r++)
+            {
+                if (board[r, col] == player) count++;
+                else break;
+            }
+
+            return count >= 5;
+        }
+        //Check thắng chéo chính \
+        bool CheckDiagonal1(int[,] board, int row, int col, int player)
+        {
+            int count = 1;
+
+            // lên trái
+            int r = row - 1, c = col - 1;
+            while (r >= 0 && c >= 0)
+            {
+                if (board[r, c] == player)
+                {
+                    count++;
+                    r--; c--;
+                }
+                else break;
+            }
+
+            // xuống phải
+            r = row + 1; c = col + 1;
+            while (r < board.GetLength(0) && c < board.GetLength(1))
+            {
+                if (board[r, c] == player)
+                {
+                    count++;
+                    r++; c++;
+                }
+                else break;
+            }
+
+            return count >= 5;
+        }
+        //Check thắng chéo phụ /
+        bool CheckDiagonal2(int[,] board, int row, int col, int player)
+        {
+            int count = 1;
+
+            // lên phải
+            int r = row - 1, c = col + 1;
+            while (r >= 0 && c < board.GetLength(1))
+            {
+                if (board[r, c] == player)
+                {
+                    count++;
+                    r--; c++;
+                }
+                else break;
+            }
+
+            // xuống trái
+            r = row + 1; c = col - 1;
+            while (r < board.GetLength(0) && c >= 0)
+            {
+                if (board[r, c] == player)
+                {
+                    count++;
+                    r++; c--;
+                }
+                else break;
+            }
+
+            return count >= 5;
+        }
+
+        void XuLyKetThucTran(string roomId, string winner, string looser)
+        {
+            // 1. Cập nhật phòng
+            firebaseClient.Update($"GameCaroRoom/{roomId}", new
+            {
+                Winner = winner,
+                Looser = looser
+            });
+
+            // 2. Cập nhật user
+            CapNhatThongKeUser(winner, true);
+            CapNhatThongKeUser(looser, false);
+
+            // 3. Gửi về client
+            SendToUser(winner, $"GAME_OVER|{winner}|{looser}");
+            SendToUser(looser, $"GAME_OVER|{winner}|{looser}");
+        }
+        void CapNhatThongKeUser(string userId, bool isWinner)
+        {
+            var res = firebaseClient.Get($"Users/{userId}");
+            dynamic user = JsonConvert.DeserializeObject(res.Body);
+
+            int daThamGia = user.SoTranDaThamGia ?? 0;
+            int thang = user.SoTranChienThang ?? 0;
+            int thua = user.SoTranThua ?? 0;
+
+            daThamGia++;
+
+            if (isWinner) thang++;
+            else thua++;
+
+            firebaseClient.Update($"Users/{userId}", new
+            {
+                SoTranDaThamGia = daThamGia,
+                SoTranChienThang = thang,
+                SoTranThua = thua
+            });
+        }
+
         void SendToUser(string userId, string msg)
         {
             if (!clientMap.ContainsKey(userId)) return;

@@ -21,7 +21,8 @@ namespace GameCaro
         string userID, IDdoithu,roomID;
         bool isMyTurn;          // có được đánh không
         bool isFirstPlayer;    // X hay O
-
+        double maxTime = 60.0;        // 1 phút 
+        double timeRemaining;
         public BanCo(string userID,string IDdoithu)
         {
             InitializeComponent();
@@ -66,14 +67,60 @@ namespace GameCaro
         {
             NetworkClient.OnMessageReceived -= OnServerMessage;
             NetworkClient.OnMessageReceived += OnServerMessage;
+
+            InitTurnTimer();
+        }
+        void InitTurnTimer()
+        {
+            timeRemaining = maxTime;
+
+            prbTimeRemaining.Minimum = 0;
+            prbTimeRemaining.Maximum = (int)maxTime;
+            prbTimeRemaining.Value = (int)maxTime;
+
+            timerRemainingTime = new Timer();
+            timerRemainingTime.Interval = 50; 
+            timerRemainingTime.Tick += timerRemainingTime_Tick;
+        }
+        void StopTurnTimer()
+        {
+            timerRemainingTime.Stop();
         }
 
-       
+        void ResetTurnTimer()
+        {
+            timeRemaining = maxTime;
+            prbTimeRemaining.Value = (int)maxTime;
+            timerRemainingTime.Start();
+        }
+
 
         private void BanCo_Shown(object sender, EventArgs e)
         {
             DrawChessBoard();
         }
+
+        private void timerRemainingTime_Tick(object sender, EventArgs e)
+        {
+            timeRemaining -= 0.05;
+
+            if (timeRemaining < 0)
+                timeRemaining = 0;
+
+            prbTimeRemaining.Value = (int)Math.Ceiling(timeRemaining);
+
+            if (timeRemaining <= 0)
+            {
+                timerRemainingTime.Stop();
+                EnableBoard(false);
+
+                // Báo server: user hiện tại bị hết giờ
+                NetworkClient.Instance.Send(
+                    $"TIME_OUT|{roomID}|{userID}"
+                );
+            }
+        }
+
         public void DrawChessBoard()
         {
             pnlBanCo.SuspendLayout();
@@ -149,7 +196,8 @@ namespace GameCaro
                 EnableBoard(false);
                 pnlYourID.BackColor = Color.Transparent;
                 pnlOpponentID.BackColor = Color.LightGreen;
-
+                StopTurnTimer();
+                UpdatePicMark();
             }
             else if (parts[0] == "OPPONENT_MOVE")
             {
@@ -161,7 +209,8 @@ namespace GameCaro
                 EnableBoard(true);
                 pnlYourID.BackColor = Color.LightGreen;
                 pnlOpponentID.BackColor = Color.Transparent;
-
+                ResetTurnTimer();
+                UpdatePicMark();
             }
             else if (parts[0] == "START_GAME")
             {
@@ -175,6 +224,7 @@ namespace GameCaro
                     EnableBoard(true);
                     pnlYourID.BackColor = Color.LightGreen;
                     pnlOpponentID.BackColor = Color.Transparent;
+                    ResetTurnTimer();
                 }
                 else
                 {
@@ -183,6 +233,41 @@ namespace GameCaro
                     EnableBoard(false);
                     pnlYourID.BackColor = Color.Transparent;
                     pnlOpponentID.BackColor = Color.LightGreen;
+                    StopTurnTimer();
+                }
+                UpdatePicMark();
+            }
+            if (msg.StartsWith("GAME_OVER|"))
+            {
+                string[] p = msg.Split('|');
+                string winnerId = p[1];
+                string loserId = p[2];
+
+                this.Invoke(new Action(() =>
+                {
+                    StopTurnTimer();
+                    EnableBoard(false);
+
+                    if (userID == winnerId)
+                        MessageBox.Show("Bạn đã THẮNG!");
+                    else
+                        MessageBox.Show("Bạn đã THUA!");
+                }));
+            }
+            else if (parts[0] == "TIMEOUT_ABORT")
+            {
+                string timeoutUser = parts[1];
+
+                StopTurnTimer();
+                EnableBoard(false);
+
+                if (timeoutUser == userID)
+                {
+                    MessageBox.Show("Bạn đã hết thời gian cho lượt đi.\nVán đấu bị dừng." );
+                }
+                else
+                {
+                    MessageBox.Show($"Đối thủ ({timeoutUser}) đã hết thời gian.\nVán đấu bị dừng.");
                 }
             }
 
@@ -198,6 +283,21 @@ namespace GameCaro
             foreach (var row in Matrix)
                 foreach (var btn in row)
                     btn.Enabled = enable;
+        }
+        void UpdatePicMark()
+        {
+            if (isMyTurn)
+            {
+                // lượt của mình -> hiện ký hiệu của mình
+                picMark.Image = isFirstPlayer ? imgX : imgO;
+            }
+            else
+            {
+                // lượt đối thủ -> hiện ký hiệu của đối thủ
+                picMark.Image = isFirstPlayer ? imgO : imgX;
+            }
+
+            picMark.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
 
