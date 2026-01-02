@@ -59,41 +59,11 @@ namespace GameCaro
         {
             this.Hide();
             FormDoiMatKhau f = new FormDoiMatKhau(uid);
-            DialogResult result = f.ShowDialog();
+            f.ShowDialog();
 
-            if (result == DialogResult.OK)
-            {
-                // Đổi mật khẩu thành công - đóng tất cả form và quay về đăng nhập
-                this.Close();
-
-                // Tìm và đóng form GiaoDienChung
-                foreach (Form form in Application.OpenForms.Cast<Form>().ToList())
-                {
-                    if (form is GiaoDienChung)
-                    {
-                        form.Close();
-                        break;
-                    }
-                }
-
-                // Mở form đăng nhập
-                DangNhap loginForm = Application.OpenForms.OfType<DangNhap>().FirstOrDefault();
-                if (loginForm == null)
-                {
-                    loginForm = new DangNhap();
-                    loginForm.Show();
-                }
-                else
-                {
-                    loginForm.Show();
-                    loginForm.BringToFront();
-                }
-            }
-            else
-            {
-                // Hủy hoặc có lỗi - hiện lại form CaiDat
-                this.Show();
-            }
+            // Không cần xử lý DialogResult vì khi đổi mật khẩu thành công,
+            // ứng dụng sẽ tự động đóng toàn bộ
+            this.Show();
         }
 
         private void CaiDat_FormClosing(object sender, FormClosingEventArgs e)
