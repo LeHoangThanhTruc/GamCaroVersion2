@@ -63,37 +63,22 @@ namespace GameCaro
             {
                 this.Invoke(new Action(() =>
                 {
-                    //MessageBox.Show("Đổi mật khẩu thành công!\nVui lòng đăng nhập lại.", "Thành công",
-                    //    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Hiển thị thông báo yêu cầu khởi động lại
+                    MessageBox.Show(
+                        "Bạn đã đổi mật khẩu thành công!\nVui lòng khởi động lại ứng dụng.",
+                        "Thành công",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
 
-                    //// Đăng xuất và quay về form đăng nhập
-                    //NetworkClient.Instance.Send($"LOGOUT|{userId}");
-                    //SessionManager.Instance.ClearSession();
-
-                    //this.Close();
-
-                    //// Tìm và đóng tất cả form khác, mở form đăng nhập
-                    //foreach (Form form in Application.OpenForms.Cast<Form>().ToList())
-                    //{
-                    //    if (!(form is DangNhap))
-                    //    {
-                    //        form.Close();
-                    //    }
-                    //}
-
-                    //DangNhap loginForm = new DangNhap();
-                    //loginForm.Show();
-
-                    // Đăng xuất và quay về form đăng nhập
-                    NetworkClient.Instance.Send($"LOGOUT|{userId}");
+                    // Xóa session local
                     SessionManager.Instance.ClearSession();
 
-                    MessageBox.Show("Đổi mật khẩu thành công!\nVui lòng đăng nhập lại.", "Thành công",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Ngắt kết nối với server
+                    NetworkClient.Instance.Disconnect();
 
-                    // Set DialogResult để form CaiDat biết phải đóng
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+                    // Đóng toàn bộ ứng dụng
+                    Application.Exit();
                 }));
             }
             else if (msg.StartsWith("CHANGE_PASSWORD_FAIL|"))
