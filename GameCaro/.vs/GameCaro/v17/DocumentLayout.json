@@ -3,19 +3,67 @@
   "WorkspaceRootPath": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|c:\\users\\ad\\onedrive\\documents\\da_nt106\\clone7\\gamcaroversion2\\gamecaro\\gamecaro\\networkclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6454B878-3EAB-431E-8D92-1BA0F9C75695}|MayChu\\MayChu.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\maychu\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6454B878-3EAB-431E-8D92-1BA0F9C75695}|MayChu\\MayChu.csproj|solutionrelative:maychu\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\networkclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\networkclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|c:\\users\\ad\\onedrive\\documents\\da_nt106\\clone7\\gamcaroversion2\\gamecaro\\gamecaro\\caidat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\caidat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6454B878-3EAB-431E-8D92-1BA0F9C75695}|MayChu\\MayChu.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\maychu\\formserverinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{6454B878-3EAB-431E-8D92-1BA0F9C75695}|MayChu\\MayChu.csproj|solutionrelative:maychu\\formserverinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|c:\\users\\ad\\onedrive\\documents\\da_nt106\\clone7\\gamcaroversion2\\gamecaro\\gamecaro\\formdoimatkhau.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\formserverconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\formserverconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|c:\\users\\ad\\onedrive\\documents\\da_nt106\\clone7\\gamcaroversion2\\gamecaro\\gamecaro\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\dangnhap.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\dangnhap.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\serverconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\serverconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6454B878-3EAB-431E-8D92-1BA0F9C75695}|MayChu\\MayChu.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\maychu\\formserverinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6454B878-3EAB-431E-8D92-1BA0F9C75695}|MayChu\\MayChu.csproj|solutionrelative:maychu\\formserverinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\formserverconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\formserverconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\networkhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\networkhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\formdoimatkhau.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\formdoimatkhau.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|c:\\users\\ad\\onedrive\\documents\\da_nt106\\clone7\\gamcaroversion2\\gamecaro\\gamecaro\\banco.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\caidat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\caidat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\banco.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\banco.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -23,24 +71,12 @@
       "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\phongcho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6454B878-3EAB-431E-8D92-1BA0F9C75695}|MayChu\\MayChu.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\maychu\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6454B878-3EAB-431E-8D92-1BA0F9C75695}|MayChu\\MayChu.csproj|solutionrelative:maychu\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\banco.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\banco.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\phongcho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\phongcho.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\gamecaro\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{702982FC-66BE-4DD2-87A5-D3C56340D6CD}|GameCaro\\GameCaro.csproj|solutionrelative:gamecaro\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|GameCaro||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
@@ -53,7 +89,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 409,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 17,
           "Children": [
             {
               "$type": "Bookmark",
@@ -69,33 +105,141 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
+              "Title": "DangNhap.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\DangNhap.Designer.cs",
+              "RelativeDocumentMoniker": "GameCaro\\DangNhap.Designer.cs",
+              "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\DangNhap.Designer.cs",
+              "RelativeToolTip": "GameCaro\\DangNhap.Designer.cs",
+              "ViewState": "AgIAALUAAAAAAAAAAAAIwLoAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T09:05:27.763Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "FormServerInfo.cs",
+              "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\MayChu\\FormServerInfo.cs",
+              "RelativeDocumentMoniker": "MayChu\\FormServerInfo.cs",
+              "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\MayChu\\FormServerInfo.cs",
+              "RelativeToolTip": "MayChu\\FormServerInfo.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwKYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T08:47:56.502Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FormServerInfo.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\MayChu\\FormServerInfo.cs",
+              "RelativeDocumentMoniker": "MayChu\\FormServerInfo.cs",
+              "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\MayChu\\FormServerInfo.cs [Design]",
+              "RelativeToolTip": "MayChu\\FormServerInfo.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T08:31:12.95Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FormServerConfig.cs",
+              "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\FormServerConfig.cs",
+              "RelativeDocumentMoniker": "GameCaro\\FormServerConfig.cs",
+              "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\FormServerConfig.cs",
+              "RelativeToolTip": "GameCaro\\FormServerConfig.cs",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAmwIsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T08:27:02.935Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "FormServerConfig.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\FormServerConfig.cs",
+              "RelativeDocumentMoniker": "GameCaro\\FormServerConfig.cs",
+              "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\FormServerConfig.cs [Design]",
+              "RelativeToolTip": "GameCaro\\FormServerConfig.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T07:59:56.5Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "NetworkHelper.cs",
+              "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\NetworkHelper.cs",
+              "RelativeDocumentMoniker": "GameCaro\\NetworkHelper.cs",
+              "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\NetworkHelper.cs",
+              "RelativeToolTip": "GameCaro\\NetworkHelper.cs",
+              "ViewState": "AgIAANMAAAAAAAAAAAAkwNYAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T07:58:41.702Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DangNhap.cs",
+              "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\DangNhap.cs",
+              "RelativeDocumentMoniker": "GameCaro\\DangNhap.cs",
+              "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\DangNhap.cs",
+              "RelativeToolTip": "GameCaro\\DangNhap.cs",
+              "ViewState": "AgIAANoAAAAAAAAAAAAswM8AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T07:57:10.069Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DangNhap.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\DangNhap.cs",
+              "RelativeDocumentMoniker": "GameCaro\\DangNhap.cs",
+              "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\DangNhap.cs [Design]",
+              "RelativeToolTip": "GameCaro\\DangNhap.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T07:54:37.647Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ServerConfig.cs",
+              "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\ServerConfig.cs",
+              "RelativeDocumentMoniker": "GameCaro\\ServerConfig.cs",
+              "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\ServerConfig.cs",
+              "RelativeToolTip": "GameCaro\\ServerConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T07:53:30.357Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "NetworkClient.cs",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\NetworkClient.cs",
               "RelativeDocumentMoniker": "GameCaro\\NetworkClient.cs",
               "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\NetworkClient.cs",
               "RelativeToolTip": "GameCaro\\NetworkClient.cs",
-              "ViewState": "AgIAAOsAAAAAAAAAAADwv/YAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADYBAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-02T17:40:15.195Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 13,
               "Title": "FormDoiMatKhau.cs",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\FormDoiMatKhau.cs",
               "RelativeDocumentMoniker": "GameCaro\\FormDoiMatKhau.cs",
               "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\FormDoiMatKhau.cs",
               "RelativeToolTip": "GameCaro\\FormDoiMatKhau.cs",
-              "ViewState": "AgIAAPkAAAAAAAAAAAAqwFAAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAANwAAAAAAAAAAAA6wFAAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-02T17:28:42.644Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-02T17:28:42.644Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 14,
               "Title": "CaiDat.cs",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\CaiDat.cs",
               "RelativeDocumentMoniker": "GameCaro\\CaiDat.cs",
@@ -103,24 +247,22 @@
               "RelativeToolTip": "GameCaro\\CaiDat.cs",
               "ViewState": "AgIAAC0AAAAAAAAAAAAqwDgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-02T17:27:10.801Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-02T17:27:10.801Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 15,
               "Title": "BanCo.cs [Design]",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\BanCo.cs",
               "RelativeDocumentMoniker": "GameCaro\\BanCo.cs",
               "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\BanCo.cs [Design]",
               "RelativeToolTip": "GameCaro\\BanCo.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T14:51:33.602Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-12-31T14:51:33.602Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 17,
               "Title": "BanCo.cs",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\BanCo.cs",
               "RelativeDocumentMoniker": "GameCaro\\BanCo.cs",
@@ -132,53 +274,56 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\MayChu\\Program.cs",
               "RelativeDocumentMoniker": "MayChu\\Program.cs",
               "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\MayChu\\Program.cs",
               "RelativeToolTip": "MayChu\\Program.cs",
-              "ViewState": "AgIAADwAAAAAAAAAAAAowCEAAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAACgAAAAAAAAAAAAQwCsAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T20:21:42.833Z"
+              "WhenOpened": "2025-12-31T20:21:42.833Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 16,
               "Title": "PhongCho.cs [Design]",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\PhongCho.cs",
               "RelativeDocumentMoniker": "GameCaro\\PhongCho.cs",
-              "ToolTip": "E:\\clone\\GamCaroVersion2\\GameCaro\\GameCaro\\PhongCho.cs [Design]",
+              "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\PhongCho.cs [Design]",
+              "RelativeToolTip": "GameCaro\\PhongCho.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-01T11:46:38.236Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\Program.cs",
               "RelativeDocumentMoniker": "GameCaro\\Program.cs",
               "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\Program.cs",
               "RelativeToolTip": "GameCaro\\Program.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAgwCIAAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAABoAAAAAAAAAAAAIwCoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T03:54:54.992Z"
+              "WhenOpened": "2026-01-01T03:54:54.992Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "Form1.Designer.cs",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\Form1.Designer.cs",
               "RelativeDocumentMoniker": "GameCaro\\Form1.Designer.cs",
               "ToolTip": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\Form1.Designer.cs",
               "RelativeToolTip": "GameCaro\\Form1.Designer.cs",
-              "ViewState": "AgIAAL8AAAAAAAAAAAAqwNAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001384|",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-01T06:03:56.259Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 18,
               "Title": "PhongCho.cs",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\PhongCho.cs",
               "RelativeDocumentMoniker": "GameCaro\\PhongCho.cs",
@@ -190,7 +335,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 19,
               "Title": "GameCaro",
               "DocumentMoniker": "C:\\Users\\ad\\OneDrive\\Documents\\DA_NT106\\Clone7\\GamCaroVersion2\\GameCaro\\GameCaro\\GameCaro.csproj",
               "RelativeDocumentMoniker": "GameCaro\\GameCaro.csproj",

@@ -144,6 +144,12 @@
     <Compile Include="FormDoiMatKhau.Designer.cs">
       <DependentUpon>FormDoiMatKhau.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormServerConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormServerConfig.Designer.cs">
+      <DependentUpon>FormServerConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormThayDoiThongTin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +177,7 @@
       <DependentUpon>HoSoCaNhan.cs</DependentUpon>
     </Compile>
     <Compile Include="NetworkClient.cs" />
+    <Compile Include="NetworkHelper.cs" />
     <Compile Include="PhongCho.cs">
       <SubType>Form</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -189,6 +196,7 @@
     <Compile Include="QuenMatKhau.Designer.cs">
       <DependentUpon>QuenMatKhau.cs</DependentUpon>
     </Compile>
+    <Compile Include="ServerConfig.cs" />
     <Compile Include="SessionManager.cs" />
     <Compile Include="SocketData.cs" />
     <Compile Include="SocketManager.cs" />
@@ -212,6 +220,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDoiMatKhau.resx">
       <DependentUpon>FormDoiMatKhau.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormServerConfig.resx">
+      <DependentUpon>FormServerConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormThayDoiThongTin.resx">
       <DependentUpon>FormThayDoiThongTin.cs</DependentUpon>

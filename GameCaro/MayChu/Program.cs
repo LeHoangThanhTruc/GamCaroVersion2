@@ -13,6 +13,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 namespace MayChu
 {
     public class Program
@@ -31,6 +32,7 @@ namespace MayChu
 
         static void Main(string[] args)
         {
+
             Console.WriteLine("Server dang ket noi...97");
             Program server = new Program();
             //Khởi tạo cấu hình Firebase
@@ -45,7 +47,13 @@ namespace MayChu
 
             server.Connect();
 
+            DisplayServerInfo();
+
+            Console.WriteLine("\n⌨️ Nhấn Enter để tắt Server...");
+
             Console.ReadLine();
+
+
 
 
 
@@ -1717,5 +1725,123 @@ namespace MayChu
             }
         }
 
+        static void DisplayServerInfo()
+        {
+            try
+            {
+                string localIP = GetLocalIPv4();
+
+                Console.WriteLine("╔══════════════════════════════════════════╗");
+                Console.WriteLine("║         THÔNG TIN KẾT NỐI SERVER         ║");
+                Console.WriteLine("╚══════════════════════════════════════════╝");
+                Console.WriteLine();
+                Console.WriteLine($"  📍 IP Address:  {localIP}");
+                Console.WriteLine($"  🔌 Port:        9998");
+                Console.WriteLine($"  🔗 Full:        {localIP}:9998");
+                Console.WriteLine();
+                Console.WriteLine("╔══════════════════════════════════════════╗");
+                Console.WriteLine("║        HƯỚNG DẪN CHO CLIENT              ║");
+                Console.WriteLine("╚══════════════════════════════════════════╝");
+                Console.WriteLine();
+                Console.WriteLine("  1️⃣ Mở Game Caro Client");
+                Console.WriteLine("  2️⃣ Click 'Cấu hình Server'");
+                Console.WriteLine($"  3️⃣ Nhập IP: {localIP}");
+                Console.WriteLine("  4️⃣ Click 'Lưu' và khởi động lại");
+                Console.WriteLine("  5️⃣ Đăng ký/Đăng nhập");
+                Console.WriteLine();
+                Console.WriteLine("══════════════════════════════════════════");
+                Console.WriteLine();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"⚠️ Lỗi hiển thị thông tin: {ex.Message}");
+            }
+        }
+
+        static string GetLocalIPv4()
+        {
+            try
+            {
+                var interfaces = System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()
+                    .Where(ni => ni.OperationalStatus == System.Net.NetworkInformation.OperationalStatus.Up);
+
+                foreach (var ni in interfaces)
+                {
+                    var properties = ni.GetIPProperties();
+                    var ipv4 = properties.UnicastAddresses
+                        .Where(ua => ua.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        .Where(ua => !System.Net.IPAddress.IsLoopback(ua.Address))
+                        .Select(ua => ua.Address)
+                        .FirstOrDefault();
+
+                    if (ipv4 != null)
+                    {
+                        return ipv4.ToString();
+                    }
+                }
+
+                return "127.0.0.1";
+            }
+            catch
+            {
+                return "127.0.0.1";
+            }
+        }
+
+        // ===== BONUS: Thêm màu sắc cho Console =====
+        static void DisplayServerInfoColored()
+        {
+            try
+            {
+                string localIP = GetLocalIPv4();
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("╔══════════════════════════════════════════╗");
+                Console.WriteLine("║         THÔNG TIN KẾT NỐI SERVER         ║");
+                Console.WriteLine("╚══════════════════════════════════════════╝");
+                Console.ResetColor();
+                Console.WriteLine();
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("  📍 IP Address:  ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(localIP);
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("  🔌 Port:        ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("9998");
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("  🔗 Full:        ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"{localIP}:9998");
+                Console.ResetColor();
+
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("╔══════════════════════════════════════════╗");
+                Console.WriteLine("║        HƯỚNG DẪN CHO CLIENT              ║");
+                Console.WriteLine("╚══════════════════════════════════════════╝");
+                Console.ResetColor();
+                Console.WriteLine();
+                Console.WriteLine("  1️⃣ Mở Game Caro Client");
+                Console.WriteLine("  2️⃣ Click 'Cấu hình Server'");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"  3️⃣ Nhập IP: {localIP}");
+                Console.ResetColor();
+                Console.WriteLine("  4️⃣ Click 'Lưu' và khởi động lại");
+                Console.WriteLine("  5️⃣ Đăng ký/Đăng nhập");
+                Console.WriteLine();
+                Console.WriteLine("══════════════════════════════════════════");
+                Console.WriteLine();
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"⚠️ Lỗi hiển thị thông tin: {ex.Message}");
+                Console.ResetColor();
+            }
+        }
     }
 }

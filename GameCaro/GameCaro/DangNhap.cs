@@ -90,6 +90,8 @@ namespace GameCaro
         {
             NetworkClient.OnMessageReceived -= ClientXuLyDangNhap;
             NetworkClient.OnMessageReceived += ClientXuLyDangNhap;
+
+            lblServerInfo.Text = $"🔗 Server: {ServerConfig.Instance.GetServerIP()}:9998";
         }
         private void ClientXuLyDangNhap(string msg)
         {
@@ -200,6 +202,62 @@ namespace GameCaro
         {
 
         }
+
+        private void btnCauHinhServer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Mở form cấu hình Server
+                FormServerConfig configForm = new FormServerConfig();
+                DialogResult result = configForm.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    // Cập nhật hiển thị IP mới
+                    lblServerInfo.Text = $"🔗 Server: {ServerConfig.Instance.GetServerIP()}:9998";
+
+                    // Hỏi người dùng có muốn kết nối lại không
+                    DialogResult reconnect = MessageBox.Show(
+                        "IP Server đã thay đổi!\n\n" +
+                        "Bạn có muốn kết nối lại ngay bây giờ?",
+                        "Xác nhận",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question
+                    );
+
+                    if (reconnect == DialogResult.Yes)
+                    {
+                        // Hiển thị loading
+                        this.Enabled = false;
+                        this.Cursor = Cursors.WaitCursor;
+
+                        // Ngắt kết nối cũ
+                        NetworkClient.Instance.Disconnect();
+
+                        // Đợi 1 chút
+                        System.Threading.Thread.Sleep(500);
+
+                        // Kết nối lại với IP mới
+                        NetworkClient.Instance.Connect();
+
+                        this.Cursor = Cursors.Default;
+                        this.Enabled = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Lỗi khi cấu hình Server:\n\n" + ex.Message,
+                    "Lỗi",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                this.Cursor = Cursors.Default;
+                this.Enabled = true;
+            }
+        }
+
 
         //private void XuLyDangNhap(string msg)
         //{

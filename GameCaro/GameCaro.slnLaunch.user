@@ -3,11 +3,11 @@
     "Name": "New Profile",
     "Projects": [
       {
-        "Path": "GameCaro\\GameCaro.csproj",
+        "Path": "MayChu\\MayChu.csproj",
         "Action": "Start"
       },
       {
-        "Path": "MayChu\\MayChu.csproj",
+        "Path": "GameCaro\\GameCaro.csproj",
         "Action": "Start"
       }
     ]
