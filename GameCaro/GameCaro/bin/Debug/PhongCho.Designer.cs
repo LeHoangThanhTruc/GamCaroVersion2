@@ -44,6 +44,7 @@
             // 
             this.txtYourID.Location = new System.Drawing.Point(296, 98);
             this.txtYourID.Name = "txtYourID";
+            this.txtYourID.ReadOnly = true;
             this.txtYourID.Size = new System.Drawing.Size(272, 20);
             this.txtYourID.TabIndex = 0;
             // 
@@ -51,6 +52,7 @@
             // 
             this.txtIDDoiThu.Location = new System.Drawing.Point(296, 154);
             this.txtIDDoiThu.Name = "txtIDDoiThu";
+            this.txtIDDoiThu.ReadOnly = true;
             this.txtIDDoiThu.Size = new System.Drawing.Size(272, 20);
             this.txtIDDoiThu.TabIndex = 1;
             // 

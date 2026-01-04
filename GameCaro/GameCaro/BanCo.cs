@@ -55,7 +55,17 @@ namespace GameCaro
         }
         private void btnSendMessage_Click(object sender, EventArgs e)
         {
+            string noiDung = rtbSoanTinNhan.Text.Trim();
+            if (string.IsNullOrEmpty(noiDung))
+                return;
 
+            string idGui = txtYourID.Text;
+            string idNhan = txtOpponentID.Text;
+
+            string packet = $"CHAT|{idGui}|{idNhan}|{noiDung}";
+            NetworkClient.Instance.Send(packet);
+
+            rtbSoanTinNhan.Clear();
         }
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
@@ -270,6 +280,24 @@ namespace GameCaro
                     MessageBox.Show($"Đối thủ ({timeoutUser}) đã hết thời gian.\nVán đấu bị dừng.");
                 }
             }
+            else if (msg.StartsWith("CHAT|"))
+            {
+                // CHAT|idNguoiGui|noiDung
+                string[] p = msg.Split(new char[] { '|' }, 3);
+
+                string idNguoiGui = p[1];
+                string noiDung = p[2];
+
+                if (idNguoiGui == txtYourID.Text)
+                {
+                    rtbKhungChatHienThi.AppendText($"me: {noiDung}\n");
+                }
+                else
+                {
+                    rtbKhungChatHienThi.AppendText($"{idNguoiGui}: {noiDung}\n");
+                }
+            }
+
 
         }
         private void DrawMove(int row, int col, bool isX)

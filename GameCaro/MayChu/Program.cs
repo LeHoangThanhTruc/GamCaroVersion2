@@ -236,7 +236,12 @@ namespace MayChu
                         HandleTimeout(roomId, timeoutUser);
                         continue;
                     }
-
+                    //18) CHAT trong lúc chơi
+                    if (message.StartsWith("CHAT|"))
+                    {
+                        XuLyChat(message);
+                        continue;
+                    }
                     //// 17) FORGOT_PASSWORD_SETTING - Quên mật khẩu từ settings
                     //if (message.StartsWith("FORGOT_PASSWORD_SETTING|"))
                     //{
@@ -272,6 +277,24 @@ namespace MayChu
                 }
             }
         }
+        void XuLyChat(string msg)
+        {
+            // CHAT|idGui|idNhan|noiDung
+            string[] p = msg.Split(new char[] { '|' }, 4);
+
+            if (p.Length < 4) return; // phòng lỗi format
+
+            string idGui = p[1];
+            string idNhan = p[2];
+            string noiDung = p[3];
+
+            // gửi cho người nhận
+            SendToUser(idNhan, $"CHAT|{idGui}|{noiDung}");
+
+            // gửi lại cho chính người gửi
+            SendToUser(idGui, $"CHAT|{idGui}|{noiDung}");
+        }
+
         void HandleTimeout(string roomId, string timeoutUser)
         {
             if (!rooms.ContainsKey(roomId)) return;
