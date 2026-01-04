@@ -47,6 +47,25 @@ namespace MayChu
 
             server.Connect();
 
+            // nếu muốn dùng cái form hiển thị IP server thì bỏ cmt đoạn code dưới nha, rồi cho đoạn displayserverinfo() vào comment
+            // không thì thôi, trên cái terminal nhấn enter thì nó hiện ra cái ip của server nha
+            
+            //Thread formThread = new Thread(() =>
+            //{
+            //    Application.EnableVisualStyles();
+            //    Application.SetCompatibleTextRenderingDefault(false);
+            
+            //    FormServerInfo formInfo = new FormServerInfo();
+            //    Application.Run(formInfo);
+            //});
+            //formThread.SetApartmentState(ApartmentState.STA);
+            //formThread.IsBackground = false; // Giữ form mở
+            //formThread.Start();
+            
+            //Console.WriteLine("\n Server đang chạy!");
+            //Console.WriteLine(" Form 'Thông tin Server' đã mở - Dùng để chia sẻ IP với Client");
+            //Console.WriteLine(" Nhấn Enter để tắt Server...\n");
+
             DisplayServerInfo();
 
             Console.WriteLine("\n⌨️ Nhấn Enter để tắt Server...");
