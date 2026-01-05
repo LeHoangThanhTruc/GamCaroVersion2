@@ -68,7 +68,7 @@ namespace MayChu
 
             DisplayServerInfo();
 
-            Console.WriteLine("\n⌨️ Nhấn Enter để tắt Server...");
+            Console.WriteLine("\nNhấn Enter để tắt Server...");
 
             Console.ReadLine();
 
