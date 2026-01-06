@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 //Kích cỡ button 33,33 ; Location ban đầu 3, 3
 //Kích cỡ bàn cờ 948, 708
 namespace GameCaro
@@ -23,6 +24,8 @@ namespace GameCaro
         bool isFirstPlayer;    // X hay O
         double maxTime = 60.0;        // 1 phút 
         double timeRemaining;
+
+        private SoundPlayer soundPlayer;
         public BanCo(string userID,string IDdoithu)
         {
             InitializeComponent();
@@ -42,9 +45,42 @@ namespace GameCaro
             txtYourID.Text= userID;
             //MessageBox.Show("Test 2");
             this.Shown += BanCo_Shown;
-            
+
+            InitializeSound();
+
 
         }
+
+        private void InitializeSound()
+        {
+            try
+            {
+                // CÁCH 1: Nếu file âm thanh nằm trong Resources
+                soundPlayer = new SoundPlayer(Properties.Resources.click);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi load âm thanh: " + ex.Message);
+            }
+        }
+
+        private void PlayClickSound()
+        {
+            try
+            {
+                if (soundPlayer != null)
+                {
+                    soundPlayer.Play(); // Phát không đồng bộ (không chặn UI)
+                    // Hoặc dùng soundPlayer.PlaySync(); để phát đồng bộ
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi phát âm thanh: " + ex.Message);
+            }
+        }
+
         private List<List<Button>> matrix;
         public List<List<Button>> Matrix { get => matrix; set => matrix = value; }
         public void SetRoom(string roomID, bool isFirst)
@@ -70,6 +106,14 @@ namespace GameCaro
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             NetworkClient.OnMessageReceived -= OnServerMessage;
+
+            // GIẢI PHÓNG tài nguyên âm thanh
+            if (soundPlayer != null)
+            {
+                soundPlayer.Dispose();
+                soundPlayer = null;
+            }
+
             base.OnFormClosed(e);
         }
 
@@ -202,6 +246,9 @@ namespace GameCaro
                 int col = int.Parse(parts[3]);
 
                 DrawMove(row, col, isFirstPlayer);
+
+                PlayClickSound();
+
                 isMyTurn = false;
                 EnableBoard(false);
                 pnlYourID.BackColor = Color.Transparent;
@@ -215,6 +262,9 @@ namespace GameCaro
                 int col = int.Parse(parts[3]);
 
                 DrawMove(row, col, !isFirstPlayer);
+
+                PlayClickSound();
+
                 isMyTurn = true;
                 EnableBoard(true);
                 pnlYourID.BackColor = Color.LightGreen;
