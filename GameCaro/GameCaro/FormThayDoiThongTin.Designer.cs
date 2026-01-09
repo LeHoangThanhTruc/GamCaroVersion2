@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblTitle = new System.Windows.Forms.Label();
             this.lblField = new System.Windows.Forms.Label();
             this.txtField = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
@@ -36,61 +35,59 @@
             this.lblNote = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Cambria", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(53, 19);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(285, 36);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Thay Đổi Thông Tin";
-            // 
             // lblField
             // 
             this.lblField.AutoSize = true;
-            this.lblField.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblField.Location = new System.Drawing.Point(30, 80);
+            this.lblField.BackColor = System.Drawing.Color.Transparent;
+            this.lblField.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblField.ForeColor = System.Drawing.Color.Blue;
+            this.lblField.Location = new System.Drawing.Point(238, 221);
             this.lblField.Name = "lblField";
-            this.lblField.Size = new System.Drawing.Size(98, 23);
+            this.lblField.Size = new System.Drawing.Size(103, 23);
             this.lblField.TabIndex = 1;
             this.lblField.Text = "Thông tin:";
             // 
             // txtField
             // 
             this.txtField.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtField.Location = new System.Drawing.Point(34, 110);
+            this.txtField.Location = new System.Drawing.Point(242, 251);
             this.txtField.Name = "txtField";
             this.txtField.Size = new System.Drawing.Size(330, 28);
             this.txtField.TabIndex = 2;
             // 
             // btnSave
             // 
-            this.btnSave.Font = new System.Drawing.Font("Cambria", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(90, 200);
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnSave.Font = new System.Drawing.Font("UTM Cookies", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.ForeColor = System.Drawing.Color.Green;
+            this.btnSave.Location = new System.Drawing.Point(298, 341);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(100, 35);
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Lưu";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Font = new System.Drawing.Font("Cambria", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(210, 200);
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnCancel.Font = new System.Drawing.Font("UTM Cookies", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.ForeColor = System.Drawing.Color.Chocolate;
+            this.btnCancel.Location = new System.Drawing.Point(418, 341);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 35);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Hủy";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // lblNote
             // 
             this.lblNote.AutoSize = true;
+            this.lblNote.BackColor = System.Drawing.Color.Transparent;
             this.lblNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNote.Location = new System.Drawing.Point(34, 150);
+            this.lblNote.ForeColor = System.Drawing.Color.Blue;
+            this.lblNote.Location = new System.Drawing.Point(242, 291);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(345, 18);
             this.lblNote.TabIndex = 5;
@@ -100,13 +97,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(422, 265);
+            this.BackgroundImage = global::GameCaro.Properties.Resources.THAYDOITHONGTIN_01;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(812, 544);
             this.Controls.Add(this.lblNote);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtField);
             this.Controls.Add(this.lblField);
-            this.Controls.Add(this.lblTitle);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -121,8 +120,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblField;
         private System.Windows.Forms.TextBox txtField;
         private System.Windows.Forms.Button btnSave;

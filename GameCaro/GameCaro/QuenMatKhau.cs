@@ -214,5 +214,20 @@ namespace GameCaro
             txtMatKhauMoi.PasswordChar = checkBox1.Checked ? '\0' : '●';
             txtXacNhanMatKhau.PasswordChar = checkBox1.Checked ? '\0' : '●';
         }
+
+        private void panelOTP_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void lblOTP_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtOTP_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

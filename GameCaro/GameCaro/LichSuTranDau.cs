@@ -15,33 +15,28 @@ namespace GameCaro
 {
     public partial class LichSuTranDau : Form
     {
+
+        private string userId;
         
-        public LichSuTranDau()
+
+        public LichSuTranDau(string id)
         {
             InitializeComponent();
-            
-
-
+            userId = id;
         }
 
         private void LichSuTranDau_Load(object sender, EventArgs e)
         {
             NetworkClient.OnMessageReceived -= ClientXuLyLichSuTranDau;
             NetworkClient.OnMessageReceived += ClientXuLyLichSuTranDau;
+
         }
         private void ClientXuLyLichSuTranDau(string msg)
         {
-            if (InvokeRequired)
-            {
-                Invoke(new Action(() => ClientXuLyLichSuTranDau(msg)));
-                return;
-            }
-
             
         }
-        private void LichSuTranDau_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            NetworkClient.OnMessageReceived -= ClientXuLyLichSuTranDau;
-        }
+
+
+        
     }
 }

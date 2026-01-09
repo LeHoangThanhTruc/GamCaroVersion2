@@ -266,6 +266,8 @@ namespace MayChu
                         XuLyLayBangXepHang(client);
                         continue;
                     }
+                    // 21) History - xử lý lịch sử trậ đấu
+                    
 
                     //// 17) FORGOT_PASSWORD_SETTING - Quên mật khẩu từ settings
                     //if (message.StartsWith("FORGOT_PASSWORD_SETTING|"))
@@ -312,6 +314,14 @@ namespace MayChu
                 }
             }
         }
+        
+
+        
+        
+
+
+
+
         void XuLyLayBangXepHang(Socket client)
         {
 

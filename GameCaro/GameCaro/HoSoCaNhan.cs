@@ -204,6 +204,16 @@ namespace GameCaro
                 MessageBox.Show("Lỗi chọn avatar:\n" + ex.Message);
             }
         }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtdathua_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
     
 }

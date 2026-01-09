@@ -61,11 +61,61 @@ namespace GameCaro.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BANGXEPHANG_01 {
+            get {
+                object obj = ResourceManager.GetObject("BANGXEPHANG-01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CAIDAT_01 {
+            get {
+                object obj = ResourceManager.GetObject("CAIDAT-01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream click {
             get {
                 return ResourceManager.GetStream("click", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DANGKY_01 {
+            get {
+                object obj = ResourceManager.GetObject("DANGKY-01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DANGNHAP_01 {
+            get {
+                object obj = ResourceManager.GetObject("DANGNHAP-01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DOIMATKHAU_01 {
+            get {
+                object obj = ResourceManager.GetObject("DOIMATKHAU-01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -82,9 +132,49 @@ namespace GameCaro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap HOSOCANHAN_01 {
+            get {
+                object obj = ResourceManager.GetObject("HOSOCANHAN-01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap O_Black {
             get {
                 object obj = ResourceManager.GetObject("O_Black", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PHONGCHO_01 {
+            get {
+                object obj = ResourceManager.GetObject("PHONGCHO-01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap QUENMATKHAU_01 {
+            get {
+                object obj = ResourceManager.GetObject("QUENMATKHAU-01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap THAYDOITHONGTIN_01 {
+            get {
+                object obj = ResourceManager.GetObject("THAYDOITHONGTIN-01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -134,6 +135,15 @@ namespace GameCaro
             NetworkClient.OnMessageReceived += ClientXuLyBangXepHang;
             NetworkClient.Instance.Send("GET_RANKING");
 
+        }
+        private void BangXepHang_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            NetworkClient.OnMessageReceived -= ClientXuLyBangXepHang;
+        }
+
+        private void btnQuayLaiGiaoDienChung_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

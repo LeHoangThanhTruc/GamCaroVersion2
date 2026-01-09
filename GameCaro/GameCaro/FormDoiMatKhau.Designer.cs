@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblTitle = new System.Windows.Forms.Label();
             this.lblMatKhauHienTai = new System.Windows.Forms.Label();
             this.lblMatKhauMoi = new System.Windows.Forms.Label();
             this.lblXacNhanMatKhau = new System.Windows.Forms.Label();
@@ -40,21 +39,12 @@
             this.ckHienMatKhau = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Cambria", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(90, 21);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(200, 36);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Đổi Mật Khẩu";
-            // 
             // lblMatKhauHienTai
             // 
             this.lblMatKhauHienTai.AutoSize = true;
+            this.lblMatKhauHienTai.BackColor = System.Drawing.Color.Transparent;
             this.lblMatKhauHienTai.Font = new System.Drawing.Font("Cambria", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMatKhauHienTai.Location = new System.Drawing.Point(30, 70);
+            this.lblMatKhauHienTai.Location = new System.Drawing.Point(235, 198);
             this.lblMatKhauHienTai.Name = "lblMatKhauHienTai";
             this.lblMatKhauHienTai.Size = new System.Drawing.Size(163, 21);
             this.lblMatKhauHienTai.TabIndex = 1;
@@ -63,8 +53,9 @@
             // lblMatKhauMoi
             // 
             this.lblMatKhauMoi.AutoSize = true;
+            this.lblMatKhauMoi.BackColor = System.Drawing.Color.Transparent;
             this.lblMatKhauMoi.Font = new System.Drawing.Font("Cambria", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMatKhauMoi.Location = new System.Drawing.Point(30, 145);
+            this.lblMatKhauMoi.Location = new System.Drawing.Point(235, 261);
             this.lblMatKhauMoi.Name = "lblMatKhauMoi";
             this.lblMatKhauMoi.Size = new System.Drawing.Size(132, 21);
             this.lblMatKhauMoi.TabIndex = 3;
@@ -73,8 +64,9 @@
             // lblXacNhanMatKhau
             // 
             this.lblXacNhanMatKhau.AutoSize = true;
+            this.lblXacNhanMatKhau.BackColor = System.Drawing.Color.Transparent;
             this.lblXacNhanMatKhau.Font = new System.Drawing.Font("Cambria", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblXacNhanMatKhau.Location = new System.Drawing.Point(30, 210);
+            this.lblXacNhanMatKhau.Location = new System.Drawing.Point(235, 323);
             this.lblXacNhanMatKhau.Name = "lblXacNhanMatKhau";
             this.lblXacNhanMatKhau.Size = new System.Drawing.Size(175, 21);
             this.lblXacNhanMatKhau.TabIndex = 5;
@@ -83,7 +75,7 @@
             // txtMatKhauHienTai
             // 
             this.txtMatKhauHienTai.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMatKhauHienTai.Location = new System.Drawing.Point(34, 95);
+            this.txtMatKhauHienTai.Location = new System.Drawing.Point(239, 223);
             this.txtMatKhauHienTai.Name = "txtMatKhauHienTai";
             this.txtMatKhauHienTai.PasswordChar = '●';
             this.txtMatKhauHienTai.Size = new System.Drawing.Size(330, 28);
@@ -92,7 +84,7 @@
             // txtMatKhauMoi
             // 
             this.txtMatKhauMoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMatKhauMoi.Location = new System.Drawing.Point(34, 170);
+            this.txtMatKhauMoi.Location = new System.Drawing.Point(239, 286);
             this.txtMatKhauMoi.Name = "txtMatKhauMoi";
             this.txtMatKhauMoi.PasswordChar = '●';
             this.txtMatKhauMoi.Size = new System.Drawing.Size(330, 28);
@@ -101,7 +93,7 @@
             // txtXacNhanMatKhau
             // 
             this.txtXacNhanMatKhau.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtXacNhanMatKhau.Location = new System.Drawing.Point(34, 235);
+            this.txtXacNhanMatKhau.Location = new System.Drawing.Point(239, 348);
             this.txtXacNhanMatKhau.Name = "txtXacNhanMatKhau";
             this.txtXacNhanMatKhau.PasswordChar = '●';
             this.txtXacNhanMatKhau.Size = new System.Drawing.Size(330, 28);
@@ -109,42 +101,49 @@
             // 
             // btnDoiMatKhau
             // 
-            this.btnDoiMatKhau.Font = new System.Drawing.Font("Cambria", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDoiMatKhau.Location = new System.Drawing.Point(80, 320);
+            this.btnDoiMatKhau.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnDoiMatKhau.Font = new System.Drawing.Font("UTM Cookies", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDoiMatKhau.ForeColor = System.Drawing.Color.Green;
+            this.btnDoiMatKhau.Location = new System.Drawing.Point(279, 391);
             this.btnDoiMatKhau.Name = "btnDoiMatKhau";
             this.btnDoiMatKhau.Size = new System.Drawing.Size(133, 35);
             this.btnDoiMatKhau.TabIndex = 7;
             this.btnDoiMatKhau.Text = "Đổi mật khẩu";
-            this.btnDoiMatKhau.UseVisualStyleBackColor = true;
+            this.btnDoiMatKhau.UseVisualStyleBackColor = false;
             this.btnDoiMatKhau.Click += new System.EventHandler(this.btnDoiMatKhau_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Font = new System.Drawing.Font("Cambria", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(220, 320);
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnCancel.Font = new System.Drawing.Font("UTM Cookies", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.ForeColor = System.Drawing.Color.Chocolate;
+            this.btnCancel.Location = new System.Drawing.Point(419, 391);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 35);
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Hủy";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // ckHienMatKhau
             // 
             this.ckHienMatKhau.AutoSize = true;
-            this.ckHienMatKhau.Location = new System.Drawing.Point(34, 275);
+            this.ckHienMatKhau.BackColor = System.Drawing.Color.Transparent;
+            this.ckHienMatKhau.Location = new System.Drawing.Point(592, 294);
             this.ckHienMatKhau.Name = "ckHienMatKhau";
-            this.ckHienMatKhau.Size = new System.Drawing.Size(114, 20);
+            this.ckHienMatKhau.Size = new System.Drawing.Size(62, 20);
             this.ckHienMatKhau.TabIndex = 10;
-            this.ckHienMatKhau.Text = "Hiện mật khẩu";
-            this.ckHienMatKhau.UseVisualStyleBackColor = true;
+            this.ckHienMatKhau.Text = "Show";
+            this.ckHienMatKhau.UseVisualStyleBackColor = false;
             this.ckHienMatKhau.CheckedChanged += new System.EventHandler(this.ckHienMatKhau_CheckedChanged);
             // 
             // FormDoiMatKhau
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(382, 373);
+            this.BackgroundImage = global::GameCaro.Properties.Resources.DOIMATKHAU_01;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(812, 544);
             this.Controls.Add(this.ckHienMatKhau);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnDoiMatKhau);
@@ -154,7 +153,7 @@
             this.Controls.Add(this.lblXacNhanMatKhau);
             this.Controls.Add(this.lblMatKhauMoi);
             this.Controls.Add(this.lblMatKhauHienTai);
-            this.Controls.Add(this.lblTitle);
+            this.DoubleBuffered = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormDoiMatKhau";
@@ -167,8 +166,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblMatKhauHienTai;
         private System.Windows.Forms.Label lblMatKhauMoi;
         private System.Windows.Forms.Label lblXacNhanMatKhau;

@@ -141,5 +141,12 @@ namespace GameCaro
                 this.Show();
             }
         }
+
+        private void btnLichSuTranDau_Click(object sender, EventArgs e)
+        {
+            LichSuTranDau f = new LichSuTranDau(userId);
+            f.Show();
+        }
+        
     }
 }
