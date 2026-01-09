@@ -272,6 +272,7 @@
     <Content Include="bin\Debug\Avatars\avt3.jpg" />
     <Content Include="bin\Debug\Avatars\default.jpg" />
     <Content Include="bin\Debug\music.mp3" />
+    <None Include="Resources\GIAODIENCHUNG-01.png" />
     <Content Include="Resources\music.mp3" />
   </ItemGroup>
   <ItemGroup>

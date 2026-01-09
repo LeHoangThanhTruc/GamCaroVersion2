@@ -41,7 +41,7 @@
             this.btnPhongCho.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPhongCho.ForeColor = System.Drawing.Color.Red;
             this.btnPhongCho.Location = new System.Drawing.Point(324, 148);
-            this.btnPhongCho.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPhongCho.Margin = new System.Windows.Forms.Padding(4);
             this.btnPhongCho.Name = "btnPhongCho";
             this.btnPhongCho.Size = new System.Drawing.Size(209, 71);
             this.btnPhongCho.TabIndex = 0;
@@ -51,15 +51,16 @@
             // 
             // btnCaiDat
             // 
+            this.btnCaiDat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnCaiDat.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCaiDat.ForeColor = System.Drawing.Color.Red;
             this.btnCaiDat.Location = new System.Drawing.Point(324, 241);
-            this.btnCaiDat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCaiDat.Margin = new System.Windows.Forms.Padding(4);
             this.btnCaiDat.Name = "btnCaiDat";
             this.btnCaiDat.Size = new System.Drawing.Size(209, 71);
             this.btnCaiDat.TabIndex = 1;
             this.btnCaiDat.Text = "Cài đặt";
-            this.btnCaiDat.UseVisualStyleBackColor = true;
+            this.btnCaiDat.UseVisualStyleBackColor = false;
             this.btnCaiDat.Click += new System.EventHandler(this.btnCaiDat_Click);
             // 
             // btnProfile
@@ -67,7 +68,7 @@
             this.btnProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProfile.ForeColor = System.Drawing.Color.Red;
             this.btnProfile.Location = new System.Drawing.Point(324, 331);
-            this.btnProfile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnProfile.Margin = new System.Windows.Forms.Padding(4);
             this.btnProfile.Name = "btnProfile";
             this.btnProfile.Size = new System.Drawing.Size(209, 71);
             this.btnProfile.TabIndex = 2;
@@ -113,6 +114,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::GameCaro.Properties.Resources.GIAODIENCHUNG_01;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(904, 469);
             this.Controls.Add(this.btnThongTinNPH);
             this.Controls.Add(this.btnDangXuat);
@@ -120,7 +123,8 @@
             this.Controls.Add(this.btnProfile);
             this.Controls.Add(this.btnCaiDat);
             this.Controls.Add(this.btnPhongCho);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GiaoDienChung";
             this.Text = "Game Caro";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GiaoDienChung_FormClosing);
