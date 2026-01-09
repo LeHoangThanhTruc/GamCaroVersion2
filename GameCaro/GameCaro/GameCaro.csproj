@@ -278,6 +278,15 @@
     <Content Include="bin\Debug\Avatars\avt3.jpg" />
     <Content Include="bin\Debug\Avatars\default.jpg" />
     <Content Include="bin\Debug\music.mp3" />
+    <None Include="Resources\QUENMATKHAU-01.png" />
+    <None Include="Resources\PHONGCHO-01.png" />
+    <None Include="Resources\HOSOCANHAN-01.png" />
+    <None Include="Resources\THAYDOITHONGTIN-01.png" />
+    <None Include="Resources\DOIMATKHAU-01.png" />
+    <None Include="Resources\CAIDAT-01.png" />
+    <None Include="Resources\GIAODIENCHUNG-01.png" />
+    <None Include="Resources\DANGKY-01.png" />
+    <None Include="Resources\DANGNHAP-01.png" />
     <Content Include="Resources\music.mp3" />
   </ItemGroup>
   <ItemGroup>
