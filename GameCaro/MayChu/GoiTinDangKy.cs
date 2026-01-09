@@ -14,6 +14,7 @@ namespace MayChu
         public string Gmail { get; set; }
         public string MatKhau { get; set; }
         public bool isVerified { get; set; } = false;
+        public string Avatar { get; set; }
         public GoiTinDangKy(string id, string tk, string mk, string email, string hoTen)
         {
             IDUser = id;
@@ -21,6 +22,8 @@ namespace MayChu
             MatKhau = mk;
             Gmail = email;
             HoVaTen = hoTen;
+            Avatar = "default.jpg";
+
         }
     }
 }
