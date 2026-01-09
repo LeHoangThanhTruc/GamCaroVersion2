@@ -248,11 +248,13 @@ namespace MayChu
                         XuLyThoatTran(message);
                         continue;
                     }
+                    //20)
                     if (message.StartsWith("GET_PROFILE|"))
                     {
                         string userId = message.Substring(12);
                         XuLyLayHoSo(client, userId);
                     }
+                    //21)
                     if (message.StartsWith("UPDATE_AVATAR|"))
                     {
                         _ = HandleClientMessage(message, client);
@@ -356,7 +358,7 @@ namespace MayChu
                 string[] parts = msg.Split('|');
                 if (parts.Length < 3)
                 {
-                    Console.WriteLine("❌ Gói UPDATE_AVATAR sai format");
+                    Console.WriteLine("Gói UPDATE_AVATAR sai format");
                     client.Send(Encoding.UTF8.GetBytes("UPDATE_AVATAR_FAIL"));
                     return;
                 }
@@ -372,17 +374,17 @@ namespace MayChu
                     Avatar = avatarName
                 });
 
-                Console.WriteLine("✅ Firebase đã update Avatar");
+                Console.WriteLine("Firebase đã update Avatar");
 
                 client.Send(
                     Encoding.UTF8.GetBytes($"UPDATE_AVATAR_OK|{avatarName}")
                 );
 
-                Console.WriteLine("➡️ Đã gửi UPDATE_AVATAR_OK");
+                Console.WriteLine("Đã gửi UPDATE_AVATAR_OK");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("🔥 LỖI UPDATE_AVATAR: " + ex.Message);
+                Console.WriteLine("LỖI UPDATE_AVATAR: " + ex.Message);
                 client.Send(Encoding.UTF8.GetBytes("UPDATE_AVATAR_FAIL"));
             }
         }
@@ -404,7 +406,7 @@ namespace MayChu
                 string jsonUser = res.Body;
 
                 client.Send(Encoding.UTF8.GetBytes("PROFILE_DATA|" + jsonUser));
-                Console.WriteLine($"📤 Đã gửi hồ sơ {userId} cho client");
+                Console.WriteLine($"Đã gửi hồ sơ {userId} cho client");
             }
             catch (Exception ex)
             {
