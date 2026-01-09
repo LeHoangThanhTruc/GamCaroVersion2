@@ -258,6 +258,13 @@ namespace MayChu
                         _ = HandleClientMessage(message, client);
                         continue;
                     }
+                    // 20) Ranking - Xử lý xếp hạng
+                    if (message.StartsWith("GET_RANKING"))
+                    {
+                        XuLyLayBangXepHang(client);
+                        continue;
+                    }
+
                     //// 17) FORGOT_PASSWORD_SETTING - Quên mật khẩu từ settings
                     //if (message.StartsWith("FORGOT_PASSWORD_SETTING|"))
                     //{
@@ -303,6 +310,41 @@ namespace MayChu
                 }
             }
         }
+        void XuLyLayBangXepHang(Socket client)
+        {
+
+            
+            try
+            {
+                // Lấy toàn bộ Users
+                var res = firebaseClient.Get("Users");
+                
+
+                if (res.Body == "null")
+                {
+                    
+
+                    client.Send(Encoding.UTF8.GetBytes("RANKING_FAIL|NO_DATA"));
+                    return;
+                }
+
+                // Trả NGUYÊN JSON về client
+                string json = res.Body;
+                
+
+                client.Send(
+                    Encoding.UTF8.GetBytes("RANKING_DATA|" + json)
+                );
+
+                Console.WriteLine("📤 Đã gửi dữ liệu bảng xếp hạng cho client");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("❌ Lỗi XuLyLayBangXepHang: " + ex.Message);
+                client.Send(Encoding.UTF8.GetBytes("RANKING_FAIL|SERVER_ERROR"));
+            }
+        }
+
         public async Task HandleClientMessage(string msg, Socket client)
         {
             try

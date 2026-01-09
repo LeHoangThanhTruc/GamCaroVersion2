@@ -186,6 +186,7 @@ namespace GameCaro
             }
         }
 
+
         public void Disconnect()
         {
             isConnected = false;
@@ -249,4 +250,5 @@ namespace GameCaro
             }
         }
     }
+
 }

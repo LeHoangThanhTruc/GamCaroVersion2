@@ -125,5 +125,21 @@ namespace GameCaro
                     "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnBangXepHang_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            // Truyền userId nếu form BangXepHang cần
+            BangXepHang f = new BangXepHang(userId);
+
+            // Nếu muốn quay lại form này sau khi đóng
+            f.ShowDialog();
+
+            if (!this.IsDisposed && !this.Disposing)
+            {
+                this.Show();
+            }
+        }
     }
 }

@@ -107,6 +107,12 @@
     <Compile Include="BanCo.Designer.cs">
       <DependentUpon>BanCo.cs</DependentUpon>
     </Compile>
+    <Compile Include="BangXepHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BangXepHang.Designer.cs">
+      <DependentUpon>BangXepHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="CaiDat.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -191,6 +197,9 @@
     <Compile Include="SessionManager.cs" />
     <EmbeddedResource Include="BanCo.resx">
       <DependentUpon>BanCo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BangXepHang.resx">
+      <DependentUpon>BangXepHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CaiDat.resx">
       <DependentUpon>CaiDat.cs</DependentUpon>
