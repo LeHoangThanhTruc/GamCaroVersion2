@@ -242,6 +242,17 @@ namespace MayChu
                         XuLyChat(message);
                         continue;
                     }
+                    if (message.StartsWith("GET_PROFILE|"))
+                    {
+                        string userId = message.Substring(12);
+                        XuLyLayHoSo(client, userId);
+                    }
+                    if (message.StartsWith("UPDATE_AVATAR|"))
+                    {
+                        _ = HandleClientMessage(message, client);
+                        continue;
+                    }
+
                     //// 17) FORGOT_PASSWORD_SETTING - Quên mật khẩu từ settings
                     //if (message.StartsWith("FORGOT_PASSWORD_SETTING|"))
                     //{
@@ -277,6 +288,73 @@ namespace MayChu
                 }
             }
         }
+        public async Task HandleClientMessage(string msg, Socket client)
+        {
+            try
+            {
+                if (!msg.StartsWith("UPDATE_AVATAR|")) return;
+
+                Console.WriteLine("[SERVER] Nhận UPDATE_AVATAR");
+
+                string[] parts = msg.Split('|');
+                if (parts.Length < 3)
+                {
+                    Console.WriteLine("❌ Gói UPDATE_AVATAR sai format");
+                    client.Send(Encoding.UTF8.GetBytes("UPDATE_AVATAR_FAIL"));
+                    return;
+                }
+
+                string uid = parts[1];          // IDUser_ABCDE
+                string avatarName = parts[2];   // avatar.png
+
+                string firebasePath = $"Users/{uid}";
+                Console.WriteLine("Firebase path = " + firebasePath);
+
+                await firebaseClient.UpdateAsync(firebasePath, new
+                {
+                    Avatar = avatarName
+                });
+
+                Console.WriteLine("✅ Firebase đã update Avatar");
+
+                client.Send(
+                    Encoding.UTF8.GetBytes($"UPDATE_AVATAR_OK|{avatarName}")
+                );
+
+                Console.WriteLine("➡️ Đã gửi UPDATE_AVATAR_OK");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("🔥 LỖI UPDATE_AVATAR: " + ex.Message);
+                client.Send(Encoding.UTF8.GetBytes("UPDATE_AVATAR_FAIL"));
+            }
+        }
+
+
+        void XuLyLayHoSo(Socket client, string userId)
+        {
+            try
+            {
+                var res = firebaseClient.Get("Users/" + userId);
+
+                if (res.Body == "null")
+                {
+                    client.Send(Encoding.UTF8.GetBytes("PROFILE_FAIL|NOT_FOUND"));
+                    return;
+                }
+
+                // Trả nguyên JSON về client
+                string jsonUser = res.Body;
+
+                client.Send(Encoding.UTF8.GetBytes("PROFILE_DATA|" + jsonUser));
+                Console.WriteLine($"📤 Đã gửi hồ sơ {userId} cho client");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi XuLyLayHoSo: " + ex.Message);
+            }
+        }
+
         void XuLyChat(string msg)
         {
             // CHAT|idGui|idNhan|noiDung
@@ -1019,35 +1097,28 @@ namespace MayChu
 
             // 3. Nếu chưa tồn tại, thực hiện đăng ký
 
-            // Tạo IDUser ngẫu nhiên
-            string newIDUser = TaoIDNgauNhien(); // Giả sử bạn có hàm này, nếu chưa có thì cần thêm vào
+            // Tạo IDUser
+            string newIDUser = "IDUser_" + TaoIDNgauNhien();
 
-            // Bổ sung IDUser vào gói tin (nếu cần thiết cho hàm Put)
-            //--------------------------------data.IDUser = newIDUser;
             data.IDUser = newIDUser;
-            data.isVerified=false; // Chưa xác thực email
+            data.isVerified = false;
 
-            // MA HOA MAT KHAU TRUOC KHI LUU
-            Console.WriteLine($"[HASH] Mật khẩu gốc: {data.MatKhau}");
+            // ⭐ BẮT BUỘC: GÁN AVATAR TẠI SERVER
+            data.Avatar = "default.jpg";
+
+            // Mã hóa mật khẩu
             data.MatKhau = PasswordHasher.HashPassword(data.MatKhau);
-            Console.WriteLine($"[HASH] Đã mã hóa thành: {data.MatKhau.Substring(0, 20)}...");
 
-            firebaseClient.Set("Users/" + newIDUser, data);
-
-            // Lưu xuống Firebase (Put - thêm mới hoặc ghi đè)
-            // Node: Users -> newIDUser -> {HoVaTen, TenTaiKhoan, Gmail, MatKhau}
+            // Lưu Firebase (CHỈ 1 LẦN)
             firebaseClient.Set("Users/" + newIDUser, data);
 
             // Gửi email xác thực
             GuiEmailXacThuc(data.Gmail, newIDUser);
 
-            // Gửi phản hồi về client: Đăng ký thành công, chờ xác thực OTP
+            // Phản hồi client
             client.Send(Encoding.UTF8.GetBytes($"REGISTER_PENDING|{newIDUser}"));
-            Console.WriteLine($" Đã tạo tài khoản {data.TenTaiKhoan}, đang chờ xác thực OTP.");
+            Console.WriteLine($"✅ Đã tạo tài khoản {data.TenTaiKhoan}, chờ xác thực OTP.");
 
-            //// 4. Gửi thông báo đăng ký thành công và IDUser về client
-            //client.Send(Encoding.UTF8.GetBytes($"REGISTER_OK|{newIDUser}"));
-            //Console.WriteLine($"Đăng ký thành công: IDUser = {newIDUser}, Tài khoản = {data.TenTaiKhoan}");
         }
 
         // Hàm giả định để tạo ID ngẫu nhiên, bạn cần thêm hàm này vào class Program
@@ -1055,14 +1126,15 @@ namespace MayChu
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             var random = new Random();
-            var result = new string(
+            return new string(
                 Enumerable.Repeat(chars, 5)
                           .Select(s => s[random.Next(s.Length)])
-                          .ToArray());
-            return "IDUser_" + result;
+                          .ToArray()
+            );
         }
 
-       
+
+
 
         void XuLyDangNhap(Socket client, string message)
         {
@@ -1739,6 +1811,113 @@ namespace MayChu
                 SendToClient(client, "CHANGE_PASSWORD_FAIL|SERVER_ERROR");
             }
         }
+        /*void ChuanHoaAvatarUsers()
+        {
+            try
+            {
+                Console.WriteLine("🔄 Bắt đầu chuẩn hóa Avatar cho Users...");
+
+                var res = firebaseClient.Get("Users");
+                if (res.Body == "null")
+                {
+                    Console.WriteLine("❌ Không có user nào.");
+                    return;
+                }
+
+                dynamic users = JsonConvert.DeserializeObject(res.Body);
+
+                foreach (var user in users)
+                {
+                    string userId = user.Name;
+
+                    // Nếu chưa có Avatar
+                    if (user.Value["Avatar"] == null)
+                    {
+                        firebaseClient.Update($"Users/{userId}", new
+                        {
+                            Avatar = "default.jpg"
+                        });
+
+                        Console.WriteLine($"✅ Đã thêm Avatar cho {userId}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"⏭ {userId} đã có Avatar → bỏ qua");
+                    }
+                }
+
+                Console.WriteLine("🎉 Hoàn tất chuẩn hóa Avatar");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("❌ Lỗi ChuanHoaAvatarUsers: " + ex.Message);
+            }
+        }*/
+        void XuLyLichSuTranDau(Socket client, string userId)
+        {
+            try
+            {
+                var result = firebaseClient.Get("GameCaroRoom");
+
+                if (result.Body == "null")
+                {
+                    client.Send(Encoding.UTF8.GetBytes("MATCH_HISTORY_DATA|[]"));
+                    return;
+                }
+
+                var rooms = result.ResultAs<Dictionary<string, GameRoomFirebase>>();
+                List<object> historyList = new List<object>();
+
+                foreach (var room in rooms.Values)
+                {
+                    // 🔥 CHỈ LẤY ROOM CÓ USER THAM GIA
+                    if (room.IDFirstPlayer == userId || room.IDSecondPlayer == userId)
+                    {
+                        string firstName = LayTenTaiKhoan(room.IDFirstPlayer);
+                        string secondName = LayTenTaiKhoan(room.IDSecondPlayer);
+
+                        string ketQua;
+
+                        if (room.Winner == userId)
+                            ketQua = "Thắng";
+                        else if (room.Looser == userId)
+                            ketQua = "Thua";
+                        else
+                            ketQua = "Không xác định";
+
+                        historyList.Add(new
+                        {
+                            FirstPlayerName = firstName,
+                            SecondPlayerName = secondName,
+                            WinnerName = ketQua
+                        });
+                    }
+                }
+
+                string json = Newtonsoft.Json.JsonConvert.SerializeObject(historyList);
+                json = json.Replace("\"", "'");
+
+                client.Send(
+                    Encoding.UTF8.GetBytes("MATCH_HISTORY_DATA|" + json)
+                );
+
+                Console.WriteLine("✅ Đã gửi lịch sử trận đấu");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("❌ Lỗi XuLyLichSuTranDau: " + ex.Message);
+            }
+        }
+        string LayTenTaiKhoan(string userId)
+        {
+            var res = firebaseClient.Get("Users/" + userId + "/TenTaiKhoan");
+            return res.Body != "null" ? res.ResultAs<string>() : "Unknown";
+        }
+
+
+
+
+
 
     }
 }

@@ -107,5 +107,18 @@ namespace GameCaro
             // Nếu đóng form mà không đăng xuất, session vẫn được giữ
             NetworkClient.OnMessageReceived -= ClientXuLyGiaoDienChung;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            LichSuTranDau f = new LichSuTranDau(userId);
+            f.ShowDialog();
+
+            if (!this.IsDisposed && !this.Disposing)
+            {
+                this.Show();
+            }
+        }
     }
 }
