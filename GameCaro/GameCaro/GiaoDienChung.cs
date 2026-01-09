@@ -60,6 +60,7 @@ namespace GameCaro
                 // Giả sử bạn có label để hiển thị tên
                 // lblTenNguoiDung.Text = $"Xin chào, {session.Username}";
             }
+            MusicManager.UpdateState();
         }
 
         //Hàm ClientXuLySettings sẽ được TỰ ĐỘNG THỰC THI khi client NHẬN ĐƯỢC TIN NHẮN TỪ SERVER

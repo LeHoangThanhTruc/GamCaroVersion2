@@ -31,6 +31,7 @@ namespace GameCaro
         private void CaiDat_Load(object sender, EventArgs e)
         {
             NetworkClient.OnMessageReceived += ClientXuLySettings;
+            checkBoxAmNhac.Checked = AppSettings.IsMusicEnabled;
         }
 
         //Hàm ClientXuLySettings sẽ được TỰ ĐỘNG THỰC THI khi client NHẬN ĐƯỢC TIN NHẮN TỪ SERVER
@@ -77,6 +78,12 @@ namespace GameCaro
             FormThayDoiThongTin f = new FormThayDoiThongTin(uid, "TenTaiKhoan");
             f.ShowDialog();
             this.Show();
+        }
+
+        private void checkBoxAmNhac_CheckedChanged(object sender, EventArgs e)
+        {
+            AppSettings.IsMusicEnabled = checkBoxAmNhac.Checked;
+            MusicManager.UpdateState();
         }
     }
 }
