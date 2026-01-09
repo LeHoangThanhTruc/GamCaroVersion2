@@ -28,10 +28,10 @@ namespace MayChu
         //Danh sách phòng đang chơi
         static Dictionary<string, GameRoom> rooms = new Dictionary<string, GameRoom>();
         object roomLock = new object();
-
+        HashSet<string> usersInGame = new HashSet<string>();
         static void Main(string[] args)
         {
-            Console.WriteLine("Server dang ket noi...97");
+            Console.WriteLine("Server dang ket noi...79");
             Program server = new Program();
             //Khởi tạo cấu hình Firebase
             IFirebaseConfig config = new FirebaseConfig
@@ -242,6 +242,12 @@ namespace MayChu
                         XuLyChat(message);
                         continue;
                     }
+                    // 19) THOAT_TRAN - Xử lý thoát trận
+                    if (message.StartsWith("THOAT_TRAN|"))
+                    {
+                        XuLyThoatTran(message);
+                        continue;
+                    }
                     //// 17) FORGOT_PASSWORD_SETTING - Quên mật khẩu từ settings
                     //if (message.StartsWith("FORGOT_PASSWORD_SETTING|"))
                     //{
@@ -271,12 +277,81 @@ namespace MayChu
                 catch
                 {
                     Console.WriteLine("Client disconnected: " + client.RemoteEndPoint.ToString());
+                    string userId = clientMap.FirstOrDefault(x => x.Value == client).Key;
+
+                    if (!string.IsNullOrEmpty(userId))
+                    {
+                        lock (matchLock)
+                        {
+                            usersInGame.Remove(userId);
+                            waitingList.RemoveAll(x => x.userId == userId);
+                        }
+                    }
                     clientList.Remove(client);
                     client.Close();
                     break;
                 }
             }
         }
+        void XuLyThoatTran(string msg)
+        {
+            try
+            {
+                string[] p = msg.Split('|');
+                string roomId = p[1];
+                string userThoat = p[2];
+                string timeEnd = p.Length > 3 ? p[3] : DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                GameRoom room;
+
+                //LẤY ROOM + REMOVE ROOM (1 LẦN DUY NHẤT)
+                lock (roomLock)
+                {
+                    if (!rooms.TryGetValue(roomId, out room))
+                        return;
+
+                    rooms.Remove(roomId);
+                }
+
+                string userConLai =
+                    room.FirstPlayer == userThoat ? room.SecondPlayer : room.FirstPlayer;
+
+                Console.WriteLine($"[THOAT_TRAN] {userThoat} thoát phòng {roomId}");
+
+                // FIREBASE (KHÔNG ĐƯỢC LÀM SERVER CHẾT)
+                try
+                {
+                    firebaseClient.Update($"GameCaroRoom/{roomId}", new
+                    {
+                        TimeEndMatch = timeEnd,
+                        Winner = userConLai,
+                        Looser = userThoat
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("[Firebase ERROR] " + ex.Message);
+                }
+
+                // GỬI THÔNG BÁO
+                if (!string.IsNullOrEmpty(userConLai))
+                    SendToUser(userConLai, $"OPPONENT_LEFT|{userThoat}");
+
+                SendToUser(userThoat, "LEFT_MATCH_OK");
+
+                // DỌN usersInGame (ĐÚNG LOCK)
+                lock (matchLock)
+                {
+                    usersInGame.Remove(room.FirstPlayer);
+                    usersInGame.Remove(room.SecondPlayer);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[XuLyThoatTran FATAL] " + ex);
+            }
+        }
+
         void XuLyChat(string msg)
         {
             // CHAT|idGui|idNhan|noiDung
@@ -495,6 +570,12 @@ namespace MayChu
             // 3. Gửi về client
             SendToUser(winner, $"GAME_OVER|{winner}|{looser}");
             SendToUser(looser, $"GAME_OVER|{winner}|{looser}");
+
+            lock (matchLock)
+            {
+                usersInGame.Remove(winner);
+                usersInGame.Remove(looser);
+            }
         }
         void CapNhatThongKeUser(string userId, bool isWinner)
         {
@@ -562,6 +643,23 @@ namespace MayChu
                 string id1 = parts[1];
                 string id2 = parts[2];
 
+                lock (matchLock)
+                {
+                    // CHẶN NGAY
+                    if (usersInGame.Contains(id1) || usersInGame.Contains(id2))
+                    {
+                        Console.WriteLine("Một trong hai user đã đang trong phòng -> chặn tạo phòng");
+
+                        SendToUser(id1, "CREATE_CARO_ROOM_FAIL|ALREADY_IN_GAME");
+                        SendToUser(id2, "CREATE_CARO_ROOM_FAIL|ALREADY_IN_GAME");
+                        return;
+                    }
+
+                    // Đánh dấu vào game (CHỈ 1 LẦN)
+                    usersInGame.Add(id1);
+                    usersInGame.Add(id2);
+                }
+
                 // Random thứ tự
                 Random rd = new Random();
                 bool swap = rd.Next(2) == 0;
@@ -590,8 +688,9 @@ namespace MayChu
                     rooms[roomId] = room;
                 }
 
-                SendToUser(firstPlayer, $"CREATE_CARO_ROOM_SUCCESS|{roomId}");
-                SendToUser(secondPlayer, $"CREATE_CARO_ROOM_SUCCESS|{roomId}");
+                SendToUser(firstPlayer,$"CREATE_CARO_ROOM_SUCCESS|{roomId}|{secondPlayer}");
+
+                SendToUser(secondPlayer,$"CREATE_CARO_ROOM_SUCCESS|{roomId}|{firstPlayer}");
 
                 SendToUser(firstPlayer, $"START_GAME|{roomId}|FIRST");
                 SendToUser(secondPlayer, $"START_GAME|{roomId}|SECOND");
@@ -614,7 +713,14 @@ namespace MayChu
                 }
 
                 string userId = tach[1];
-
+                lock (matchLock)
+                {
+                    if (usersInGame.Contains(userId))
+                    {
+                        Console.WriteLine($"{userId} đang trong trận, không ghép.");
+                        return;
+                    }
+                }
                 lock (matchLock)
                 {
                     // Nếu không ai đang đợi

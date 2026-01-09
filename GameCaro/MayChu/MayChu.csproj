@@ -112,7 +112,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameCaroRoom.cs" />
+    <Compile Include="GameRoom.cs" />
     <Compile Include="GoiTinDangKy.cs" />
     <Compile Include="PasswordHasher.cs" />
     <Compile Include="Program.cs" />

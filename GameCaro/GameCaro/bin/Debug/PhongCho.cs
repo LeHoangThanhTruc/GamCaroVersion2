@@ -20,7 +20,7 @@ namespace GameCaro
         private string userId, roomID, IDOpponent;
         bool roomCreating = false;
         BanCo banCoForm = null;
-
+        private bool isInGame = false;
         public PhongCho(string id)
         {
             InitializeComponent();
@@ -73,8 +73,10 @@ namespace GameCaro
         {
             if (msg.StartsWith("FOUND_MATCH|"))
             {
+                if (isInGame) return;
                 if (roomCreating) return;
                 roomCreating = true;
+                
                 string idDoiThu = msg.Split('|')[1];
 
                 this.Invoke(new Action(() =>
@@ -87,13 +89,7 @@ namespace GameCaro
                     IDOpponent=idDoiThu;
                     //MessageBox.Show($"Đã tìm được đối thủ: {idDoiThu}");
 
-                    // MỞ FORM BÀN CỜ NGAY
-                    if (banCoForm == null || banCoForm.IsDisposed)
-                    {
-                        banCoForm = new BanCo(userId, idDoiThu);
-                        banCoForm.Show();
-                        this.Hide();
-                    }
+                    
 
                     // CHỈ 1 CLIENT ĐƯỢC TẠO PHÒNG
                     if (string.Compare(userId, idDoiThu) < 0)
@@ -113,12 +109,22 @@ namespace GameCaro
             }
             else if (msg.StartsWith("CREATE_CARO_ROOM_SUCCESS|"))
             {
+                if (isInGame) return;
+                isInGame = true;
                 roomCreating = false;
-                roomID = msg.Split('|')[1];
-                //MessageBox.Show("Tạo phòng thành công: " + roomID);
-                bool isFirstPlayer = string.Compare(userId, IDOpponent) < 0;
-                // ĐẨY ROOMID + LƯỢT CHƠI VÀO FORM BÀN CỜ
-                banCoForm?.SetRoom(roomID, isFirstPlayer);
+                string[] parts = msg.Split('|');
+                string roomId = parts[1];
+                string opponentId = parts[2];
+                bool isFirstPlayer = string.Compare(userId, opponentId) < 0;
+                this.Invoke(new Action(() =>
+                {
+                    IDOpponent = opponentId;
+
+                    banCoForm = new BanCo(userId, IDOpponent);
+                    banCoForm.SetRoom(roomId, isFirstPlayer); // role set ở START_GAME
+                    banCoForm.Show();
+                    this.Hide();
+                }));
 
             }
             else if (msg.StartsWith("CREATE_CARO_ROOM_FAIL|"))
@@ -126,6 +132,24 @@ namespace GameCaro
                 string reason = msg.Split('|')[1];
                 MessageBox.Show("Tạo phòng thất bại: " + reason);
             }
+            else if (msg.StartsWith("CREATE_CARO_ROOM_FAIL|"))
+            {
+                string reason = msg.Split('|')[1];
+
+                if (reason == "ALREADY_IN_GAME")
+                {
+                    MessageBox.Show(
+                        "Bạn đang ở trong một trận khác.\nKhông thể tạo phòng mới.",
+                        "Không thể tạo phòng",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    // đảm bảo UI trở về trạng thái an toàn
+                    btnTimDoiThu.Enabled = true;
+                }
+            }
+            
 
         }
 

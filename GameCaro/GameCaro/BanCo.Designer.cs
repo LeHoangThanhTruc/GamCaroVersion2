@@ -38,6 +38,7 @@
             this.panelKhungChat = new System.Windows.Forms.Panel();
             this.rtbKhungChatHienThi = new System.Windows.Forms.RichTextBox();
             this.panelLuatChoi = new System.Windows.Forms.Panel();
+            this.btnNewGame = new System.Windows.Forms.Button();
             this.btnThoatTranDau = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -52,7 +53,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.picMark = new System.Windows.Forms.PictureBox();
             this.timerRemainingTime = new System.Windows.Forms.Timer(this.components);
-            this.btnNewGame = new System.Windows.Forms.Button();
             this.panelNoiNhanTin.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -163,6 +163,15 @@
             this.panelLuatChoi.Size = new System.Drawing.Size(397, 373);
             this.panelLuatChoi.TabIndex = 2;
             // 
+            // btnNewGame
+            // 
+            this.btnNewGame.Location = new System.Drawing.Point(186, 339);
+            this.btnNewGame.Name = "btnNewGame";
+            this.btnNewGame.Size = new System.Drawing.Size(101, 31);
+            this.btnNewGame.TabIndex = 11;
+            this.btnNewGame.Text = "New Game";
+            this.btnNewGame.UseVisualStyleBackColor = true;
+            // 
             // btnThoatTranDau
             // 
             this.btnThoatTranDau.Location = new System.Drawing.Point(293, 339);
@@ -171,6 +180,7 @@
             this.btnThoatTranDau.TabIndex = 10;
             this.btnThoatTranDau.Text = "Leave Match";
             this.btnThoatTranDau.UseVisualStyleBackColor = true;
+            this.btnThoatTranDau.Click += new System.EventHandler(this.btnThoatTranDau_Click);
             // 
             // label8
             // 
@@ -283,15 +293,6 @@
             // 
             this.timerRemainingTime.Tick += new System.EventHandler(this.timerRemainingTime_Tick);
             // 
-            // btnNewGame
-            // 
-            this.btnNewGame.Location = new System.Drawing.Point(186, 339);
-            this.btnNewGame.Name = "btnNewGame";
-            this.btnNewGame.Size = new System.Drawing.Size(101, 31);
-            this.btnNewGame.TabIndex = 11;
-            this.btnNewGame.Text = "New Game";
-            this.btnNewGame.UseVisualStyleBackColor = true;
-            // 
             // BanCo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -302,6 +303,7 @@
             this.Controls.Add(this.pnlBanCo);
             this.Name = "BanCo";
             this.Text = "BanCo";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BanCo_FormClosing);
             this.Load += new System.EventHandler(this.BanCo_Load);
             this.Shown += new System.EventHandler(this.BanCo_Shown);
             this.panelNoiNhanTin.ResumeLayout(false);

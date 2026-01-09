@@ -24,7 +24,7 @@ namespace GameCaro
         bool isFirstPlayer;    // X hay O
         double maxTime = 60.0;        // 1 phút 
         double timeRemaining;
-
+        private bool isWaitingServerConfirm = false;
         private SoundPlayer soundPlayer;
         public BanCo(string userID,string IDdoithu)
         {
@@ -83,6 +83,24 @@ namespace GameCaro
 
         private List<List<Button>> matrix;
         public List<List<Button>> Matrix { get => matrix; set => matrix = value; }
+        private void btnThoatTranDau_Click(object sender, EventArgs e)
+        {
+            DialogResult rs = MessageBox.Show("Bạn có chắc chắn muốn thoát trận?","Xác nhận",MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (rs != DialogResult.OK)
+                return;
+
+            string timeEnd = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            // GỬI – KHÔNG TỰ Ý THOÁT FORM
+            NetworkClient.Instance.Send(
+                $"THOAT_TRAN|{roomID}|{userID}|{timeEnd}"
+            );
+
+            // CHỈ KHÓA BÀN CỜ
+            EnableBoard(false);
+            isWaitingServerConfirm = true;
+        }
         public void SetRoom(string roomID, bool isFirst)
         {
             this.roomID = roomID;
@@ -210,6 +228,12 @@ namespace GameCaro
 
             pnlBanCo.ResumeLayout();
         }
+
+        private void BanCo_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            NetworkClient.OnMessageReceived -= OnServerMessage;
+        }
+
         private void Btn_Click(object sender, EventArgs e)
         {
             if (!isMyTurn) return;
@@ -347,9 +371,54 @@ namespace GameCaro
                     rtbKhungChatHienThi.AppendText($"{idNguoiGui}: {noiDung}\n");
                 }
             }
+            else if (msg.StartsWith("OPPONENT_LEFT|"))
+            {
+                string userThoat = msg.Split('|')[1];
+
+                MessageBox.Show(
+                    $"Người chơi {userThoat} đã thoát trận.",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                ThoatVeGiaoDienChung();
+            }
+
+            else if (msg == "LEFT_MATCH_OK")
+            {
+                if (isWaitingServerConfirm)
+                {
+                    isWaitingServerConfirm = false;
+                    ThoatVeGiaoDienChung();
+                }
+
+            }
+            else if (msg.StartsWith("CREATE_CARO_ROOM_FAIL"))
+            {
+                MessageBox.Show(
+                    "Không thể bắt đầu ván đấu.\nVui lòng quay lại giao diện chung",
+                    "Lỗi",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                ThoatVeGiaoDienChung();
+            }
 
 
         }
+        private void ThoatVeGiaoDienChung()
+        {
+            NetworkClient.OnMessageReceived -= OnServerMessage;
+
+            this.Hide();
+
+            GiaoDienChung main = new GiaoDienChung(userID);
+            main.Show();
+
+            this.Close();
+        }
+
         private void DrawMove(int row, int col, bool isX)
         {
             Button btn = Matrix[row][col];
