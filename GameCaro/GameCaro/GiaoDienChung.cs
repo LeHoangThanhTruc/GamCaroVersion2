@@ -108,5 +108,19 @@ namespace GameCaro
             // Nếu đóng form mà không đăng xuất, session vẫn được giữ
             NetworkClient.OnMessageReceived -= ClientXuLyGiaoDienChung;
         }
+
+        private void btnThongTinNPH_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string url = "https://www.facebook.com/groups/1436646758046138";
+                System.Diagnostics.Process.Start(url);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Không thể mở trình duyệt: " + ex.Message,
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
