@@ -248,6 +248,16 @@ namespace MayChu
                         XuLyThoatTran(message);
                         continue;
                     }
+                    if (message.StartsWith("GET_PROFILE|"))
+                    {
+                        string userId = message.Substring(12);
+                        XuLyLayHoSo(client, userId);
+                    }
+                    if (message.StartsWith("UPDATE_AVATAR|"))
+                    {
+                        _ = HandleClientMessage(message, client);
+                        continue;
+                    }
                     //// 17) FORGOT_PASSWORD_SETTING - Quên mật khẩu từ settings
                     //if (message.StartsWith("FORGOT_PASSWORD_SETTING|"))
                     //{
@@ -291,6 +301,72 @@ namespace MayChu
                     client.Close();
                     break;
                 }
+            }
+        }
+        public async Task HandleClientMessage(string msg, Socket client)
+        {
+            try
+            {
+                if (!msg.StartsWith("UPDATE_AVATAR|")) return;
+
+                Console.WriteLine("[SERVER] Nhận UPDATE_AVATAR");
+
+                string[] parts = msg.Split('|');
+                if (parts.Length < 3)
+                {
+                    Console.WriteLine("❌ Gói UPDATE_AVATAR sai format");
+                    client.Send(Encoding.UTF8.GetBytes("UPDATE_AVATAR_FAIL"));
+                    return;
+                }
+
+                string uid = parts[1];          // IDUser_ABCDE
+                string avatarName = parts[2];   // avatar.png
+
+                string firebasePath = $"Users/{uid}";
+                Console.WriteLine("Firebase path = " + firebasePath);
+
+                await firebaseClient.UpdateAsync(firebasePath, new
+                {
+                    Avatar = avatarName
+                });
+
+                Console.WriteLine("✅ Firebase đã update Avatar");
+
+                client.Send(
+                    Encoding.UTF8.GetBytes($"UPDATE_AVATAR_OK|{avatarName}")
+                );
+
+                Console.WriteLine("➡️ Đã gửi UPDATE_AVATAR_OK");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("🔥 LỖI UPDATE_AVATAR: " + ex.Message);
+                client.Send(Encoding.UTF8.GetBytes("UPDATE_AVATAR_FAIL"));
+            }
+        }
+
+
+        void XuLyLayHoSo(Socket client, string userId)
+        {
+            try
+            {
+                var res = firebaseClient.Get("Users/" + userId);
+
+                if (res.Body == "null")
+                {
+                    client.Send(Encoding.UTF8.GetBytes("PROFILE_FAIL|NOT_FOUND"));
+                    return;
+                }
+
+                // Trả nguyên JSON về client
+                string jsonUser = res.Body;
+
+                client.Send(Encoding.UTF8.GetBytes("PROFILE_DATA|" + jsonUser));
+                Console.WriteLine($"📤 Đã gửi hồ sơ {userId} cho client");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi XuLyLayHoSo: " + ex.Message);
             }
         }
         void XuLyThoatTran(string msg)
