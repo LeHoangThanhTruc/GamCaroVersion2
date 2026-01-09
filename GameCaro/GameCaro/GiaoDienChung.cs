@@ -18,7 +18,10 @@ namespace GameCaro
             InitializeComponent();
             userId = id;
         }
-
+        public GiaoDienChung()
+        {
+            InitializeComponent();
+        }
         private void btnPhongCho_Click(object sender, EventArgs e)
         {
             this.Hide();

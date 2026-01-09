@@ -20,7 +20,10 @@ namespace GameCaro
             InitializeComponent();
             userId = id;
         }
-
+        public FormDoiMatKhau()
+        {
+            InitializeComponent();
+        }
         private void FormDoiMatKhau_Load(object sender, EventArgs e)
         {
             NetworkClient.OnMessageReceived -= XuLyPhanHoi;

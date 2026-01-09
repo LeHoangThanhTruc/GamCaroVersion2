@@ -50,7 +50,10 @@ namespace GameCaro
 
 
         }
-
+        public BanCo()
+        {
+            InitializeComponent();
+        }
         private void InitializeSound()
         {
             try

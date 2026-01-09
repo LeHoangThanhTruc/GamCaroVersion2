@@ -1375,3 +1375,6 @@ D:\clone1\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\libvlc\win-x86\plugins\vis
 D:\clone1\GamCaroVersion2\GameCaro\GameCaro\bin\Debug\libvlc\win-x86\plugins\visualization\libvisual_plugin.dll
 D:\clone1\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\Interop.WMPLib.dll
 D:\clone1\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.csproj.ResolveComReference.cache
+E:\clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.exe.config
+E:\clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\Interop.WMPLib.dll
+E:\clone\GamCaroVersion2\GameCaro\GameCaro\obj\Debug\GameCaro.csproj.ResolveComReference.cache

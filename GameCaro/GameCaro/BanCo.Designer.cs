@@ -38,7 +38,6 @@
             this.panelKhungChat = new System.Windows.Forms.Panel();
             this.rtbKhungChatHienThi = new System.Windows.Forms.RichTextBox();
             this.panelLuatChoi = new System.Windows.Forms.Panel();
-            this.btnNewGame = new System.Windows.Forms.Button();
             this.btnThoatTranDau = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -147,7 +146,6 @@
             // panelLuatChoi
             // 
             this.panelLuatChoi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.panelLuatChoi.Controls.Add(this.btnNewGame);
             this.panelLuatChoi.Controls.Add(this.btnThoatTranDau);
             this.panelLuatChoi.Controls.Add(this.label8);
             this.panelLuatChoi.Controls.Add(this.label6);
@@ -162,15 +160,6 @@
             this.panelLuatChoi.Name = "panelLuatChoi";
             this.panelLuatChoi.Size = new System.Drawing.Size(397, 373);
             this.panelLuatChoi.TabIndex = 2;
-            // 
-            // btnNewGame
-            // 
-            this.btnNewGame.Location = new System.Drawing.Point(186, 339);
-            this.btnNewGame.Name = "btnNewGame";
-            this.btnNewGame.Size = new System.Drawing.Size(101, 31);
-            this.btnNewGame.TabIndex = 11;
-            this.btnNewGame.Text = "New Game";
-            this.btnNewGame.UseVisualStyleBackColor = true;
             // 
             // btnThoatTranDau
             // 
@@ -346,6 +335,5 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnThoatTranDau;
         private System.Windows.Forms.Timer timerRemainingTime;
-        private System.Windows.Forms.Button btnNewGame;
     }
 }

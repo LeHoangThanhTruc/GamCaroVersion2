@@ -18,7 +18,10 @@ namespace GameCaro
             InitializeComponent();
             uid = id;
         }
-
+        public CaiDat()
+        {
+            InitializeComponent();
+        }
         private void btnQuayLaiGiaoDienChung_Click(object sender, EventArgs e)
         {
             this.Hide();

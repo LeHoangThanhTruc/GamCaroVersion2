@@ -45,7 +45,7 @@ namespace GameCaro
             InitializeComponent();
             //MessageBox.Show("DangNhap created");
         }
-
+        
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {

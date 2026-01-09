@@ -113,8 +113,6 @@
     <Compile Include="CaiDat.Designer.cs">
       <DependentUpon>CaiDat.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChessBoardManager.cs" />
-    <Compile Include="Cons.cs" />
     <Compile Include="DangKy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,11 +125,11 @@
     <Compile Include="DangNhap.Designer.cs">
       <DependentUpon>DangNhap.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="LichSuTranDau.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="LichSuTranDau.Designer.cs">
+      <DependentUpon>LichSuTranDau.cs</DependentUpon>
     </Compile>
     <Compile Include="FormAutoLogin.cs">
       <SubType>Form</SubType>
@@ -181,8 +179,6 @@
       <DependentUpon>PhongCho.cs</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player.cs" />
-    <Compile Include="PlayInfor.cs" />
     <Compile Include="profile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -193,8 +189,6 @@
       <DependentUpon>QuenMatKhau.cs</DependentUpon>
     </Compile>
     <Compile Include="SessionManager.cs" />
-    <Compile Include="SocketData.cs" />
-    <Compile Include="SocketManager.cs" />
     <EmbeddedResource Include="BanCo.resx">
       <DependentUpon>BanCo.cs</DependentUpon>
     </EmbeddedResource>
@@ -207,8 +201,8 @@
     <EmbeddedResource Include="DangNhap.resx">
       <DependentUpon>DangNhap.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="LichSuTranDau.resx">
+      <DependentUpon>LichSuTranDau.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormAutoLogin.resx">
       <DependentUpon>FormAutoLogin.cs</DependentUpon>

@@ -24,7 +24,10 @@ namespace GameCaro
             countdownTimer.Interval = 1000; // 1 giây
             countdownTimer.Tick += CountdownTimer_Tick;
         }
-
+        public FormXacThucOTP()
+        {
+            InitializeComponent();
+        }
         private void FormXacThucOTP_Load(object sender, EventArgs e)
         {
             NetworkClient.OnMessageReceived -= XuLyPhanhoi;

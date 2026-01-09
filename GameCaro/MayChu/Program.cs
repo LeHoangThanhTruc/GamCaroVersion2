@@ -31,7 +31,7 @@ namespace MayChu
         HashSet<string> usersInGame = new HashSet<string>();
         static void Main(string[] args)
         {
-            Console.WriteLine("Server dang ket noi...79");
+            Console.WriteLine("Server dang ket noi...89");
             Program server = new Program();
             //Khởi tạo cấu hình Firebase
             IFirebaseConfig config = new FirebaseConfig
@@ -702,6 +702,7 @@ namespace MayChu
             {
                 IDFirstPlayer = firstPlayer,
                 IDSecondPlayer = secondPlayer,
+                TimeBeginMatch = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                 Winner = "",   // nên để chuỗi rỗng
                 Looser = ""
             };

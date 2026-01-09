@@ -148,9 +148,9 @@ namespace GameCaro
                     DialogResult result = formOTP.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        // ✅ Xác thực thành công
+                        // Xác thực thành công
                         MessageBox.Show(
-                        "✅ Đăng ký hoàn tất!\n\nBạn có thể đăng nhập ngay bây giờ.",
+                        " Đăng ký hoàn tất!\n\nBạn có thể đăng nhập ngay bây giờ.",
                         "Thành công",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
