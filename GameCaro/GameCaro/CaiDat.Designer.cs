@@ -45,12 +45,13 @@
             this.checkBoxAmNhac.AutoSize = true;
             this.checkBoxAmNhac.Font = new System.Drawing.Font("Cambria", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAmNhac.Location = new System.Drawing.Point(31, 110);
-            this.checkBoxAmNhac.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBoxAmNhac.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxAmNhac.Name = "checkBoxAmNhac";
             this.checkBoxAmNhac.Size = new System.Drawing.Size(143, 36);
             this.checkBoxAmNhac.TabIndex = 0;
             this.checkBoxAmNhac.Text = "Âm nhạc";
             this.checkBoxAmNhac.UseVisualStyleBackColor = true;
+            this.checkBoxAmNhac.CheckedChanged += new System.EventHandler(this.checkBoxAmNhac_CheckedChanged);
             // 
             // panel1
             // 
@@ -60,7 +61,7 @@
             this.panel1.Controls.Add(this.linkLabelChangeHoVaTen);
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(31, 198);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(359, 249);
             this.panel1.TabIndex = 3;
@@ -154,7 +155,7 @@
             // btnQuayLaiGiaoDienChung
             // 
             this.btnQuayLaiGiaoDienChung.Location = new System.Drawing.Point(413, 466);
-            this.btnQuayLaiGiaoDienChung.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnQuayLaiGiaoDienChung.Margin = new System.Windows.Forms.Padding(4);
             this.btnQuayLaiGiaoDienChung.Name = "btnQuayLaiGiaoDienChung";
             this.btnQuayLaiGiaoDienChung.Size = new System.Drawing.Size(100, 28);
             this.btnQuayLaiGiaoDienChung.TabIndex = 6;
@@ -172,7 +173,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.checkBoxAmNhac);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CaiDat";
             this.Text = "Game Caro";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CaiDat_FormClosing);
