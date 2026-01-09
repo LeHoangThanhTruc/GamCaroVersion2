@@ -32,15 +32,12 @@ namespace GameCaro
             switch (fieldType)
             {
                 case "HoVaTen":
-                    lblTitle.Text = "Thay Đổi Họ Và Tên";
                     lblField.Text = "Họ và tên:";
                     break;
                 case "TenTaiKhoan":
-                    lblTitle.Text = "Thay Đổi Tên Tài Khoản";
                     lblField.Text = "Tên tài khoản:";
                     break;
                 case "Gmail":
-                    lblTitle.Text = "Thay Đổi Gmail";
                     lblField.Text = "Gmail:";
                     break;
             }
