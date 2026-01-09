@@ -41,6 +41,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LichSuTranDau";
             this.Text = "Lịch sử trận đấu";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LichSuTranDau_FormClosing);
+            this.Load += new System.EventHandler(this.LichSuTranDau_Load);
             this.ResumeLayout(false);
 
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,6 +24,24 @@ namespace GameCaro
 
         }
 
-      
+        private void LichSuTranDau_Load(object sender, EventArgs e)
+        {
+            NetworkClient.OnMessageReceived -= ClientXuLyLichSuTranDau;
+            NetworkClient.OnMessageReceived += ClientXuLyLichSuTranDau;
+        }
+        private void ClientXuLyLichSuTranDau(string msg)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => ClientXuLyLichSuTranDau(msg)));
+                return;
+            }
+
+            
+        }
+        private void LichSuTranDau_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            NetworkClient.OnMessageReceived -= ClientXuLyLichSuTranDau;
+        }
     }
 }
