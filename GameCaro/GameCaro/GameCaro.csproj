@@ -282,6 +282,8 @@
     <Content Include="bin\Debug\Avatars\avt3.jpg" />
     <Content Include="bin\Debug\Avatars\default.jpg" />
     <Content Include="bin\Debug\music.mp3" />
+    <None Include="Resources\NENBANCO-011.png" />
+    <None Include="Resources\NENBANCO-01.png" />
     <None Include="Resources\QUENMATKHAU-01.png" />
     <None Include="Resources\PHONGCHO-01.png" />
     <None Include="Resources\THAYDOITHONGTIN-01.png" />
@@ -293,6 +295,7 @@
     <None Include="Resources\DOIMATKHAU-01.png" />
     <None Include="Resources\HOSOCANHAN-01.png" />
     <None Include="Resources\LICHSUTRANDAU-01.png" />
+    <None Include="Resources\BANCO-01.png" />
     <Content Include="Resources\music.mp3" />
   </ItemGroup>
   <ItemGroup>

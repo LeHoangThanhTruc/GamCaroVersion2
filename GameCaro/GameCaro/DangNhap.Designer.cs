@@ -81,20 +81,20 @@
             // 
             // txtTenTaiKhoan
             // 
-            this.txtTenTaiKhoan.Location = new System.Drawing.Point(300, 207);
+            this.txtTenTaiKhoan.Location = new System.Drawing.Point(305, 207);
             this.txtTenTaiKhoan.Margin = new System.Windows.Forms.Padding(4);
             this.txtTenTaiKhoan.Name = "txtTenTaiKhoan";
-            this.txtTenTaiKhoan.Size = new System.Drawing.Size(293, 22);
+            this.txtTenTaiKhoan.Size = new System.Drawing.Size(288, 22);
             this.txtTenTaiKhoan.TabIndex = 3;
             this.txtTenTaiKhoan.TextChanged += new System.EventHandler(this.txtTenTaiKhoan_TextChanged);
             // 
             // txtMatKhau
             // 
-            this.txtMatKhau.Location = new System.Drawing.Point(300, 260);
+            this.txtMatKhau.Location = new System.Drawing.Point(305, 260);
             this.txtMatKhau.Margin = new System.Windows.Forms.Padding(4);
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.PasswordChar = '●';
-            this.txtMatKhau.Size = new System.Drawing.Size(293, 22);
+            this.txtMatKhau.Size = new System.Drawing.Size(288, 22);
             this.txtMatKhau.TabIndex = 4;
             // 
             // lnkQuenMatKhau

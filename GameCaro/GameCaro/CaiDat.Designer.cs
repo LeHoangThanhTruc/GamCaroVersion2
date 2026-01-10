@@ -45,7 +45,7 @@
             this.checkBoxAmNhac.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxAmNhac.Font = new System.Drawing.Font("UTM Cookies", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAmNhac.ForeColor = System.Drawing.Color.Green;
-            this.checkBoxAmNhac.Location = new System.Drawing.Point(209, 197);
+            this.checkBoxAmNhac.Location = new System.Drawing.Point(182, 196);
             this.checkBoxAmNhac.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxAmNhac.Name = "checkBoxAmNhac";
             this.checkBoxAmNhac.Size = new System.Drawing.Size(110, 31);
@@ -62,7 +62,7 @@
             this.panel1.Controls.Add(this.linkLabelChangeGmail);
             this.panel1.Controls.Add(this.linkLabelChangeHoVaTen);
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel1.Location = new System.Drawing.Point(417, 228);
+            this.panel1.Location = new System.Drawing.Point(390, 227);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(229, 209);
@@ -139,7 +139,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("UTM Cookies", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Green;
-            this.label1.Location = new System.Drawing.Point(373, 197);
+            this.label1.Location = new System.Drawing.Point(346, 196);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(301, 27);
