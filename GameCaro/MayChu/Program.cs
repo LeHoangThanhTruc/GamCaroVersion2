@@ -267,7 +267,12 @@ namespace MayChu
                         continue;
                     }
                     // 21) History - xử lý lịch sử trậ đấu
-                    
+                    if (message.StartsWith("GET_MATCH_HISTORY|"))
+                    {
+                        XuLyLayLichSuTranDau(client);
+                        continue;
+                    }
+
 
                     //// 17) FORGOT_PASSWORD_SETTING - Quên mật khẩu từ settings
                     //if (message.StartsWith("FORGOT_PASSWORD_SETTING|"))
@@ -314,10 +319,41 @@ namespace MayChu
                 }
             }
         }
-        
+        void XuLyLayLichSuTranDau(Socket client)
+        {
+            try
+            {
+                var res = firebaseClient.Get("GameCaroRoom");
 
-        
-        
+                if (res.Body == "null")
+                {
+                    client.Send(
+                        Encoding.UTF8.GetBytes("MATCH_HISTORY_FAIL|NO_DATA")
+                    );
+                    return;
+                }
+
+                string json = res.Body;
+
+                client.Send(
+                    Encoding.UTF8.GetBytes("MATCH_HISTORY_DATA|" + json)
+                );
+
+                Console.WriteLine("📤 Đã gửi lịch sử trận đấu cho client");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("❌ Lỗi XuLyLayLichSuTranDau: " + ex.Message);
+                client.Send(
+                    Encoding.UTF8.GetBytes("MATCH_HISTORY_FAIL|SERVER_ERROR")
+                );
+            }
+        }
+
+
+
+
+
 
 
 

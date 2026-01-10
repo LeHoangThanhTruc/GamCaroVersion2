@@ -292,6 +292,7 @@
     <None Include="Resources\DANGNHAP-01.png" />
     <None Include="Resources\DOIMATKHAU-01.png" />
     <None Include="Resources\HOSOCANHAN-01.png" />
+    <None Include="Resources\LICHSUTRANDAU-01.png" />
     <Content Include="Resources\music.mp3" />
   </ItemGroup>
   <ItemGroup>

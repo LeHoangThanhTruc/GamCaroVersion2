@@ -50,6 +50,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnQuayLaiGiaoDienChung = new System.Windows.Forms.Button();
             this.picAvatar = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.panelThongTinDaDangKy.SuspendLayout();
             this.panelChienTich.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
@@ -315,6 +316,20 @@
             this.picAvatar.TabIndex = 1;
             this.picAvatar.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.button1.Font = new System.Drawing.Font("UTM Cookies", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.button1.Location = new System.Drawing.Point(45, 425);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(112, 36);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Quay Lại";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // HoSoCaNhan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -322,6 +337,7 @@
             this.BackgroundImage = global::GameCaro.Properties.Resources.HOSOCANHAN_01;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(812, 544);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnQuayLaiGiaoDienChung);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -368,5 +384,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button1;
     }
 }

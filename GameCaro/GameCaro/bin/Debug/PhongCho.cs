@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -151,6 +152,16 @@ namespace GameCaro
             }
             
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            GiaoDienChung gdChung = new GiaoDienChung(userId);
+
+
+            gdChung.Show();
+
+            this.Close();
         }
 
         private void PhongCho_FormClosing(object sender, FormClosingEventArgs e)

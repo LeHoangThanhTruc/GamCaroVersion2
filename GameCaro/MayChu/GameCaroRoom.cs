@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace MayChu
 {
-    public class GameCaroRoom
+    class MatchRoom
     {
         public string IDFirstPlayer { get; set; }
         public string IDSecondPlayer { get; set; }
         public string Winner { get; set; }
-        public string TimeBeginMatch { get; set; }   // có thể null
-        public string TimeEndMatch { get; set; }     // có thể null
+        public string Looser { get; set; }
+        public string TimeBeginMatch { get; set; }
+        public string TimeEndMatch { get; set; }
     }
+
 }

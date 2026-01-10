@@ -143,7 +143,11 @@ namespace GameCaro
 
         private void btnQuayLaiGiaoDienChung_Click(object sender, EventArgs e)
         {
-            
+            GiaoDienChung gdChung = new GiaoDienChung(userId);
+
+            gdChung.Show();
+
+            this.Close();
         }
     }
 }

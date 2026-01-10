@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace GameCaro
 {
@@ -213,6 +214,16 @@ namespace GameCaro
         private void txtdathua_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            GiaoDienChung gdChung = new GiaoDienChung(uid);
+
+
+            gdChung.Show();
+
+            this.Close();
         }
     }
     
