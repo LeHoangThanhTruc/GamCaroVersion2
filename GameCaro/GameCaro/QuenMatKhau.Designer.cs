@@ -135,7 +135,7 @@
             // 
             this.lblOTP.AutoSize = true;
             this.lblOTP.BackColor = System.Drawing.Color.Transparent;
-            this.lblOTP.Location = new System.Drawing.Point(26, 8);
+            this.lblOTP.Location = new System.Drawing.Point(14, 8);
             this.lblOTP.Name = "lblOTP";
             this.lblOTP.Size = new System.Drawing.Size(60, 16);
             this.lblOTP.TabIndex = 0;
@@ -197,11 +197,12 @@
             // 
             this.lblXacNhan.AutoSize = true;
             this.lblXacNhan.BackColor = System.Drawing.Color.Transparent;
-            this.lblXacNhan.Location = new System.Drawing.Point(15, 44);
+            this.lblXacNhan.Location = new System.Drawing.Point(3, 44);
             this.lblXacNhan.Name = "lblXacNhan";
             this.lblXacNhan.Size = new System.Drawing.Size(87, 16);
             this.lblXacNhan.TabIndex = 2;
             this.lblXacNhan.Text = "Xác nhận MK:";
+            this.lblXacNhan.Click += new System.EventHandler(this.lblXacNhan_Click);
             // 
             // txtMatKhauMoi
             // 
@@ -216,11 +217,12 @@
             // 
             this.lblMKMoi.AutoSize = true;
             this.lblMKMoi.BackColor = System.Drawing.Color.Transparent;
-            this.lblMKMoi.Location = new System.Drawing.Point(15, 9);
+            this.lblMKMoi.Location = new System.Drawing.Point(3, 9);
             this.lblMKMoi.Name = "lblMKMoi";
             this.lblMKMoi.Size = new System.Drawing.Size(89, 16);
             this.lblMKMoi.TabIndex = 0;
             this.lblMKMoi.Text = "Mật khẩu mới:";
+            this.lblMKMoi.Click += new System.EventHandler(this.lblMKMoi_Click);
             // 
             // btnQuayLai
             // 

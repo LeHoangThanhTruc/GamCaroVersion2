@@ -229,5 +229,15 @@ namespace GameCaro
         {
 
         }
+
+        private void lblMKMoi_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblXacNhan_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
